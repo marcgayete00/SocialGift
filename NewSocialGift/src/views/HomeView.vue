@@ -1,7 +1,3 @@
-<script setup>
-import TheWelcome from '../components/TheWelcome.vue'
-</script>
-
 <template>
   <body>
     <section id="LanguageSection">
@@ -45,3 +41,6 @@ import TheWelcome from '../components/TheWelcome.vue'
     </section>
   </body>
 </template>
+
+<style scoped src="../assets/HomeStyle.css"></style>
+
