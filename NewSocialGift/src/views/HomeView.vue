@@ -35,7 +35,7 @@
               name="password"
               placeholder="Contraseña"
             /><br />
-            <button type="submit" href="Main.vue" id="loginButton">Login</button>
+            <button type="submit" id="loginButton"><a href="main"> Login </a></button>
             <hr />
             <span id="textRegister">¿No tienes cuenta? <a href="register">Registrate</a></span>
           </form>
