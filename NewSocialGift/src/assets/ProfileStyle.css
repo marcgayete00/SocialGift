@@ -1,0 +1,249 @@
+body{
+    font-family: 'Inter', sans-serif;
+ }
+
+ #GeneralSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+  }
+
+ .navigation {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 200px;
+    background: linear-gradient(#B6DFFF,50%, white);
+    color: black;
+    overflow-y: auto;
+  }
+  
+  .navigation ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navigation li {
+    padding: 10px;
+    border-bottom: 1px solid #444;
+  }
+  
+  .navigation a {
+    color: black;
+    text-decoration: none;
+  }
+  
+  .navigation ul ul {
+    border-left: 1px solid #444;
+  }
+  
+  .navigation ul ul li {
+    padding-left: 20px;
+  }
+
+  .navigation ul ul {
+    display: none;
+  }
+  
+  .navigation ul li.active > ul {
+    display: block;
+  }
+
+
+  #ImageSection{
+    flex-wrap: wrap;
+  }
+  
+  #LanguageSection{
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: Left;
+    align-items: Left;
+    flex-basis: 300px;
+    margin: 0 auto;
+    gap: 10%;
+    margin-left: -2%;
+  }
+  
+  #LanguageList{
+  display: flex;
+  align-items: center;
+  list-style: none;
+  }
+  
+  #LanguageList li{
+  padding: 10px
+  }
+  
+  #LanguageSelect{
+    width: 100px;
+    height: 50px;
+    font-size: 20px;
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+  }
+
+  .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  }
+  
+  #switchLi{
+  margin-left: auto;
+  }
+  
+  #switchImg{
+  width: 40px;
+  height: 40px;
+  margin-top: 5px;
+  margin-right: -10px;
+  }
+  
+  .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  
+  }
+  
+  .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 34px;
+  }
+  
+  .slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+  }
+  
+  input:checked + .slider {
+  background-color: #000000;
+  }
+  
+  input:focus + .slider {
+  box-shadow: 0 0 1px #000000;
+  }
+  
+  input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+  }
+
+  #ProfileSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -52% auto 0;
+  }
+  
+  #ProfileInfo {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  #ProfileImage {
+    margin-right: 20px;
+  }
+  
+  #ProfileImage img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+  }
+  
+  #ProfileName{
+    margin: 0;
+  }
+  
+  #UserCount {
+    display: flex;
+    margin-top: 70px;
+    margin-left: -90px;
+  }
+  
+  #UserCount h1 {
+    margin: 0;
+    margin-right: 10px;
+  }
+  
+  #UserCount h3 {
+    margin: 0;
+    margin-right: 10px;
+    padding-top: 3px;
+  }
+  
+  #ProfileDescription {
+    display: flex;
+    margin-top: 110px;
+    margin-left: -210px;
+  }
+
+  hr{
+    width: 50%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #000000;
+  }
+
+  #SelectList{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    text-decoration: none;
+    color: #000000;
+    margin-top: -20px;
+  }
+  
+  #Lists{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    text-decoration: none;
+    color: #000000;
+    font-size: x-large;
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+    width: 87vw; /* Ajusta el ancho del contenedor a la ventana */
+    height: 100vh; /* Ajusta la altura del contenedor a la ventana */
+  }
+  
+  .grid-item {
+    background-color: #ddd;
+    padding: 20px;
+    text-align: center;
+    width: calc((100% - 20px * 2)); /* Establece el ancho de cada elemento para que sean cuadrados y estén separados horizontalmente */
+    height: calc((100% - 20px * 2)); /* Establece la altura de cada elemento para que sean cuadrados y estén separados verticalmente */
+  }

@@ -27,17 +27,16 @@
         <div>
           <img src="img/logo.png" id="LogoStyle" />
           <form>
-            <input type="text" class="input" name="username" placeholder="Usuario" /><br />
+            <input type="text" class="input" name="username" placeholder="Usuario" /><br/>
             <input
               type="password"
               class="input"
               id="password"
               name="password"
-              placeholder="Contraseña"
-            /><br />
+              placeholder="Contraseña"/><br/>
             <button type="submit" id="loginButton"><a href="main"> Login </a></button>
             <hr />
-            <span id="textRegister">¿No tienes cuenta? <a href="register">Registrate</a></span>
+            <span id="textRegister">¿No tienes cuenta? <a href="register"> Registrate</a></span>
           </form>
         </div>
       </section>
@@ -47,7 +46,7 @@
       </section>
     </section>
   </body>
-  <footer>
+  <footer id="loginFooter">
     <div>
       <nav>
         <ol class="footerList">
