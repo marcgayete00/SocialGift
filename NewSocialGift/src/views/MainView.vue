@@ -25,25 +25,80 @@
       
 
       <section id="GeneralSection">
-        <div class="sidebar">
-          <ul>
-            <li><img id="logonav" src="../../img/logo.png"></li>
-            <li><img class="iconnav" src="../../img/Home.png"><a href="#">Inicio</a></li>
-            <li><img class="iconnav" src="../../img/Buscar.png"><a href="#">Buscar</a></li>
-            <li><img class="iconnav" src="../../img/Mensaje.png"><a href="#">Mensajes</a></li>
-            <li><img class="iconnav" src="../../img/Notificaciones.png"><a href="#">Notificaciones</a>
-              <ul>
-                <li><a href="#">Servicio 1</a></li>
-                <li><a href="#">Servicio 2</a></li>
-                <li><a href="#">Servicio 3</a></li>
-              </ul>
+        <div class="navigation">
+        <ul>
+            <li>
+              <a href=""> <img src="../../img/logo.png" id="logoNavBar" alt=""></a>
             </li>
-            <li><img class="iconnav" src="../../img/Crear.png"><a href="#">Crear</a></li>
-            <li><img id="iconMas" src="../../img/Mas.png"><a id="aMas" href="#">Más</a></li>
-
+            <li>
+            <a href=""><i class="fa-solid fa-house"></i> Home</a>
+            </li>
+            <li>
+              <a href=""><i class="fa-solid fa-magnifying-glass"></i> Search</a>
+            </li>
+            <li>
+              <a href=""><i class="fa-solid fa-envelope"></i> Messages</a>
+            </li>
+            <li>
+              <a href=""><i class="fa-sharp fa-solid fa-bell"></i> Notifications</a>
+            </li>
+            <li>
+              <a href=""><i class="fa-solid fa-pen-to-square"></i> Create</a>
+            </li>
+            <li id ="MoreLi">
+              <a href="" onclick="openForm()"><i class="fa-solid fa-bars"></i> More</a>
+            </li>
+        </ul>
+        </div>
+        <div class="options-box">
+          <div id="profile-box">
+            <img class="profileimg" src="../../img/DefaultProfilePhoto.png">
+            <h3>Pablo03</h3>
+            <h5>Pablo García</h5>
+          </div>
+          <h3>Plantillas de listas</h3>
+          <ul>
+            <li><a href="#">Lista de Deseos</a></li>
+            <li><a href="#">Lista de Cumpleaños</a></li>
+            <li><a href="#">Lista Blanco y Negro</a></li>
           </ul>
         </div>
-        </section>
+        <div class="image-section">
+            <div>
+              <div class="listheader">
+                <img class="profileimglist" src="../../img/DefaultProfilePhoto.png">
+                <h3>NickName</h3>
+                <img class="moreimg" src="../../img/Mas.png">
+              </div>
+              <img class="imageslide" src="../../img/mainScrenshoot.png">
+            </div>
+            <div>
+              <div class="listheader">
+                <img class="profileimglist" src="../../img/DefaultProfilePhoto.png">
+                <h3>NickName</h3>
+                <img class="moreimg" src="../../img/Mas.png">
+              </div>
+              <img class="imageslide" src="../../img/mainScrenshoot.png">
+            </div>
+            <div>
+              <div class="listheader">
+                <img class="profileimglist" src="../../img/DefaultProfilePhoto.png">
+                <h3>NickName</h3>
+                <img class="moreimg" src="../../img/Mas.png">
+              </div>
+              <img class="imageslide" src="../../img/mainScrenshoot.png">
+            </div>
+            <div>
+              <div class="listheader">
+                <img class="profileimglist" src="../../img/DefaultProfilePhoto.png">
+                <h3>NickName</h3>
+                <img class="moreimg" src="../../img/Mas.png">
+              </div>
+              <img class="imageslide" src="../../img/mainScrenshoot.png">
+            </div>
+          </div>
+      </section>
+
     </body>
   </template>
 
