@@ -180,6 +180,19 @@ body{
   #ProfileName{
     margin: 0;
   }
+
+  #EditProfileButton{
+    display: flex;
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 150px;
+    height: 30px;
+    font-size: 20px;
+    background: #79B2DD;
+    border: 1px solid #000000;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+  }
   
   #UserCount {
     display: flex;
