@@ -45,8 +45,12 @@
             <li>
               <a href=""><i class="fa-solid fa-pen-to-square"></i> Create</a>
             </li>
-            <li id ="MoreLi">
-              <a href="" onclick="openForm()"><i class="fa-solid fa-bars"></i> More</a>
+            <li id ="MoreLi"> <a href=""><i class="fa-solid fa-bars"></i> More</a> 
+              <ul>
+                <li><a href="#">Servicio 1</a></li>
+                <li><a href="#">Servicio 2</a></li>
+                <li><a href="#">Servicio 3</a></li>
+              </ul>
             </li>
         </ul>
         </div>
@@ -95,15 +99,5 @@
     </body>
   </template>
 <style scoped src="../assets/ProfileStyle.css"></style>
-
-<script>
-function openForm() {
-  document.getElementById("myForm").style.display = "block";
-}
-
-function closeForm() {
-  document.getElementById("myForm").style.display = "none";
-}
-</script>
 
   
