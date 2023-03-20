@@ -1,3 +1,4 @@
+
 <template>
     <body>    
       <section id="LanguageSection">
@@ -27,26 +28,25 @@
         <div class="navigation">
         <ul>
             <li>
-            <a href="#">Inicio</a>
+              <a href=""> <img src="../../img/logo.png" id="logoNavBar" alt=""></a>
             </li>
             <li>
-            <a href="#">Sección 1</a>
-            <ul>
-                <li><a href="#">Opción 1</a></li>
-                <li><a href="#">Opción 2</a></li>
-                <li><a href="#">Opción 3</a></li>
-            </ul>
+            <a href=""><i class="fa-solid fa-house"></i> Home</a>
             </li>
             <li>
-            <a href="#">Sección 2</a>
-            <ul>
-                <li><a href="#">Opción 1</a></li>
-                <li><a href="#">Opción 2</a></li>
-                <li><a href="#">Opción 3</a></li>
-            </ul>
+              <a href=""><i class="fa-solid fa-magnifying-glass"></i> Search</a>
             </li>
             <li>
-            <a href="#">Sección 3</a>
+              <a href=""><i class="fa-solid fa-envelope"></i> Messages</a>
+            </li>
+            <li>
+              <a href=""><i class="fa-sharp fa-solid fa-bell"></i> Notifications</a>
+            </li>
+            <li>
+              <a href=""><i class="fa-solid fa-pen-to-square"></i> Create</a>
+            </li>
+            <li id ="MoreLi">
+              <a href="" onclick="openForm()"><i class="fa-solid fa-bars"></i> More</a>
             </li>
         </ul>
         </div>
@@ -94,7 +94,16 @@
         
     </body>
   </template>
-
 <style scoped src="../assets/ProfileStyle.css"></style>
+
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+</script>
 
   
