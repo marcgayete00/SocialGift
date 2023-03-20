@@ -19,7 +19,7 @@ body{
     width: 200px;
     background: linear-gradient(#B6DFFF,50%, white);
     color: black;
-    overflow-y: auto;
+    z-index: 1;
   }
   
   .navigation ul {
@@ -35,6 +35,13 @@ body{
     margin: 0 auto;
     margin-left: 20px;
     font-size: larger;
+    position: relative;
+  }
+ 
+  .navigation ul ul ul li{
+    position: relative;
+    color: rgb(188, 38, 38);
+    text-decoration: none;
   }
   
   .navigation a {
@@ -43,18 +50,17 @@ body{
   }
   
   .navigation ul ul {
-    border-left: 1px solid #444;
-  }
-  
-  .navigation ul ul li {
-    padding-left: 20px;
+    display: none;
+    position: absolute;
+    margin-bottom: 100px;
+    margin-left: -200px;
   }
 
-  .navigation ul ul {
-    display: none;
+  .navigation ul ul li {
+    position: relative;
   }
-  
-  .navigation ul li.active > ul {
+
+  .navigation ul li:focus-within > ul  {
     display: block;
   }
 
@@ -79,6 +85,8 @@ body{
     margin-top: 220%;
     font-size: x-large;
   }
+  /*------*/
+
 
 
   #ImageSection{
@@ -186,6 +194,7 @@ body{
     justify-content: center;
     align-items: center;
     margin: -52% auto 0;
+    z-index: 0;
   }
   
   #ProfileInfo {
