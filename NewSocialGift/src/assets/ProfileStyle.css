@@ -16,7 +16,7 @@ body{
     top: 0;
     right: 0;
     bottom: 0;
-    width: 200px;
+    width: 250px;
     background: linear-gradient(#B6DFFF,50%, white);
     color: black;
     z-index: 1;
@@ -33,17 +33,11 @@ body{
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    margin-left: 20px;
+    margin-left: 30px;
     font-size: larger;
     position: relative;
   }
  
-  .navigation ul ul ul li{
-    position: relative;
-    color: rgb(188, 38, 38);
-    text-decoration: none;
-  }
-  
   .navigation a {
     color: black;
     text-decoration: none;
@@ -53,14 +47,25 @@ body{
     display: none;
     position: absolute;
     margin-bottom: 100px;
-    margin-left: -200px;
+    margin-left: -180px;
   }
 
   .navigation ul ul li {
     position: relative;
+    border: 1px solid #000000;
+    width: 140px;
+    padding: 10px;
+    background-color: #FFFFFF;
+  }
+
+  .navigation ul ul li a{
+   font-size: 20px;
+   
   }
 
   .navigation ul li:focus-within > ul  {
+    top: -180px;
+    left: 130px;
     display: block;
   }
 
@@ -77,14 +82,147 @@ body{
   }
 
   #MoreLi{
-  
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    margin-left: 40px;
-    margin-top: 220%;
+    margin-left: 70px;
+    margin-top: 430px;
     font-size: x-large;
   }
+
+  .navigation ul li:nth-child(3) ul#SearchSlide li{
+    left: -450px;
+    top: 150px;
+    width: 400px;
+    height: 400px;  
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    background: #E3F3FE;
+    background-image: linear-gradient(to bottom, #44acec, #E3F3FE);
+  }
+
+  .navigation ul li:nth-child(3) ul#SearchSlide input{
+    background: #DDDDDD;
+    border-radius: 50px;
+    width: 390px;
+    height: 30px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .navigation ul li:nth-child(3) ul#SearchSlide i {
+    margin-left: 50px;
+  }
+  
+  .navigation ul li:nth-child(3) ul#SearchSlide a {
+    font-size: small;
+    display: inline-block;
+    margin-left: 20px;
+    margin-top: 40px;
+    font-size: medium;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .navigation ul li:nth-child(5) ul#NotificationsSlide {
+    left: -290px;
+    width: 400px;
+    height: 400px;  
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    transition: all 0.5s ease-in-out;
+    padding: 20px;
+    border-radius: 10px;
+    background: #E3F3FE;
+    background-image: linear-gradient(to bottom, #44acec, #E3F3FE);
+  }
+
+  .navigation ul li:nth-child(5) ul#NotificationsSlide li {
+    margin: 10px 0;
+    font-size: 1.2em;
+    width: auto;
+    text-align: left;
+    border: none;
+    background-color: none;
+    font-size: small;
+    display: flex;
+  } 
+
+  .navigation ul li:nth-child(5) ul#NotificationsSlide i {
+    flex-shrink: 0;
+    margin-right: 10px;
+    margin-top: 7px;
+  }
+
+  .navigation ul li:nth-child(5) ul#NotificationsSlide a {
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: small;
+  }
+
+
+  .navigation ul li:nth-child(5) ul#NotificationsSlide p {
+   margin-left: 10px;
+  }
+
+  
+  .navigation ul li:nth-child(5) ul#NotificationsSlide button {
+    background-color: #79B2DD;
+    font-size: 15px;
+    border: white;
+    font-weight: bold;
+    border-radius: 7px;
+    margin: auto;
+    height: 30px;
+    width: 80px;
+    margin-left: 50px;
+    transition: all 0.5s ease-in-out;
+  }
+
+  .navigation ul li:nth-child(5) ul#NotificationsSlide button:hover {
+    background-color: #94bede;
+    font-size: 15px;
+    border: white;
+    font-weight: bold;
+    border-radius: 7px;
+    margin: auto;
+    height: 30px;
+    width: 80px;
+    margin-left: 50px;
+  }
+
+
+  .navigation ul li:nth-child(7) ul#moreSlide li {
+    top: 50px;
+    width: 150px;
+    text-align: center;  
+    
+  }
+
+  
+
+  /*
+    .navigation ul ul {
+    display: none;
+    position: absolute;
+    margin-bottom: 100px;
+    margin-left: -180px;
+  }
+
+  .navigation ul ul li {
+    position: relative;
+    border: 1px solid #000000;
+    width: 140px;
+    text-align: center;
+    padding: 10px;
+    background-color: #FFFFFF;
+  }
+
+  .navigation ul ul li a{
+   font-size: 20px;
+   
+  }
+  */
+
   /*------*/
 
 
