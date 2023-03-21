@@ -1,0 +1,299 @@
+body{
+    font-family: 'Inter', sans-serif;
+    
+ }
+
+ #GeneralSection{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-basis: 300px;
+    margin: 0 auto;
+    width: 60%;
+    height: 326.5px;
+    margin-top: 10%;
+    gap: 10%;
+ }
+
+ #LanguageSection{
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  flex-basis: 300px;
+  margin: 0 auto;
+  margin-right: 20px;
+  gap: 10%;
+}
+
+#LanguageList{
+display: flex;
+align-items: center;
+list-style: none;
+}
+
+#LanguageList li{
+padding: 10px
+}
+
+#LanguageSelect{
+  width: 100px;
+  height: 50px;
+  font-size: 20px;
+  background: #FFFFFF;
+  border: 1px solid #000000;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  }
+  
+  #switchLi{
+  margin-left: auto;
+  }
+  
+  #switchImg{
+  width: 40px;
+  height: 40px;
+  margin-top: 5px;
+  margin-right: -10px;
+  }
+  
+  .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 34px;
+    }
+    
+    .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+    }
+    
+    input:checked + .slider {
+    background-color: #000000;
+    }
+    
+    input:focus + .slider {
+    box-shadow: 0 0 1px #000000;
+    }
+    
+    input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+    }
+
+    .navigation {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 200px;
+      background: linear-gradient(#B6DFFF,50%, white);
+      color: black;
+      overflow-y: auto;
+    }
+    
+    .navigation ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .navigation li {
+      padding: 20px;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      margin-left: 20px;
+      font-size: larger;
+    }
+    
+    .navigation a {
+      color: black;
+      text-decoration: none;
+    }
+    
+    .navigation ul ul {
+      border-left: 1px solid #444;
+    }
+    
+    .navigation ul ul li {
+      padding-left: 20px;
+    }
+  
+    .navigation ul ul {
+      display: none;
+    }
+    
+    .navigation ul li.active > ul {
+      display: block;
+    }
+  
+    #logoNavBar{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      text-decoration: none;
+      color: #000000;
+      width: 150px;
+      height: 42px;
+      margin-left: -10px;
+    }
+  
+    #MoreLi{
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      margin-left: 40px;
+      margin-top: 230%;
+      font-size: x-large;
+    }
+    
+
+    .editarperfil-section {
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-top: 200px;
+      height: 850px;
+      width: 2500px;
+    }
+
+    .editarperfil-section > div{
+        margin-top: 100px;
+        margin-left: 125px;
+
+    }
+
+    .editarperfil-section h4{
+        margin-top: -10px;
+        margin-left: 25px;
+    }
+
+    .editarperfil-section h5{
+        margin-left: 180px;
+        margin-top: -30px;
+    }
+
+    .editarperfil-section a{
+        text-decoration: none;
+        color: #0047FF;
+    }
+
+    #tituloeditarperf{
+        margin-right: 150px;
+        margin-top: 60px;
+        float: right;
+        font-size: 40px;
+    }
+
+    .diveditarperfil{
+        display: flex;
+        margin-bottom: 40px;
+        margin-left: 25px;
+    }
+
+    .diveditarperfil #titulocont{
+        width: 70px;
+    }
+
+    .diveditarperfil button{
+        margin-left: 85px;
+        width: 306px;
+        margin-top: 15px;
+        height: 50px;
+        text-align: left;
+        padding: 10px;
+        font-size: 40px;
+        background-color: white;
+        border-width: 0.5px;
+    }
+
+    .diveditarperfil textarea{
+        width: 300px;
+        height: 100px;
+        margin-left: 50px;
+        margin-top: 20px;
+    }
+
+    .editarperfil-section select{
+        padding: 15px;
+        font-size: 20px;
+        font-weight: bold;
+        padding-right: 103px;
+        padding-left: 103px;
+        margin-left: 90px;
+    }
+
+    .editarperfil-section img{
+        width: 150px;
+    }
+
+    #headeditarperfil{
+        align-items: center;
+        display: flex;
+    }
+
+    #headeditarperfil h2{
+        margin-left: 20px;
+    }
+
+    #headeditarperfil button{
+        margin-left: 50px;
+    }
+
+    #EliminarButton{
+        background-color: red;
+        color: white;
+        padding: 14px;
+        font-size: 17px;
+        border: white;
+        font-weight: bold;
+        border-radius: 7px;
+    }
+
+    #GuardarButton{
+        background-color: #79B2DD;
+        padding: 14px;
+        font-size: 20px;
+        border: white;
+        font-weight: bold;
+        border-radius: 7px;
+        padding-left: 17px;
+        padding-right: 17px;
+        margin-left: 400px;
+    }
+
+
+  
+  
