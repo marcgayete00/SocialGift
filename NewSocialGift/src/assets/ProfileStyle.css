@@ -98,7 +98,7 @@ body{
     padding: 20px;
     border-radius: 10px;
     background: #E3F3FE;
-    background-image: linear-gradient(to bottom, #44acec, #E3F3FE);
+    background-image: linear-gradient( #44acec, 1%, #E3F3FE);
     border: none;
   }
 
@@ -134,7 +134,7 @@ body{
     padding: 20px;
     border-radius: 10px;
     background: #E3F3FE;
-    background-image: linear-gradient(to bottom, #44acec, #E3F3FE);
+    background-image: linear-gradient( #44acec, 1%, #E3F3FE);
   }
 
   .navigation ul li:nth-child(5) ul#NotificationsSlide li {
