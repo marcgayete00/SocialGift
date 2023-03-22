@@ -47,7 +47,7 @@
           <li>
             <a href="#"><i class="fa-sharp fa-solid fa-bell"></i> Notifications</a>
             <ul id="NotificationsSlide">
-              <li>Más recientes</li>
+              <li style="font-size: larger;">Más recientes</li>
               <li id="InsideNotificationSlide">
                 <i class="fa-solid fa-user"></i>
                 <a>Patricia96</a>
@@ -72,10 +72,15 @@
 
     <!--Mostrar perfil-->
     <section id="ProfileSection">
+      
       <div>
+        <div>
+          <button id="EditProfileButton"><a href="editarperfil">Editar perfil</a></button>
+        </div>
         <div id="ProfileInfo">
           <div id="ProfileImage">
             <img src="img/DefaultProfilePhoto.png" />
+            
           </div>
           <div id="ProfileName">
             <h1>Pablo03</h1>

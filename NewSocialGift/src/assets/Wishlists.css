@@ -1,0 +1,99 @@
+#WishListSection{
+    width: 1500px;
+    height: 700px;
+    padding: 20px;
+    margin-top: -900px;
+    margin-left: 50px;
+    background-color: #f5f5f5;
+    border: 2px solid #cccccc;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+
+#banner h1{
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 1.1;
+    color: #333333;
+    text-align: center;
+  
+}
+
+#ElementParts{
+    list-style: none;
+    margin-top: 60px;
+    margin-left: 400px;
+    width: 700px;
+}
+
+#ElementParts li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    background-color: #e8f4fc;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    height: 70px;
+    padding: 10px;
+}
+
+#ElementParts i{
+    font-size:xx-large;
+}
+
+.icon-container {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.icon-container i {
+    margin-right: 230px;
+}
+
+.icon-container2 {
+    display: flex;
+    margin-right: 10px;
+}
+
+.icon-container2 i{
+    margin-right: 10px;
+}
+
+#ElementParts a{
+    font-size: x-large;
+    color: #000;
+}
+
+#cross{
+    color: #ff0000;
+}
+
+#addButton button{
+    position: relative;
+    top: 40px;
+    margin-left: 720px;
+    font-size: 20px;  
+    background: #7bdb8b;
+    border-radius: 4px;
+    font-weight: bold;
+    width: 150px;
+    height: 40px;
+    border: none;
+}
+
+#saveButton button{
+    position: relative;
+    top: 40px;
+    margin-left: 720px;
+    font-size: 20px;  
+    background: #79B2DD;
+    border-radius: 4px;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    width: 150px;
+    height: 40px;
+    border: none;
+}

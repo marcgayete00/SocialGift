@@ -55,7 +55,6 @@ body{
     border: 1px solid #000000;
     width: 140px;
     padding: 10px;
-    background-color: #FFFFFF;
   }
 
   .navigation ul ul li a{
@@ -100,6 +99,7 @@ body{
     border-radius: 10px;
     background: #E3F3FE;
     background-image: linear-gradient(to bottom, #44acec, #E3F3FE);
+    border: none;
   }
 
   .navigation ul li:nth-child(3) ul#SearchSlide input{
@@ -108,6 +108,7 @@ body{
     width: 390px;
     height: 30px;
     font-family: 'Inter', sans-serif;
+    border: none;
   }
 
   .navigation ul li:nth-child(3) ul#SearchSlide i {
@@ -138,11 +139,9 @@ body{
 
   .navigation ul li:nth-child(5) ul#NotificationsSlide li {
     margin: 10px 0;
-    font-size: 1.2em;
     width: auto;
     text-align: left;
     border: none;
-    background-color: none;
     font-size: small;
     display: flex;
   } 
@@ -150,13 +149,15 @@ body{
   .navigation ul li:nth-child(5) ul#NotificationsSlide i {
     flex-shrink: 0;
     margin-right: 10px;
-    margin-top: 7px;
+    margin-top: 3px;
+    
   }
 
   .navigation ul li:nth-child(5) ul#NotificationsSlide a {
     margin-bottom: 5px;
     font-weight: bold;
     font-size: small;
+    margin-top: 5px;
   }
 
 
@@ -197,34 +198,6 @@ body{
     text-align: center;  
     
   }
-
-  
-
-  /*
-    .navigation ul ul {
-    display: none;
-    position: absolute;
-    margin-bottom: 100px;
-    margin-left: -180px;
-  }
-
-  .navigation ul ul li {
-    position: relative;
-    border: 1px solid #000000;
-    width: 140px;
-    text-align: center;
-    padding: 10px;
-    background-color: #FFFFFF;
-  }
-
-  .navigation ul ul li a{
-   font-size: 20px;
-   
-  }
-  */
-
-  /*------*/
-
 
 
   #ImageSection{
@@ -355,16 +328,22 @@ body{
   }
 
   #EditProfileButton{
-    display: flex;
-    margin-top: 10px;
-    margin-left: 10px;
-    width: 150px;
-    height: 30px;
-    font-size: 20px;
+    position: relative;
+    top: 40px;
+    margin-left: 720px;
+    font-size: 20px;  
     background: #79B2DD;
-    border: 1px solid #000000;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 4px;
+    margin-top: 5%;
+    font-weight: bold;
+    width: 150px;
+    height: 40px;
+    border: none;
+  }
+
+  #EditProfileButton a{
+   text-decoration: none;
+   color: #000000; 
   }
   
   #UserCount {
@@ -387,7 +366,7 @@ body{
   #ProfileDescription {
     display: flex;
     margin-top: 110px;
-    margin-left: -210px;
+    margin-left: -215px;
   }
 
   hr{
@@ -406,6 +385,10 @@ body{
     color: #000000;
     margin-top: -20px;
   }
+
+  #SelectList a:hover{
+    font-weight: bold;
+  }
   
   #Lists{
     display: flex;
@@ -419,10 +402,11 @@ body{
 
   .grid-container {
     display: grid;
+    margin-left: 40px;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
     gap: 10px;
-    width: 87vw; /* Ajusta el ancho del contenedor a la ventana */
+    width: 80vw; /* Ajusta el ancho del contenedor a la ventana */
     height: 100vh; /* Ajusta la altura del contenedor a la ventana */
   }
   
@@ -433,3 +417,5 @@ body{
     width: calc((100% - 20px * 2)); /* Establece el ancho de cada elemento para que sean cuadrados y estén separados horizontalmente */
     height: calc((100% - 20px * 2)); /* Establece la altura de cada elemento para que sean cuadrados y estén separados verticalmente */
   }
+
+  
