@@ -1,5 +1,5 @@
-Vue.component('navbar', { template: `
-<div class="navigation">
+<template>
+    <div class="navigation">
           <ul>
             <li>
               <a href="main"> <img src="../../img/logo.png" id="logoNavBar" alt="" /></a>
@@ -44,4 +44,7 @@ Vue.component('navbar', { template: `
             </li>
           </ul>
         </div>
-` });
+</template>
+<style scoped>
+@import "../assets/NavBar.css";
+</style>

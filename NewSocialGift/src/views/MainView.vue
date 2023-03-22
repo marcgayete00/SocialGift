@@ -1,6 +1,5 @@
 <template>
-    <body>
-        
+  <div>
       <section id="LanguageSection">
       <nav>
         <ol id="LanguageList">
@@ -99,7 +98,7 @@
           </div>
       </section>
 
-    </body>
+    </div>
   </template>
 
 <style scoped src="../assets/mainStyle.css"></style>

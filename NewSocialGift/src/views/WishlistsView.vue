@@ -1,7 +1,8 @@
-import navbar from '../components/navbar.vue'
-
+<script setup>
+  import NavBar from './../components/NavBar.vue'
+</script>
 <template>
-  <body>
+  <div>
     <section id="LanguageSection">
       <nav>
         <ol id="LanguageList">
@@ -25,7 +26,7 @@ import navbar from '../components/navbar.vue'
     </section>
 
     <section id="GeneralSection">
-      <navbar></navbar>
+      <NavBar/>
     </section>
 
     <!--Mostrar listas de deseos-->
@@ -76,7 +77,9 @@ import navbar from '../components/navbar.vue'
         <button><a>Guardar</a></button>
       </div>
     </section>
-  </body>
+  </div>
 </template>
-<style scoped src="../assets/ProfileStyle.css"></style>
-<style scoped src="../assets/Wishlists.css"></style>
+<style scoped>
+@import "../assets/ProfileStyle.css";
+@import "../assets/Wishlists.css";
+</style>
