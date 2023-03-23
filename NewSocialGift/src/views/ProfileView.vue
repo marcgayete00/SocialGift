@@ -13,7 +13,6 @@ import language from './../components/language.vue'
 
     <!--Mostrar perfil-->
     <section id="ProfileSection">
-      
       <div>
         <div>
           <button id="EditProfileButton"><a href="editarperfil">Editar perfil</a></button>
@@ -50,14 +49,30 @@ import language from './../components/language.vue'
     </section>
     <section id="PostSection">
       <div class="grid-container">
-        <div class="grid-item">1</div>
-        <div class="grid-item">2</div>
-        <div class="grid-item">3</div>
-        <div class="grid-item">4</div>
-        <div class="grid-item">5</div>
-        <div class="grid-item">6</div>
+        <div class="grid-item" onclick="myFunction()">1</div>
+        <div class="grid-item" onclick="myFunction()">2</div>
+        <div class="grid-item" onclick="myFunction()">3</div>
+        <div class="grid-item" onclick="myFunction()">4</div>
+        <div class="grid-item" onclick="myFunction()">5</div>
+        <div class="grid-item" onclick="myFunction()">6</div>
       </div>
     </section>
   </div>
 </template>
+<style>
+  @media screen and (max-width: 600px) {
+    #ProfileSection{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: -50%;
+    }
+
+
+    .navigation{
+      display: none;
+    }
+  }
+</style>
+
 <style scoped src="../assets/ProfileStyle.css"></style>

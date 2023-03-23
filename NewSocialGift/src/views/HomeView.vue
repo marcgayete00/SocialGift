@@ -42,6 +42,25 @@ import language from './../components/language.vue'
   </footer>
 </template>
 
+<style>
+    @media screen and (max-width: 600px) {
+      #GeneralSection {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      #LoginSection {
+        margin-top: 20px;
+      }
+      #ImageSection {
+        display: none;
+      }
+      #loginFooter {
+        display: none;
+      }
+    }
+  </style>
+
 <style scoped>
 @import '../assets/HomeStyle.css';
 </style>

@@ -41,6 +41,48 @@ import language from './../components/language.vue'
   </footer>
 </template>
 
+<style>
+  @media screen and (max-width: 600px) {
+    #LogoStyle{
+      width: 2px;
+      height: 2px;
+    }
+
+    #GeneralSectionRegister {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #RegisterSection {
+      margin-top: 20px;
+    }
+    
+    .inputRegister {
+      width: 20px;
+      height: 30px;
+      border-radius: 5px;
+      border: 1px solid #000000;
+      margin-top: 10px;
+    }
+
+    #GeneralSectionRegister2 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #RegisterSection2 {
+      margin-top: 400px;
+      
+    }
+    #registerFooter {
+      display: none;
+    }
+    
+  }
+   
+  </style>
+
 <style scoped>
 @import '../assets/HomeStyle.css';
 </style>

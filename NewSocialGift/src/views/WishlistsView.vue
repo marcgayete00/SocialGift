@@ -25,6 +25,7 @@ import language from './../components/language.vue'
             <div class="icon-container2">
               <a><i class="fa-solid fa-share-from-square"></i></a>
               <a><i id="cross" class="fa-solid fa-circle-xmark"></i></a>
+              <input type="checkbox" id="reserveCheckbox">
             </div>
           </li>
           <li>
@@ -35,6 +36,7 @@ import language from './../components/language.vue'
             <div class="icon-container2">
               <a><i class="fa-solid fa-share-from-square"></i></a>
               <a><i id="cross" class="fa-solid fa-circle-xmark"></i></a>
+              <input type="checkbox" id="reserveCheckbox">
             </div>
           </li>
           <li>
@@ -45,17 +47,26 @@ import language from './../components/language.vue'
             <div class="icon-container2">
               <a><i class="fa-solid fa-share-from-square"></i></a>
               <a><i id="cross" class="fa-solid fa-circle-xmark"></i></a>
+              <input type="checkbox" id="reserveCheckbox">
             </div>
           </li>
         </ul>
       </div>
 
       <div id="addButton">
-        <button><a>Añadir</a></button>
+        <button><a href="#">Añadir</a></button>
       </div>
 
+      <div id="popup-container">
+      <form>
+        <label for="nombre-producto">Nombre del producto:</label>
+        <input type="text" id="nombre-producto" name="nombre-producto">
+        <button type="submit">Agregar</button>
+      </form>
+    </div>
+
       <div id="saveButton">
-        <button><a>Guardar</a></button>
+        <button><a href="profile">Guardar</a></button>
       </div>
     </section>
   </div>
