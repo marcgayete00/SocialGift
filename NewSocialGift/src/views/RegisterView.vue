@@ -57,26 +57,30 @@ import language from './../components/language.vue'
       margin-top: 20px;
     }
     
-    .inputRegister {
-      width: 20px;
-      height: 30px;
-      border-radius: 5px;
-      border: 1px solid #000000;
-      margin-top: 10px;
+    .inputRegister{
+      width: 350px !important;
+      margin-right: 20px;
     }
 
     #GeneralSectionRegister2 {
       display: flex;
       flex-direction: column;
       align-items: center;
+      width: 200px;
     }
 
     #RegisterSection2 {
       margin-top: 400px;
+    
       
     }
     #registerFooter {
       display: none;
+    }
+
+    #pPhotoButton {
+      width: 250px !important;
+      height: 50px !important;
     }
     
   }
