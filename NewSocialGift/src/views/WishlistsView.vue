@@ -74,3 +74,43 @@ import language from './../components/language.vue'
 <style scoped>
 @import '../assets/Wishlists.css';
 </style>
+
+<style>
+@media screen and (max-width: 600px) {
+  #WishListSection {
+    margin-top: -175% !important;
+    margin-left: 20px !important;
+  }
+
+  #WishListElement{ 
+    display: flex !important;
+    margin-left: -440px !important;
+
+  }
+
+  #ElementParts li{
+    display: flex !important;
+    margin-left: 0px !important;
+    width: auto !important;
+  }
+
+  /*Texto item*/
+  .icon-container a{
+    display: flex !important;
+    margin-left: -200px !important;
+  }
+
+  /*Iconos item*/
+  .icon-container2 i{
+    display: flex !important;
+    margin-left: -90px !important;
+  }
+
+  .icon-container2 input{
+    margin-left: -30px !important;
+  }
+  
+
+  
+}
+</style>

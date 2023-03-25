@@ -67,12 +67,11 @@ import language from './../components/language.vue'
       flex-direction: column;
       align-items: center;
       width: 200px;
+      margin-bottom: 50px !important;
     }
 
     #RegisterSection2 {
       margin-top: 400px;
-    
-      
     }
     #registerFooter {
       display: none;
@@ -81,6 +80,30 @@ import language from './../components/language.vue'
     #pPhotoButton {
       width: 250px !important;
       height: 50px !important;
+      margin-left: 60px;
+    }
+
+    #registerButton {
+      width: 250px !important;
+      height: 50px !important;
+      margin-left: 60px !important;
+      margin-bottom: 30px;
+    }
+
+    #RegisterSection2 {
+      width: 190% !important;
+      height: 20% !important;
+      margin-top: 300px !important;
+      margin-bottom: 100px !important;
+    }
+
+    #textRegister2{
+     font-size: large !important;
+     margin-left: 10px !important;
+    }
+
+    #textRegister2 a{
+      font-size: large !important;
     }
     
   }
