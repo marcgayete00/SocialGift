@@ -14,7 +14,12 @@ import language from './../components/language.vue'
             <input type="text" class="inputRegister" name="surname" placeholder="Surname..." /><br/>
             <input type="text" class="inputRegister" name="email" placeholder="E-mail..." /><br/>
             <input type="password" class="inputRegister" id="password" name="password" placeholder="Contraseña..."/><br/>
-            <button type="submit" id="pPhotoButton"><a href="main"> Profile photo </a></button>
+
+            <div class="file-upload-wrapper">
+              <button type="button" class="upload-btn" onclick="document.getElementById('file-upload').click();">Profile photo</button>
+              <input type="file" id="file-upload" name="file" accept="image/*">
+            </div>
+
             <button type="submit" id="registerButton"><a href="main"> Siguiente </a></button>
           </form>
         </div>

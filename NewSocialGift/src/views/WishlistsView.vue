@@ -57,10 +57,14 @@ import language from './../components/language.vue'
         <button><a href="#">Añadir</a></button>
       </div>
 
+      <div id="popup-overlay"></div>
       <div id="popup-container">
-      <form>
+      <form class="popup-form">
+        <h2>Añadir producto</h2>
         <label for="nombre-producto">Nombre del producto:</label>
         <input type="text" id="nombre-producto" name="nombre-producto">
+        <label for="file-upload" class="upload-btn">Imagen del producto:</label>
+        <input type="file" id="file-upload">
         <button type="submit">Agregar</button>
       </form>
     </div>
@@ -71,6 +75,30 @@ import language from './../components/language.vue'
     </section>
   </div>
 </template>
+
+<script>
+export default {
+  mounted() {
+    const addButton = document.querySelector('#addButton button');
+    const popupContainer = document.querySelector('#popup-container');
+    const popupOverlay = document.querySelector('#popup-overlay');
+
+    addButton.addEventListener('click', function() {
+      popupContainer.classList.add('show-popup');
+      popupOverlay.style.display = 'block';
+    });
+
+    popupContainer.addEventListener('click', function(event) {
+      if (event.target === popupContainer) {
+        popupContainer.classList.remove('show-popup');
+        popupOverlay.style.display = 'none';
+      }
+    });
+
+  }
+}
+</script>
+
 <style scoped>
 @import '../assets/Wishlists.css';
 </style>
@@ -98,18 +126,35 @@ import language from './../components/language.vue'
   .icon-container a{
     display: flex !important;
     margin-left: -200px !important;
+    font-size:medium !important;
+   
   }
 
   /*Iconos item*/
   .icon-container2 i{
     display: flex !important;
-    margin-left: -90px !important;
+    margin-left: -40px !important;
+    margin-right: 45px !important;
   }
 
   .icon-container2 input{
     margin-left: -30px !important;
   }
-  
+
+  #addButton{
+    display: flex !important;
+    margin-left: -610px !important;
+  }
+
+  #popup-container{
+    display: hidden !important;
+    width: 50% !important;  
+    height: 40% !important;
+  }
+
+  .popup-form button{
+    margin-left: 30px !important;
+  }
 
   
 }
