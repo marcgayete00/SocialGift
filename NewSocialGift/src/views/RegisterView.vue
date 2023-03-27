@@ -49,8 +49,10 @@ import language from './../components/language.vue'
 <style>
   @media screen and (max-width: 600px) {
     #LogoStyle{
-      width: 2px;
-      height: 2px;
+      width: 200px !important;
+      height: 60px !important;
+      margin-left: 100px;
+      margin-top: 20px;
     }
 
     #GeneralSectionRegister {
@@ -59,6 +61,7 @@ import language from './../components/language.vue'
       align-items: center;
     }
     #RegisterSection {
+      width: 400px;
       margin-top: 20px;
     }
     
@@ -82,7 +85,7 @@ import language from './../components/language.vue'
       display: none;
     }
 
-    #pPhotoButton {
+    .upload-btn {
       width: 250px !important;
       height: 50px !important;
       margin-left: 60px;
