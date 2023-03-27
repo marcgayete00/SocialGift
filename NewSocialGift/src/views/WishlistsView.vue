@@ -148,8 +148,12 @@ export default {
 
   #popup-container{
     display: hidden !important;
-    width: 50% !important;  
+    width: 60% !important;  
     height: 40% !important;
+  }
+
+  .upload-btn{
+    margin-left: 40px !important;
   }
 
   .popup-form button{
