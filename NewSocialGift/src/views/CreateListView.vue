@@ -7,7 +7,7 @@ import NavBar from './../components/NavBar.vue'
     <language />
 
     <section id="GeneralSection">
-      <NavBar />
+      <NavBar v-bind:class="{ 'NavBar--show': showNavbar }"></NavBar>
     </section>
 
 	<div class="container">
@@ -47,9 +47,8 @@ export default {
 <style>
     @media screen and (max-width: 600px) {
         .container {
-            width: auto !important;
+            width: 80% !important;
             height: auto !important;
         }
-        
     }
 </style>

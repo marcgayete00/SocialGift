@@ -153,7 +153,7 @@ export default {
   }
 
   .upload-btn{
-    margin-left: 40px !important;
+    margin-left: auto !important;
   }
 
   .popup-form button{

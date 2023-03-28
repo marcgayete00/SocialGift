@@ -17,22 +17,45 @@
             <option value="value2">English</option>
           </select>
         </li>
-        <li id="hamburguerMenu"><a href="#"><i class="fa-solid fa-bars" ></i></a></li>
+        <div>
+          <navBar :showNavbar="showNavbar" />
+          <li id="hamburguerMenu"><a href="#" @click="toggleNavbar"><i class="fa-solid fa-bars"></i></a></li>
+        </div>
       </ol>
     </nav>
   </section>
 </template>
 
+
+
 <style scoped>
 @import '../assets/language.css';
 </style>
 
-<style>
-  @media screen and (max-width: 600px) {
-    #hambuerguerMenu{
-     
-    }
+<script>
+  import navBar from './navBar.vue'
 
+  export default {
+    data() {
+      return {
+        showNavbar: false
+      }
+    },
+    methods: {
+      toggleNavbar() {
+        this.showNavbar = !this.showNavbar
+      }
+    },
+    components: {
+      navBar
+    }
+  }
+</script>
+<style>
+
+
+
+  @media screen and (max-width: 600px) {
     #hamburguerMenu a{
       text-decoration: none;
       color: black;
@@ -41,7 +64,15 @@
     #hamburguerMenu i{
       display: block !important;
       font-size: 40px!important;
-      margin-left: 370% ;
+      margin-left: 100px; ;
+  }
+
+    .NavBar {
+    display: none;
+  }
+
+  .NavBar--show {
+    display: block;
   }
     
   }
