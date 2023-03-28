@@ -6,6 +6,7 @@ import ProfileView from '../views/ProfileView.vue'
 import ChatView from '../views/ChatView.vue'
 import EditarPerfilView from '../views/EditarPerfilView.vue'
 import WishlistsView from '../views/WishlistsView.vue'
+import CreateListView from '../views/CreateListView.vue'
 
 
 const router = createRouter({
@@ -45,6 +46,10 @@ const router = createRouter({
       path: '/wishlists',
       name: 'wishlists',
       component:WishlistsView
+    },{
+      path: '/createlist',
+      name: 'createlist',
+      component:CreateListView
     }
     
   ]

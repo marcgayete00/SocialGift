@@ -33,7 +33,7 @@
               </ul>
             </li>
             <li>
-              <a href=""><i class="fa-solid fa-pen-to-square"></i> Create</a>
+              <a href="createList"><i class="fa-solid fa-pen-to-square"></i> Create</a>
             </li>
             <li id="MoreLi">
               <a href="#"><i class="fa-solid fa-bars"></i> More</a>

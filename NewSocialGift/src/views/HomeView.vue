@@ -29,6 +29,7 @@ import language from './../components/language.vue'
       </section>
     </section>
   </div>
+  
   <footer id="loginFooter">
     <div>
       <nav>

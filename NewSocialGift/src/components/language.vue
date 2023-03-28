@@ -17,6 +17,7 @@
             <option value="value2">English</option>
           </select>
         </li>
+        <li id="hamburguerMenu"><a href="#"><i class="fa-solid fa-bars" ></i></a></li>
       </ol>
     </nav>
   </section>
@@ -24,4 +25,25 @@
 
 <style scoped>
 @import '../assets/language.css';
+</style>
+
+<style>
+  @media screen and (max-width: 600px) {
+    #hambuerguerMenu{
+     
+    }
+
+    #hamburguerMenu a{
+      text-decoration: none;
+      color: black;
+    }
+
+    #hamburguerMenu i{
+      display: block !important;
+      font-size: 40px!important;
+      margin-left: 370% ;
+  }
+    
+  }
+
 </style>

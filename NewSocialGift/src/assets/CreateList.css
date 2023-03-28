@@ -1,0 +1,123 @@
+
+.container {
+    margin:  auto;
+    width: 30%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: transparent;
+    text-align: center;
+    border-radius: 5px;
+    align-items: center;
+    margin-top: 200px;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 20px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: 'Inter', sans-serif; 
+}
+
+input[type=submit] {
+    background: #3cff76;
+    color: black;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.colorPickerLabel{
+    font-size: 20px;
+    margin-top: 20px;
+    font-family: 'Inter', sans-serif;
+}
+.colorPicker{
+    border: none;
+    border-radius: 50%;
+    padding: 0;
+    position: relative;
+    top: 10px; /* cambiar el valor de top según la posición que desees */
+}
+
+  input[type="color"] {
+    appearance: none;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+    border: none;
+  }
+  
+  input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+  }
+  
+  input[type="color"]::-webkit-color-swatch:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    background: var(--input-color);
+    pointer-events: none;
+  }
+  
+  input[type="color"]::-moz-color-swatch {
+    border: none;
+    border-radius: 50%;
+  }
+  
+  input[type="color"]::-moz-color-swatch:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    background: var(--input-color);
+    pointer-events: none;
+  }
+  
+  input[type="color"]::-ms-color-swatch {
+    border: none;
+    border-radius: 50%;
+  }
+  
+  input[type="color"]::-ms-color-swatch:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    background: var(--input-color);
+    pointer-events: none;
+  }
