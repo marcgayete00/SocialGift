@@ -17,41 +17,31 @@
             <option value="value2">English</option>
           </select>
         </li>
-        <div>
-          <navBar :showNavbar="showNavbar" />
-          <li id="hamburguerMenu"><a href="#" @click="toggleNavbar"><i class="fa-solid fa-bars"></i></a></li>
-        </div>
+        <li id="hamburguerMenu" v-if="showHamburguerMenu"><a href="#" ><i class="fa-solid fa-bars"></i></a></li>
       </ol>
     </nav>
   </section>
 </template>
 
-
+<script>
+export default {
+  name: 'Language',
+  props: {
+    showHamburguerMenu: {
+      type: Boolean,
+      default: true
+    }
+  }
+}
+</script>
 
 <style scoped>
 @import '../assets/language.css';
 </style>
 
-<script>
-  import navBar from './navBar.vue'
-
-  export default {
-    data() {
-      return {
-        showNavbar: false
-      }
-    },
-    methods: {
-      toggleNavbar() {
-        this.showNavbar = !this.showNavbar
-      }
-    },
-    components: {
-      navBar
-    }
-  }
-</script>
 <style>
+
+
 
 
 
@@ -64,15 +54,15 @@
     #hamburguerMenu i{
       display: block !important;
       font-size: 40px!important;
-      margin-left: 100px; ;
+      margin-left: 100px;
   }
 
     .NavBar {
-    display: none;
+    display: none !important;
   }
 
   .NavBar--show {
-    display: block;
+    display: block !important;
   }
     
   }

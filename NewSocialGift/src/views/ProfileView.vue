@@ -5,7 +5,7 @@ import language from './../components/language.vue'
 
 <template>
     <div>
-    <language/>
+      <language />
 
     <section id="GeneralSection">
       <NavBar />
@@ -55,6 +55,12 @@ import language from './../components/language.vue'
         <div class="grid-item" onclick="myFunction()">4</div>
         <div class="grid-item" onclick="myFunction()">5</div>
         <div class="grid-item" onclick="myFunction()">6</div>
+        <div class="grid-item" onclick="myFunction()">7</div>
+        <div class="grid-item" onclick="myFunction()">8</div>
+        <div class="grid-item" onclick="myFunction()">9</div>
+        <div class="grid-item" onclick="myFunction()">10</div>
+        <div class="grid-item" onclick="myFunction()">11</div>
+        <div class="grid-item" onclick="myFunction()">12</div>
       </div>
     </section>
   </div>
@@ -62,15 +68,51 @@ import language from './../components/language.vue'
 <style>
   @media screen and (max-width: 600px) {
     #ProfileSection{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: -50%;
+      margin-top: -190% !important;
     }
 
+    #EditProfileButton{
+      position: relative !important;
+      margin-left: 73% !important;
+      top: 50px !important;
+      font-size: medium !important;
+      width: auto !important;
+      height: 30px !important;
+    }
 
     .navigation{
       display: none;
+    }
+
+    #GeneralSection{
+      margin-top: -10% !important;
+    }
+
+    hr{
+      width: auto !important;
+    }
+
+    #SelectList a{
+      font-family: 'Inter', sans-serif;
+    }
+
+    .grid-container {
+      display: grid;
+      margin-left: 4% !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      grid-template-rows: repeat(2, 1fr) !important;
+      gap: 50px !important;
+      width: 80vw; /* Ajusta el ancho del contenedor a la ventana */
+      height: 10vh !important; /* Ajusta la altura del contenedor a la ventana */
+    }
+    
+
+    .grid-item{
+      height: 90% !important;
+      width: 90% !important;
+
+      
+      
     }
   }
 </style>

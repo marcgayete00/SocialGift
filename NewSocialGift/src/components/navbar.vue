@@ -1,5 +1,4 @@
 <template>
-  <div :class="{ 'NavBar': true, 'NavBar--show': showNavbar }">
   <div class="navigation">
         <ul>
           <li>
@@ -45,20 +44,7 @@
           </li>
         </ul>
       </div>
-    </div>
 </template>
-
-<script>
-  export default {
-    props: {
-      showNavbar: {
-        type: Boolean,
-        required: true
-      }
-    }
-  }
-</script>
-
 
 <style scoped>
 @import "../assets/NavBar.css";

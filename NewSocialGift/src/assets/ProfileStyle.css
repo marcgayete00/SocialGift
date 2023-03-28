@@ -1,6 +1,4 @@
-body{
-    font-family: 'Inter', sans-serif;
- }
+
 
  #GeneralSection {
     display: flex;
@@ -21,6 +19,7 @@ body{
     align-items: center;
     margin: -52% auto 0;
     z-index: 0;
+    font-family: 'Inter', sans-serif;
   }
   
   #ProfileInfo {
@@ -130,14 +129,13 @@ body{
     padding: 20px;
     text-align: center;
     width: calc((100% - 20px * 2)); /* Establece el ancho de cada elemento para que sean cuadrados y estén separados horizontalmente */
-    height: calc((100% - 20px * 2)); /* Establece la altura de cada elemento para que sean cuadrados y estén separados verticalmente */
+    height:auto;/* Establece la altura de cada elemento para que sean cuadrados y estén separados verticalmente */
     transition: all 0.5s ease;
+
   }
 
   .grid-item:hover {
     background-color: #fafafa;
-    
-    
   }
 
   

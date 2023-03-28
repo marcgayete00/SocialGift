@@ -4,7 +4,7 @@ import language from './../components/language.vue'
 
 <template>
   <div>
-    <language />
+    <language :show-hamburguer-menu="false" />
     <section id="GeneralSectionRegister">
       <section id="RegisterSection">
         <div>
