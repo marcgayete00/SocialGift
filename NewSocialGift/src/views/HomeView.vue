@@ -52,6 +52,8 @@ import language from './../components/language.vue'
       }
       #LoginSection {
         margin-top: 20px;
+        width: auto;
+        padding-right: 30px !important;
       }
       #ImageSection {
         display: none;
@@ -59,6 +61,21 @@ import language from './../components/language.vue'
       #loginFooter {
         display: none;
       }
+
+      #textRegister{
+        display: flex;
+        justify-content: center;
+      }
+
+      #LogoStyle {
+        display: flex;
+        justify-content: center;
+        margin-left: 60px !important;
+      }
+
+    
+
+
     }
   </style>
 

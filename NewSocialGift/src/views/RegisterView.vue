@@ -61,12 +61,12 @@ import language from './../components/language.vue'
       align-items: center;
     }
     #RegisterSection {
-      width: 400px;
+      width: 350px;
       margin-top: 20px;
     }
     
     .inputRegister{
-      width: 350px !important;
+      width: 330px !important;
       margin-right: 20px;
     }
 
@@ -74,7 +74,7 @@ import language from './../components/language.vue'
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 200px;
+      width: 350px;
       margin-bottom: 50px !important;
     }
 
@@ -94,7 +94,7 @@ import language from './../components/language.vue'
     #registerButton {
       width: 250px !important;
       height: 50px !important;
-      margin-left: 60px !important;
+      margin-left: 40px !important;
       margin-bottom: 30px;
     }
 
@@ -106,7 +106,7 @@ import language from './../components/language.vue'
     }
 
     #textRegister2{
-     font-size: large !important;
+     font-size: medium !important;
      margin-left: 10px !important;
     }
 
