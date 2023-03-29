@@ -98,6 +98,7 @@
     text-decoration: none;
     color: #000000;
     margin-top: -20px;
+    font-family: 'Inter', sans-serif;
   }
 
   #SelectList a:hover{

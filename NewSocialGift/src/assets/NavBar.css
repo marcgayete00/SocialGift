@@ -97,6 +97,9 @@
     height: 30px;
     font-family: 'Inter', sans-serif;
     border: none;
+    font-size: large;
+    padding-left: 20px;
+    outline: none;
   }
 
   .navigation ul li:nth-child(3) ul#SearchSlide i {

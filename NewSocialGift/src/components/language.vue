@@ -3,11 +3,11 @@
     <nav>
       <ol id="LanguageList">
         <li>
-          <img id="switchImg" src="../components/icons/ds.png" />
+          <img id="switchImg" src="src/components/icons/CurrentWhite.png" />
         </li>
         <li id="switchLi">
           <label class="switch">
-            <input type="checkbox" />
+            <input type="checkbox" id="toggleSwitch" @click="toggleImage()"/>
             <span class="slider"></span>
           </label>
         </li>
@@ -30,6 +30,18 @@ export default {
     showHamburguerMenu: {
       type: Boolean,
       default: true
+    }
+  },
+  methods: {
+    toggleImage() {
+      var img = document.getElementById("switchImg");
+      if (img.src.match("CurrentWhite.png")) {
+        img.src = "src/components/icons/CurrentDark.png";
+        document.body.style.backgroundColor = "Black";
+      } else {
+        img.src = "src/components/icons/CurrentWhite.png";
+        document.body.style.backgroundColor = "White";
+      }
     }
   }
 }

@@ -49,22 +49,33 @@ import language from './../components/language.vue'
     </section>
     <section id="PostSection">
       <div class="grid-container">
-        <div class="grid-item" onclick="myFunction()">1</div>
-        <div class="grid-item" onclick="myFunction()">2</div>
-        <div class="grid-item" onclick="myFunction()">3</div>
-        <div class="grid-item" onclick="myFunction()">4</div>
-        <div class="grid-item" onclick="myFunction()">5</div>
-        <div class="grid-item" onclick="myFunction()">6</div>
-        <div class="grid-item" onclick="myFunction()">7</div>
-        <div class="grid-item" onclick="myFunction()">8</div>
-        <div class="grid-item" onclick="myFunction()">9</div>
-        <div class="grid-item" onclick="myFunction()">10</div>
-        <div class="grid-item" onclick="myFunction()">11</div>
-        <div class="grid-item" onclick="myFunction()">12</div>
+        <div class="grid-item" @click="myFunction()">1</div>
+        <div class="grid-item" @click="myFunction()">2</div>
+        <div class="grid-item" @click="myFunction()">3</div>
+        <div class="grid-item" @click="myFunction()">4</div>
+        <div class="grid-item" @click="myFunction()">5</div>
+        <div class="grid-item" @click="myFunction()">6</div>
+        <div class="grid-item" @click="myFunction()">7</div>
+        <div class="grid-item" @click="myFunction()">8</div>
+        <div class="grid-item" @click="myFunction()">9</div>
+        <div class="grid-item" @click="myFunction()">10</div>
+        <div class="grid-item" @click="myFunction()">11</div>
+        <div class="grid-item" @click="myFunction()">12</div>
       </div>
     </section>
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    myFunction() {
+      window.location.href = '/Wishlists';
+    }
+  }
+}
+</script>
+
 <style>
   @media screen and (max-width: 600px) {
     #ProfileSection{
