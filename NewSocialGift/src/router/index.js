@@ -7,6 +7,8 @@ import ChatView from '../views/ChatView.vue'
 import EditarPerfilView from '../views/EditarPerfilView.vue'
 import WishlistsView from '../views/WishlistsView.vue'
 import CreateListView from '../views/CreateListView.vue'
+import FriendsView from '../views/FriendsView.vue'
+
 
 
 const router = createRouter({
@@ -50,6 +52,10 @@ const router = createRouter({
       path: '/createlist',
       name: 'createlist',
       component:CreateListView
+    },{
+      path: '/friends',
+      name: 'friends',
+      component:FriendsView
     }
     
   ]

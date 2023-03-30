@@ -29,7 +29,7 @@ import language from './../components/language.vue'
             <h1>6</h1>
             <h3>Listas</h3>
             <h1>340</h1>
-            <h3>Amigos</h3>
+            <a href="friends"><h3>Amigos</h3></a>
           </div>
           <div id="ProfileDescription">
             <p>
