@@ -23,7 +23,7 @@ import language from './../components/language.vue'
               <a>PlayStation 5</a>
             </div>
             <div class="icon-container2">
-              <a><i class="fa-solid fa-share-from-square"></i></a>
+              <a><i id="share" class="fa-solid fa-share-from-square"></i></a>
               <a><i id="cross" class="fa-solid fa-circle-xmark"></i></a>
               <input type="checkbox" id="reserveCheckbox">
             </div>
@@ -34,7 +34,7 @@ import language from './../components/language.vue'
               <a>Xbox one</a>
             </div>
             <div class="icon-container2">
-              <a><i class="fa-solid fa-share-from-square"></i></a>
+              <a><i id="share" class="fa-solid fa-share-from-square"></i></a>
               <a><i id="cross" class="fa-solid fa-circle-xmark"></i></a>
               <input type="checkbox" id="reserveCheckbox">
             </div>
@@ -45,7 +45,7 @@ import language from './../components/language.vue'
               <a>Desktop computer</a>
             </div>
             <div class="icon-container2">
-              <a><i class="fa-solid fa-share-from-square"></i></a>
+              <a><i id="share" class="fa-solid fa-share-from-square"></i></a>
               <a><i id="cross" class="fa-solid fa-circle-xmark"></i></a>
               <input type="checkbox" id="reserveCheckbox">
             </div>
@@ -108,6 +108,7 @@ export default {
   #WishListSection {
     margin-top: -175% !important;
     margin-left: 20px !important;
+
   }
 
   #WishListElement{ 
@@ -125,7 +126,7 @@ export default {
   /*Texto item*/
   .icon-container a{
     display: flex !important;
-    margin-left: -200px !important;
+    margin-left: -220px !important;
     font-size:medium !important;
    
   }
@@ -133,23 +134,36 @@ export default {
   /*Iconos item*/
   .icon-container2 i{
     display: flex !important;
-    margin-left: -40px !important;
-    margin-right: 45px !important;
+  }
+
+  #share{
+    position: relative !important;
+    left: 15px !important;
+    top: 2px !important;
+  }
+
+  #cross{
+    position: relative !important;
+    left: 15px !important;
+    top: 2px !important;
   }
 
   .icon-container2 input{
-    margin-left: -30px !important;
+    position: relative !important;
+    left: 10px !important;
   }
 
   #addButton{
     display: flex !important;
-    margin-left: -610px !important;
+    margin-left: -650px !important;
   }
 
   #popup-container{
     display: hidden !important;
-    width: 60% !important;  
-    height: 40% !important;
+    left: 190px !important;
+    top: 700px !important;
+    width: 30% !important;  
+    height: 20% !important;
   }
 
   .upload-btn{

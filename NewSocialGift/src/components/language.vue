@@ -66,7 +66,6 @@ export default {
     #hamburguerMenu i{
       display: block !important;
       font-size: 40px!important;
-      margin-left: 100px;
   }
 
     .NavBar {

@@ -51,7 +51,7 @@ import language from './../components/language.vue'
     #LogoStyle{
       width: 200px !important;
       height: 60px !important;
-      margin-left: 100px;
+      margin-left: 50px !important;
       margin-top: 20px;
     }
 
@@ -61,12 +61,12 @@ import language from './../components/language.vue'
       align-items: center;
     }
     #RegisterSection {
-      width: 350px;
+      width: 300px;
       margin-top: 20px;
     }
     
     .inputRegister{
-      width: 330px !important;
+      width: 280px !important;
       margin-right: 20px;
     }
 
@@ -87,31 +87,36 @@ import language from './../components/language.vue'
 
     .upload-btn {
       width: 250px !important;
-      height: 50px !important;
-      margin-left: 60px;
+    }
+
+    .file-upload-wrapper{
+      margin-left: 25px !important;
     }
 
     #registerButton {
       width: 250px !important;
       height: 50px !important;
-      margin-left: 40px !important;
+      margin-left: 25px !important;
       margin-bottom: 30px;
     }
 
     #RegisterSection2 {
-      width: 190% !important;
-      height: 20% !important;
-      margin-top: 300px !important;
-      margin-bottom: 100px !important;
+      width: 210% !important;
+      height: 30% !important;
+      margin-top: 250px !important;
+      padding-top: 7px !important;
+
     }
 
     #textRegister2{
-     font-size: medium !important;
-     margin-left: 10px !important;
+     font-size: small !important;
+     margin-left: 20px !important;
+     padding-bottom: 10px !important;
     }
 
     #textRegister2 a{
       font-size: large !important;
+
     }
     
   }

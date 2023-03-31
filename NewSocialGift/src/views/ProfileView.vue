@@ -19,7 +19,7 @@ import language from './../components/language.vue'
         </div>
         <div id="ProfileInfo">
           <div id="ProfileImage">
-            <img src="img/DefaultProfilePhoto.png" />
+            <img src="img/DefaultProfilePhoto.png" id="ProfilePicture"/>
             
           </div>
           <div id="ProfileName">
@@ -82,13 +82,33 @@ export default {
       margin-top: -190% !important;
     }
 
+    #ProfilePicture{
+      width: 90% !important;
+      height: 90% !important;
+    }    
+
     #EditProfileButton{
       position: relative !important;
-      margin-left: 73% !important;
+      margin-left: 67% !important;
       top: 50px !important;
       font-size: medium !important;
-      width: auto !important;
+      width: 120px !important;
       height: 30px !important;
+    }
+
+    #ProfileName{
+      position: relative !important;
+      left: -30px !important;
+    }
+
+    #UserCount{
+      position: relative !important;
+      left: -30px !important;
+    }
+
+    #ProfileDescription{
+      position: relative !important;
+      left: -30px !important;
     }
 
     .navigation{
