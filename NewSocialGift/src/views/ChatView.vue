@@ -43,3 +43,20 @@ import language from './../components/language.vue'
 <style scoped>
 @import '../assets/ChatStyle.css';
 </style>
+<style>
+    @media screen and (max-width: 600px) {
+        #GeneralSection {
+            height: 100% !important;
+        }
+        #chat-profiles{
+            border: 0cm !important;
+          margin-top: 40px !important;
+          margin-left: -110px;
+          width: 105% !important;
+        
+        }
+        #chat-section{
+            visibility: hidden;
+        }
+    }
+</style>

@@ -1,42 +1,19 @@
 <script setup>
 import language from './../components/language.vue'
+import NavBar from './../components/NavBar.vue'
 </script>
 
 <template>
       <language />
       
       <section id="GeneralSection">
-        <div class="navigation">
-        <ul>
-            <li>
-              <a href=""> <img src="../../img/logo.png" id="logoNavBar" alt=""></a>
-            </li>
-            <li>
-            <a href=""><i class="fa-solid fa-house"></i> Home</a>
-            </li>
-            <li>
-              <a href=""><i class="fa-solid fa-magnifying-glass"></i> Search</a>
-            </li>
-            <li>
-              <a href=""><i class="fa-solid fa-envelope"></i> Messages</a>
-            </li>
-            <li>
-              <a href=""><i class="fa-sharp fa-solid fa-bell"></i> Notifications</a>
-            </li>
-            <li>
-              <a href=""><i class="fa-solid fa-pen-to-square"></i> Create</a>
-            </li>
-            <li id ="MoreLi">
-              <a href="" onclick="openForm()"><i class="fa-solid fa-bars"></i> More</a>
-            </li>
-        </ul>
-        </div>
+        <NavBar />
         <section class="editarperfil-section">
             <h2 id="tituloeditarperf">Editar Perfil</h2>
             <div>
                 <div id="headeditarperfil">
                     <img src="../../img/DefaultProfilePhoto.png">
-                    <h2>NickName</h2>
+                    <h3>NickName</h3>
                     <a href="#"><button id="EliminarButton">Eliminar Cuenta</button></a>
                 </div>
                 <a href="#"><h4>Cambiar Foto</h4></a>
@@ -65,5 +42,44 @@ import language from './../components/language.vue'
 
 <style scoped>
 @import '../assets/EditarPerfilStyle.css';
+</style>
+<style>
+    @media screen and (max-width: 600px) {
+        .editarperfil-section {
+            margin-top: 50px !important;
+            width: 105% !important;
+        }
+        .editarperfil-section > div{
+            margin-top: 20px !important;
+            margin-left: 0px !important;
+        }
+
+        .editarperfil-section img{
+            width: 100px !important;
+        }
+
+        .editarperfil-section button{
+            width: 100px !important;
+            font-size: 15px !important;
+        }
+
+        .editarperfil-section select{
+            padding: 10px !important;
+            
+        }
+        .diveditarperfil textarea{
+            width: 175px !important;
+        }
+        .editarperfil-section h4{
+            margin-top: 0px !important;
+            display: flex !important;
+        }
+        .editarperfil-section h2{
+            visibility: hidden;
+        } 
+        #GuardarButton{
+            margin-left: 140px !important;
+        }
+    }
 </style>
   

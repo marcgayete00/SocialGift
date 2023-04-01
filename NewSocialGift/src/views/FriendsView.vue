@@ -11,11 +11,11 @@ import language from './../components/language.vue'
     </section>
 
     <!--Mostrar listas de deseos-->
-    <section id="WishListSection">
+    <section id="FriendsSection">
       <div id="banner">
         <h1>Amigos</h1>
       </div>
-      <div id="WishListElement">
+      <div id="FriendsElement">
         <ul id="ElementParts">
           <li>
             <div class="icon-container">
@@ -56,15 +56,31 @@ import language from './../components/language.vue'
 
 <style>
 @media screen and (max-width: 600px) {
-  #WishListSection {
-    margin-top: -175% !important;
+  #FriendsSection {
+    margin-top: 20% !important;
     margin-left: 20px !important;
+    height: 100% !important;
+  }
+  #banner h1{
+    font-size: 20px !important;
   }
 
-  #WishListElement{ 
+  #FriendsElement{ 
     display: flex !important;
+    margin-top: -50px;
     margin-left: -440px !important;
-
+  }
+  #FriendsElement h4{
+    font-size: 15px !important;
+    width: 20px !important;
+    margin-left: 225px;
+  }
+  #FriendsElement button{
+    width: 75px;
+    font-size: 12px !important;
+  }
+  #FriendsElement img{
+    width: 50px;
   }
 
   #ElementParts li{
@@ -73,23 +89,58 @@ import language from './../components/language.vue'
     width: auto !important;
   }
 
-  #ElementParts img{
-    width: 60px;
+  /*Texto item*/
+  .icon-container a{
+    display: flex !important;
+    margin-left: -220px !important;
+    font-size:medium !important;
+   
   }
 
-  #ElementParts h4{
-    margin-left: 210px;
+  /*Iconos item*/
+  .icon-container2 i{
+    display: flex !important;
   }
 
-  #EliminarButton{
-    background-color: red;
-    color: white;
-    padding: 14px;
-    font-size: 17px;
-    border: white;
-    font-weight: bold;
-    border-radius: 7px;
+  #share{
+    position: relative !important;
+    left: 15px !important;
+    top: 2px !important;
   }
+
+  #cross{
+    position: relative !important;
+    left: 15px !important;
+    top: 2px !important;
+  }
+
+  .icon-container2 input{
+    position: relative !important;
+    left: 10px !important;
+  }
+
+  #addButton{
+    display: flex !important;
+    margin-top: -50px;
+    margin-left: -650px !important;
+  }
+
+  #popup-container{
+    display: hidden !important;
+    left: 190px !important;
+    top: 700px !important;
+    width: 30% !important;  
+    height: 20% !important;
+  }
+
+  .upload-btn{
+    margin-left: auto !important;
+  }
+
+  .popup-form button{
+    margin-left: 30px !important;
+  }
+
   
 }
 </style>

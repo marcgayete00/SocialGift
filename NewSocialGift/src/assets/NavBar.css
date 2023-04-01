@@ -47,7 +47,6 @@
 
   .navigation ul ul li a{
    font-size: 20px;
-   
   }
 
   .navigation ul li:focus-within > ul  {

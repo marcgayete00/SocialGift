@@ -1,54 +1,16 @@
+<script setup>
+import NavBar from './../components/NavBar.vue'
+import language from './../components/language.vue'
+</script>
+
 <template>
   <div>
-      <section id="LanguageSection">
-      <nav>
-        <ol id="LanguageList">
-          <li>
-            <img id="switchImg" src="../components/icons/ds.png" />
-          </li>
-          <li id="switchLi">
-            <label class="switch">
-              <input type="checkbox" />
-              <span class="slider"></span>
-            </label>
-          </li>
-          <li>
-            <select name="select" id="LanguageSelect">
-              <option value="value1" selected>Spanish</option>
-              <option value="value2">English</option>
-            </select>
-          </li>
-        </ol>
-      </nav>
-    </section>
+    <language />
+
       
 
       <section id="GeneralSection">
-        <div class="navigation">
-        <ul>
-            <li>
-              <a href=""> <img src="../../img/logo.png" id="logoNavBar" alt=""></a>
-            </li>
-            <li>
-            <a href=""><i class="fa-solid fa-house"></i> Home</a>
-            </li>
-            <li>
-              <a href=""><i class="fa-solid fa-magnifying-glass"></i> Search</a>
-            </li>
-            <li>
-              <a href=""><i class="fa-solid fa-envelope"></i> Messages</a>
-            </li>
-            <li>
-              <a href=""><i class="fa-sharp fa-solid fa-bell"></i> Notifications</a>
-            </li>
-            <li>
-              <a href=""><i class="fa-solid fa-pen-to-square"></i> Create</a>
-            </li>
-            <li id ="MoreLi">
-              <a href="" onclick="openForm()"><i class="fa-solid fa-bars"></i> More</a>
-            </li>
-        </ul>
-        </div>
+        <NavBar />
         <div class="options-box">
           <div id="profile-box">
             <img class="profileimg" src="../../img/DefaultProfilePhoto.png">
@@ -101,6 +63,36 @@
     </div>
   </template>
 
+  
+
 <style scoped src="../assets/mainStyle.css"></style>
+<style>
+    @media screen and (max-width: 600px) {
+        #GeneralSection {
+            width: 100% !important;
+            height: 100% !important;
+        }
+        .image-section{
+          margin-top: 40px !important;
+          width: 110% !important;
+        }
+        .options-box{
+          visibility: hidden !important;
+        }
+        .listheader{
+          width: 100% !important;
+          height: 100px !important;
+        }
+        .listheader img{
+          width: 60px !important;
+        }
+        .listheader h3{
+          margin-right: 150px !important;
+        }
+        .imageslide{
+          width: 300px;
+        }
+    }
+</style>
 
   

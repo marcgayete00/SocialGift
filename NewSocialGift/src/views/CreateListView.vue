@@ -47,6 +47,7 @@ export default {
 <style>
     @media screen and (max-width: 600px) {
         .container {
+            margin-top: 75px !important;
             width: 80% !important;
             height: auto !important;
         }

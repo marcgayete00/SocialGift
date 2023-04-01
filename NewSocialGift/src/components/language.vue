@@ -53,10 +53,6 @@ export default {
 
 <style>
 
-
-
-
-
   @media screen and (max-width: 600px) {
     #hamburguerMenu a{
       text-decoration: none;

@@ -106,15 +106,18 @@ export default {
 <style>
 @media screen and (max-width: 600px) {
   #WishListSection {
-    margin-top: -175% !important;
+    margin-top: 20% !important;
     margin-left: 20px !important;
-
+    height: 100% !important;
+  }
+  #banner h1{
+    font-size: 20px !important;
   }
 
   #WishListElement{ 
     display: flex !important;
+    margin-top: -50px;
     margin-left: -440px !important;
-
   }
 
   #ElementParts li{
@@ -155,6 +158,7 @@ export default {
 
   #addButton{
     display: flex !important;
+    margin-top: -50px;
     margin-left: -650px !important;
   }
 

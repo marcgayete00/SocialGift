@@ -79,7 +79,8 @@ export default {
 <style>
   @media screen and (max-width: 600px) {
     #ProfileSection{
-      margin-top: -190% !important;
+      margin-top: 0% !important;
+      height: 50% !important;
     }
 
     #ProfilePicture{
