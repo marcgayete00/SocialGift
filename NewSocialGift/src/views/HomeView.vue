@@ -18,7 +18,7 @@ import language from './../components/language.vue'
               name="password"
               placeholder="Contraseña"/><br/>
             <button type="submit" id="loginButton"><a href="main"> Login </a></button>
-            <hr />
+            <hr /><!-- USAR ALTERNATIVA -->
             <span id="textRegister">¿No tienes cuenta? <a href="register"> Registrate</a></span>
           </form>
         </div>
@@ -28,19 +28,20 @@ import language from './../components/language.vue'
         <img src="img/mainScrenshoot.png" />
       </section>
     </section>
+    <footer id="loginFooter">
+      <div>
+        <nav>
+          <ol class="footerList">
+            <li><a href="#">Help</a></li>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Terms</a></li>
+          </ol>
+        </nav>
+      </div>
+    </footer>
   </div>
   
-  <footer id="loginFooter">
-    <div>
-      <nav>
-        <ol class="footerList">
-          <li><a href="#">Help</a></li>
-          <li><a href="#">Privacy</a></li>
-          <li><a href="#">Terms</a></li>
-        </ol>
-      </nav>
-    </div>
-  </footer>
+  
 </template>
 
 <style>

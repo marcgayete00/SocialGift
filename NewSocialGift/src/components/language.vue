@@ -1,6 +1,6 @@
 <template>
   <section id="LanguageSection">
-    <nav>
+    <nav><!-- BORRAR -->
       <ol id="LanguageList">
         <li>
           <img id="switchImg" src="src/components/icons/CurrentWhite.png" />
@@ -23,6 +23,7 @@
   </section>
 </template>
 
+<!-- CHAT GPT-->
 <script>
 export default {
   name: 'Language',
