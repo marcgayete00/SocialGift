@@ -1,5 +1,40 @@
 <script setup>
 import language from './../components/language.vue'
+
+//Obtener valores formulario
+const username = document.getElementById('username');
+const surname = document.getElementById('surname');
+const email = document.getElementById('email');
+const password = document.getElementById('password');
+const file = document.getElementById('file-upload');
+
+function addUser(){
+  const user = {
+    username: username.value,
+    surname: surname.value,
+    email: email.value,
+    password: password.value,
+    file: file.value
+  };
+
+  fetch('http://example.com/api/add-user', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(user)
+  })
+  .then(response => {
+    // manejar la respuesta del servidor
+  })
+  .catch(error => {
+    // manejar los errores
+  });
+}
+
+
+
+
 </script>
 
 <template>
@@ -20,7 +55,7 @@ import language from './../components/language.vue'
               <input type="file" id="file-upload" name="file" accept="image/*">
             </div>
 
-            <button type="submit" id="registerButton"><a href="main"> Siguiente </a></button>
+            <button type="submit" id="registerButton" onclick="addUser()"><a href="main"> Siguiente </a></button>
           </form>
         </div>
       </section>

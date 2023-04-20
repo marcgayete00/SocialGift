@@ -1,5 +1,10 @@
 <script setup>
+
 import language from './../components/language.vue'
+
+//Link apis
+//https://balandrau.salle.url.edu/i3/socialgift/api-docs/v1/  (Api usuarios)
+//https://balandrau.salle.url.edu/i3/mercadoexpress/api-docs/v1/ (Api productos)
 
 //Obtener texto del input username
 var username = document.getElementById('username')
@@ -7,6 +12,7 @@ var password = document.getElementById('password')
 
 //Obtener el boton de login
 var loginButton = document.getElementById('loginButton')
+
 </script>
 
 <template>
