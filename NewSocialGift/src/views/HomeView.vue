@@ -7,11 +7,55 @@ import language from './../components/language.vue'
 //https://balandrau.salle.url.edu/i3/mercadoexpress/api-docs/v1/ (Api productos)
 
 //Obtener texto del input username
-var username = document.getElementById('username')
-var password = document.getElementById('password')
 
-//Obtener el boton de login
-var loginButton = document.getElementById('loginButton')
+</script>
+
+<script>
+function loginUser(){
+  var email = document.getElementById('email').value;
+  var password = document.getElementById('password').value;
+
+  const user = {
+    email: email,
+    password: password
+  };
+
+  fetch('https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+        })
+        .then(response => {
+          if(response.status === 200) {
+            return response.json();
+          } else {
+            switch (response.status) {
+            case 404:
+              alert("An error has occurred");
+              break;
+          
+            case 401:
+              alert("Wrong email or password");
+              break;
+            
+            case 406:
+              alert("Missing parameters");
+              break;
+          }
+          }
+        })
+        .then(data => {
+          alert("User Logged In");
+          const token = data.accessToken;
+          console.log(token);
+          window.location.href = 'main';
+        })
+        .catch(error => {
+          //Respuesta en caso de error de servidor          
+        });
+  }
 
 </script>
 
@@ -23,15 +67,10 @@ var loginButton = document.getElementById('loginButton')
         <div>
           <img src="img/logo.png" id="LogoStyle" />
           <form>
-            <input type="text" class="input" name="username" placeholder="Usuario" /><br />
-            <input
-              type="password"
-              class="input"
-              id="password"
-              name="password"
-              placeholder="Contraseña"
+            <input type="text" class="input" id="email" placeholder="Email" /><br />
+            <input type="password" class="input" id="password" name="password" placeholder="Contraseña"
             /><br />
-            <button type="submit" id="loginButton"><a href="main"> Login </a></button>
+            <button id="loginButton" @click="loginUser"><a href="#"> Login </a></button>
             <hr />
             <!-- USAR ALTERNATIVA -->
             <span id="textRegister">¿No tienes cuenta? <a href="register"> Registrate</a></span>

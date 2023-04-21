@@ -1,40 +1,64 @@
 <script setup>
 import language from './../components/language.vue'
+</script>
 
+<script>
 //Obtener valores formulario
-const username = document.getElementById('username');
-const surname = document.getElementById('surname');
-const email = document.getElementById('email');
-const password = document.getElementById('password');
-const file = document.getElementById('file-upload');
+//
 
-function addUser(){
-  const user = {
-    username: username.value,
-    surname: surname.value,
-    email: email.value,
-    password: password.value,
-    file: file.value
-  };
-
-  fetch('http://example.com/api/add-user', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(user)
-  })
-  .then(response => {
-    // manejar la respuesta del servidor
-  })
-  .catch(error => {
-    // manejar los errores
-  });
-}
-
-
-
-
+function addUser() {
+    const name = document.getElementById('username').value;
+    const last_name = document.getElementById('surname').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const image = "https://balandrau.salle.url.edu/i3/repositoryimages/photo/47601a8b-dc7f-41a2-a53b-19d2e8f54cd0.png";
+    
+    const user = {
+      name: name,
+      last_name: last_name,
+      email: email,
+      password: password,
+      image: image
+    };
+    
+      fetch('https://balandrau.salle.url.edu/i3/socialgift/api/v1/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+      })
+      .then(response => {
+        if(response.status === 201) {
+          alert("User added");
+          //window.location.href("/")
+        } else {
+          switch (response.status) {
+          case 400:
+            alert("Bad request");
+            break;
+        
+          case 406:
+            alert("Missing parameters");
+            break;
+          
+          case 409:
+            alert("The email is already in use");
+            break;
+          case 500:
+            alert("User not created");
+            break;
+          case 502:
+            alert("Internal server error");
+            break;
+          }
+        }
+      })
+      .catch(error => {
+        alert("User not created");
+      });
+      
+    }
 </script>
 
 <template>
@@ -45,17 +69,17 @@ function addUser(){
         <div>
           <img src="img/logo.png" id="LogoStyle" />
           <form>
-            <input type="text" class="inputRegister" name="username" placeholder="Usuario..." /><br/>
-            <input type="text" class="inputRegister" name="surname" placeholder="Surname..." /><br/>
-            <input type="text" class="inputRegister" name="email" placeholder="E-mail..." /><br/>
+            <input type="text" class="inputRegister" id="username" placeholder="Usuario..." /><br/>
+            <input type="text" class="inputRegister" id="surname" placeholder="Surname..." /><br/>
+            <input type="text" class="inputRegister" id="email" placeholder="E-mail..." /><br/>
             <input type="password" class="inputRegister" id="password" name="password" placeholder="Contraseña..."/><br/>
 
             <div class="file-upload-wrapper">
               <button type="button" class="upload-btn" onclick="document.getElementById('file-upload').click();">Profile photo</button>
               <input type="file" id="file-upload" name="file" accept="image/*">
             </div>
-
-            <button type="submit" id="registerButton" onclick="addUser()"><a href="main"> Siguiente </a></button>
+            
+            <button id="registerButton" @click="addUser"><a> Siguiente </a></button>
           </form>
         </div>
       </section>
