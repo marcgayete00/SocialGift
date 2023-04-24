@@ -1,5 +1,4 @@
 <script setup>
-
 import language from './../components/language.vue'
 
 //Link apis
@@ -7,56 +6,57 @@ import language from './../components/language.vue'
 //https://balandrau.salle.url.edu/i3/mercadoexpress/api-docs/v1/ (Api productos)
 
 //Obtener texto del input username
-
 </script>
 
 <script>
-function loginUser(){
-  var email = document.getElementById('email').value;
-  var password = document.getElementById('password').value;
+function loginUser() {
+  var email = document.getElementById('email').value
+  var password = document.getElementById('password').value
 
   const user = {
     email: email,
     password: password
-  };
-
-  fetch('https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(user)
-        })
-        .then(response => {
-          if(response.status === 200) {
-            alert("User Logged In");
-            return response.json();
-          } else {
-            switch (response.status) {
-            case 404:
-              alert("An error has occurred");
-              break;
-          
-            case 401:
-              alert("Wrong email or password");
-              break;
-            
-            case 406:
-              alert("Missing parameters");
-              break;
-          }
-          }
-        })
-        .then(data => {
-          const token = data.accessToken;
-          console.log(token);
-          window.location.href = 'main';
-        })
-        .catch(error => {
-          //Respuesta en caso de error de servidor          
-        });
   }
 
+  fetch('https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(user)
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        alert('User Logged In')
+        return response.json()
+      } else {
+        switch (response.status) {
+          case 404:
+            alert('An error has occurred')
+            break
+
+          case 401:
+            alert('Wrong email or password')
+            break
+
+          case 406:
+            alert('Missing parameters')
+            break
+        }
+      }
+    })
+    .then((data) => {
+      const token = data.accessToken
+      console.log(token)
+      // Almacenar el token en localStorage
+      localStorage.setItem('accessToken', token)
+
+      window.location.href = 'main'
+    })
+    .catch((error) => {
+      //Respuesta en caso de error de servidor
+    })
+}
 </script>
 
 <template>
@@ -68,7 +68,12 @@ function loginUser(){
           <img src="img/logo.png" id="LogoStyle" />
           <form>
             <input type="text" class="input" id="email" placeholder="Email" /><br />
-            <input type="password" class="input" id="password" name="password" placeholder="Contraseña"
+            <input
+              type="password"
+              class="input"
+              id="password"
+              name="password"
+              placeholder="Contraseña"
             /><br />
             <button id="loginButton" @click="loginUser"><a href="#"> Login </a></button>
             <hr />
