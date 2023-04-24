@@ -2,6 +2,45 @@
 import NavBar from './../components/NavBar.vue'
 import language from './../components/language.vue'
 </script>
+<script>
+export default {
+  data() {
+    return {
+      user: {
+        id: 0,
+        name: '',
+        last_name: '',
+        email: '',
+        image: ''
+      }
+    };
+  },
+  mounted() {
+    const email = localStorage.getItem('email');
+    console.log(email);
+    const token = localStorage.getItem('accessToken');
+    const encodedEmail = encodeURIComponent(email).replace('@', '%40');
+    console.log(encodedEmail);
+    fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/search?s=${encodedEmail}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(response => response.json())
+    /*.then(data => {
+      const userData = data[0];
+      this.user.id = userData.id;
+      this.user.name = userData.name;
+      this.user.last_name = userData.last_name;
+      this.user.email = userData.email;
+      this.user.image = userData.image;
+      console.log(this.user);
+    })
+    .catch(error => console.error(error));*/
+  }
+};
+</script>
 
 <template>
     <div>
@@ -19,11 +58,10 @@ import language from './../components/language.vue'
         </div>
         <div id="ProfileInfo">
           <div id="ProfileImage">
-            <img src="img/DefaultProfilePhoto.png" id="ProfilePicture"/>
-            
+            <img :src="user.image" alt="Imagen del usuario">            
           </div>
           <div id="ProfileName">
-            <h1>Pablo03</h1>
+            <h1>{{ user.name }}</h1>
           </div>
           <div id="UserCount">
             <h1>6</h1>
@@ -66,7 +104,7 @@ import language from './../components/language.vue'
   </div>
 </template>
 
-<script>
+<!--<script>
 export default {
   methods: {
     myFunction() {
@@ -74,7 +112,7 @@ export default {
     }
   }
 }
-</script>
+</script>-->
 
 <style>
   @media screen and (max-width: 600px) {

@@ -2,6 +2,7 @@
 import NavBar from './../components/NavBar.vue'
 import language from './../components/language.vue'
 </script>
+
 <template>
   <div>
     <language />
@@ -98,6 +99,8 @@ export default {
   }
 }
 </script>
+
+
 
 <style scoped>
 @import '../assets/Wishlists.css';

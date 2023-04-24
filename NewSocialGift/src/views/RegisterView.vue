@@ -29,32 +29,37 @@ function addUser() {
   body: JSON.stringify(user)
 })
 .then(response => {
+  console.log("pasa: "+response.status)
   if (response.status === 201) {
     alert("User added");
     //window.location.href("/")
-  }
+  } else {
+    console.log("hey")
+        switch (response.status) {
+          case 404:
+            alert('An error has occurred')
+            break
+
+          case 401:
+            alert('Wrong email or password')
+            break
+
+            case 406:
+              alert('Missing parameters')
+              break
+
+            case 409:
+              alert('Missing parameters')
+              break
+
+          default:
+            alert('An error has occurred')
+            break
+        }
+      }
 })
 .catch(error => {
-  switch (response.status) {
-    case 400:
-      alert("Bad request");
-      break;
-    case 406:
-      alert("Missing parameters");
-      break;
-    case 409:
-      alert("The email is already in use");
-      break;
-    case 500:
-      alert("User not created");
-      break;
-    case 502:
-      alert("Internal server error");
-      break;
-    default:
-      alert("An error has occurred");
-      break;
-  }
+  console.log(error)
 });
 
     }
@@ -67,7 +72,7 @@ function addUser() {
       <section id="RegisterSection">
         <div>
           <img src="img/logo.png" id="LogoStyle" />
-          <form>
+          <form onsubmit="return false">
             <input type="text" class="inputRegister" id="username" placeholder="Usuario..." /><br/>
             <input type="text" class="inputRegister" id="surname" placeholder="Surname..." /><br/>
             <input type="text" class="inputRegister" id="email" placeholder="E-mail..." /><br/>

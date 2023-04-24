@@ -50,7 +50,7 @@ function loginUser() {
       console.log(token)
       // Almacenar el token en localStorage
       localStorage.setItem('accessToken', token)
-
+      localStorage.setItem('email', user.email)
       window.location.href = 'main'
     })
     .catch((error) => {
