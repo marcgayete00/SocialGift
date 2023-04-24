@@ -29,6 +29,7 @@ function loginUser(){
         })
         .then(response => {
           if(response.status === 200) {
+            alert("User Logged In");
             return response.json();
           } else {
             switch (response.status) {
@@ -47,7 +48,6 @@ function loginUser(){
           }
         })
         .then(data => {
-          alert("User Logged In");
           const token = data.accessToken;
           console.log(token);
           window.location.href = 'main';

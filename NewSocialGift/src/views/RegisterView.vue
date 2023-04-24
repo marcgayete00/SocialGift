@@ -21,43 +21,42 @@ function addUser() {
       image: image
     };
     
-      fetch('https://balandrau.salle.url.edu/i3/socialgift/api/v1/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(user)
-      })
-      .then(response => {
-        if(response.status === 201) {
-          alert("User added");
-          //window.location.href("/")
-        } else {
-          switch (response.status) {
-          case 400:
-            alert("Bad request");
-            break;
-        
-          case 406:
-            alert("Missing parameters");
-            break;
-          
-          case 409:
-            alert("The email is already in use");
-            break;
-          case 500:
-            alert("User not created");
-            break;
-          case 502:
-            alert("Internal server error");
-            break;
-          }
-        }
-      })
-      .catch(error => {
-        alert("User not created");
-      });
-      
+    fetch('https://balandrau.salle.url.edu/i3/socialgift/api/v1/users', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(user)
+})
+.then(response => {
+  if (response.status === 201) {
+    alert("User added");
+    //window.location.href("/")
+  }
+})
+.catch(error => {
+  switch (response.status) {
+    case 400:
+      alert("Bad request");
+      break;
+    case 406:
+      alert("Missing parameters");
+      break;
+    case 409:
+      alert("The email is already in use");
+      break;
+    case 500:
+      alert("User not created");
+      break;
+    case 502:
+      alert("Internal server error");
+      break;
+    default:
+      alert("An error has occurred");
+      break;
+  }
+});
+
     }
 </script>
 
