@@ -1,6 +1,5 @@
 body{
     font-family: 'Inter', sans-serif;
-    
  }
 
  #GeneralSection{
@@ -49,11 +48,12 @@ body{
         margin-top: 60px;
         float: right;
         font-size: 40px;
+        font-family:  'Inter', sans-serif;  
     }
 
     .diveditarperfil{
         display: flex;
-        margin-bottom: 40px;
+        margin-bottom: 10px;
         margin-left: 25px;
     }
 
@@ -127,6 +127,54 @@ body{
       padding-right: 17px;
       margin-left: 400px;
     }
+
+    #input_name{
+        position: relative;
+        top: 10px;
+        left: 40px;
+        width: 300px;
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid #cccccc;
+        font-family: 'Inter', sans-serif;
+    }
+
+    #input_last_name{
+        position: relative;
+        top: 10px;
+        left: 20px;
+        width: 300px;
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid #cccccc;
+        font-family: 'Inter', sans-serif;
+    }
+
+    #input_email{
+        position: relative;
+        top: 10px;
+        left: 60px;
+        width: 300px;
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid #cccccc;
+        font-family: 'Inter', sans-serif;
+    }
+
+    h3{
+        font-family: 'Inter', sans-serif;
+    }
+
+    h4{
+        font-family: 'Inter', sans-serif;
+    }
+    
+
+    
+
+
+
+    
 
 
   

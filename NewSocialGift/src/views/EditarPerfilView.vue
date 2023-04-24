@@ -3,83 +3,94 @@ import language from './../components/language.vue'
 import NavBar from './../components/NavBar.vue'
 </script>
 
+<script>
+const token = localStorage.getItem('accessToken')
+if (token == null) {
+  window.location.href = 'login'
+
+  //Obtener texto del input username
+  const name = document.getElementById('username').value
+  const last_name = document.getElementById('surname').value
+  const email = document.getElementById('email').value
+} else {
+}
+</script>
+
 <template>
-      <language />
-      
-      <section id="GeneralSection">
-        <NavBar />
-        <section class="editarperfil-section">
-            <h2 id="tituloeditarperf">Editar Perfil</h2>
-            <div>
-                <div id="headeditarperfil">
-                    <img src="../../img/DefaultProfilePhoto.png">
-                    <h3>NickName</h3>
-                    <a href="#"><button id="EliminarButton">Eliminar Cuenta</button></a>
-                </div>
-                <a href="#"><h4>Cambiar Foto</h4></a>
-                <div class="diveditarperfil">
-                    <h3>Descripción</h3>
-                    <textarea>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</textarea> 
-                </div>
-                <h5>12/100</h5>
-                <div class="diveditarperfil">
-                    <h3>Género</h3>
-                    <select>
-                        <option>Hombre</option>
-                        <option>Mujer</option>
-                        <option>Otro</option>
-                    </select>
-                </div>
-                <div class="diveditarperfil">
-                    <h3 id="titulocont">Cambiar Contraseña</h3>
-                    <button>******</button>
-                </div>
-                <a href="#"><button id="GuardarButton">Guardar</button></a>
-            </div>
-        </section>
-      </section>
-  </template>
+  <language />
+
+  <section id="GeneralSection">
+    <NavBar />
+    <section class="editarperfil-section">
+      <h2 id="tituloeditarperf">Editar Perfil</h2>
+      <div>
+        <div id="headeditarperfil">
+          <img src="../../img/DefaultProfilePhoto.png" />
+          <h3>NickName</h3>
+          <a href="#"><button id="EliminarButton">Eliminar Cuenta</button></a>
+        </div>
+        <a href="#"><h4>Cambiar Foto</h4></a>
+        <div class="diveditarperfil">
+          <h3>Nombre</h3>
+          <input type="text" id="input_name" placeholder="Nombre" />
+        </div>
+        <div class="diveditarperfil">
+          <h3>Last Name</h3>
+          <input type="text" id="input_last_name" placeholder="Last Name" />
+        </div>
+        <div class="diveditarperfil">
+          <h3>Email</h3>
+          <input type="text" id="input_email" placeholder="Email" />
+        </div>
+        <div class="diveditarperfil">
+          <h3 id="titulocont">Cambiar Contraseña</h3>
+          <button>******</button>
+        </div>
+        <a href="#"><button id="GuardarButton">Guardar</button></a>
+      </div>
+    </section>
+  </section>
+</template>
 
 <style scoped>
 @import '../assets/EditarPerfilStyle.css';
 </style>
+
 <style>
-    @media screen and (max-width: 600px) {
-        .editarperfil-section {
-            margin-top: 50px !important;
-            width: 105% !important;
-        }
-        .editarperfil-section > div{
-            margin-top: 20px !important;
-            margin-left: 0px !important;
-        }
+@media screen and (max-width: 600px) {
+  .editarperfil-section {
+    margin-top: 50px !important;
+    width: 105% !important;
+  }
+  .editarperfil-section > div {
+    margin-top: 20px !important;
+    margin-left: 0px !important;
+  }
 
-        .editarperfil-section img{
-            width: 100px !important;
-        }
+  .editarperfil-section img {
+    width: 100px !important;
+  }
 
-        .editarperfil-section button{
-            width: 100px !important;
-            font-size: 15px !important;
-        }
+  .editarperfil-section button {
+    width: 100px !important;
+    font-size: 15px !important;
+  }
 
-        .editarperfil-section select{
-            padding: 10px !important;
-            
-        }
-        .diveditarperfil textarea{
-            width: 175px !important;
-        }
-        .editarperfil-section h4{
-            margin-top: 0px !important;
-            display: flex !important;
-        }
-        .editarperfil-section h2{
-            visibility: hidden;
-        } 
-        #GuardarButton{
-            margin-left: 140px !important;
-        }
-    }
+  .editarperfil-section select {
+    padding: 10px !important;
+  }
+  .diveditarperfil textarea {
+    width: 175px !important;
+  }
+  .editarperfil-section h4 {
+    margin-top: 0px !important;
+    display: flex !important;
+  }
+  .editarperfil-section h2 {
+    visibility: hidden;
+  }
+  #GuardarButton {
+    margin-left: 140px !important;
+  }
+}
 </style>
-  
