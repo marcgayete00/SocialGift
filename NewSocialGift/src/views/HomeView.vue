@@ -1,6 +1,9 @@
 <script setup>
 import language from './../components/language.vue'
 
+localStorage.removeItem('accessToken')
+localStorage.removeItem('email')
+
 function loginUser() {
   var email = document.getElementById('email').value
   var password = document.getElementById('password').value
@@ -52,7 +55,6 @@ function loginUser() {
 //Link apis
 //https://balandrau.salle.url.edu/i3/socialgift/api-docs/v1/  (Api usuarios)
 //https://balandrau.salle.url.edu/i3/mercadoexpress/api-docs/v1/ (Api productos)
-
 //Obtener texto del input username
 </script>
 

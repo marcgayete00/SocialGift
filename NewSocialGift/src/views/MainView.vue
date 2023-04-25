@@ -17,8 +17,8 @@ console.log(token)
       <div class="options-box">
         <div id="profile-box">
           <img class="profileimg" src="../../img/DefaultProfilePhoto.png" />
-          <h3>Pablo03</h3>
-          <h5>Pablo García</h5>
+          <h3><a href="editarperfil">Pablo03</a></h3>
+          <h5><a> Pablo Garcia </a></h5>
         </div>
         <h3>Plantillas de listas</h3>
         <ul>

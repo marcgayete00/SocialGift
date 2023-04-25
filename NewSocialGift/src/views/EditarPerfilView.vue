@@ -3,14 +3,33 @@ import language from './../components/language.vue'
 import NavBar from './../components/NavBar.vue'
 
 const token = localStorage.getItem('accessToken')
-if (token == undefined) {
+const email = localStorage.getItem('email')
+if (token === undefined || token === null) {
   window.location.href = '/'
 } else {
-    //Obtener texto del input username
-    const name = document.getElementById('username').value
-  const last_name = document.getElementById('surname').value
-  const email = document.getElementById('email').value
-  console.log("hoLA")
+    //Hacer una peticion GET pasandole el email del usuario logueado
+    //Cambiar el @ de la variable email por URL encoded %40
+    const encodedEmail = encodeURIComponent(email).replace('@', '%40');
+  
+  fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/search?s=${encodedEmail}`, {
+    method: 'GET',
+    headers: {
+        'Authorization': `Bearer ${token}`
+    }
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        return response.json()
+      } 
+    })
+    .then((data) => {
+      //mostrar el cotenido que nos devuelve el servidor
+      console.log(data);
+      
+    })
+    .catch((error) => {
+      //Respuesta en caso de error de servidor
+    })
 }
 </script>
 
