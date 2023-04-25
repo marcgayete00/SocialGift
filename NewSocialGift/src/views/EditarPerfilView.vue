@@ -1,18 +1,16 @@
 <script setup>
 import language from './../components/language.vue'
 import NavBar from './../components/NavBar.vue'
-</script>
 
-<script>
 const token = localStorage.getItem('accessToken')
-if (token == null) {
-  window.location.href = 'login'
-
-  //Obtener texto del input username
-  const name = document.getElementById('username').value
+if (token == undefined) {
+  window.location.href = '/'
+} else {
+    //Obtener texto del input username
+    const name = document.getElementById('username').value
   const last_name = document.getElementById('surname').value
   const email = document.getElementById('email').value
-} else {
+  console.log("hoLA")
 }
 </script>
 
