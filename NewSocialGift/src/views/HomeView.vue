@@ -2,7 +2,6 @@
 import language from './../components/language.vue'
 
 localStorage.removeItem('accessToken')
-localStorage.removeItem('email')
 
 function loginUser() {
   var email = document.getElementById('email').value
@@ -45,7 +44,6 @@ function loginUser() {
       console.log(token)
       // Almacenar el token en localStorage
       localStorage.setItem('accessToken', token)
-      localStorage.setItem('email', user.email)
       window.location.href = 'main'
     })
     .catch((error) => {

@@ -7,34 +7,34 @@ import language from './../components/language.vue'
 //
 
 function addUser() {
-    const name = document.getElementById('username').value;
-    const last_name = document.getElementById('surname').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const image = "https://balandrau.salle.url.edu/i3/repositoryimages/photo/47601a8b-dc7f-41a2-a53b-19d2e8f54cd0.png";
-    
-    const user = {
-      name: name,
-      last_name: last_name,
-      email: email,
-      password: password,
-      image: image
-    };
-    
-    fetch('https://balandrau.salle.url.edu/i3/socialgift/api/v1/users', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(user)
-})
-.then(response => {
-  console.log("pasa: "+response.status)
-  if (response.status === 201) {
-    alert("User added");
-    //window.location.href("/")
-  } else {
-    console.log("hey")
+  const name = document.getElementById('username').value
+  const last_name = document.getElementById('surname').value
+  const email = document.getElementById('email').value
+  const password = document.getElementById('password').value
+  const image =
+    'https://balandrau.salle.url.edu/i3/repositoryimages/photo/47601a8b-dc7f-41a2-a53b-19d2e8f54cd0.png'
+
+  const user = {
+    name: name,
+    last_name: last_name,
+    email: email,
+    password: password,
+    image: image
+  }
+
+  fetch('https://balandrau.salle.url.edu/i3/socialgift/api/v1/users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(user)
+  })
+    .then((response) => {
+      if (response.status === 201) {
+        alert('User added')
+        window.location.href('/')
+      } else {
+        console.log('hey')
         switch (response.status) {
           case 404:
             alert('An error has occurred')
@@ -44,25 +44,24 @@ function addUser() {
             alert('Wrong email or password')
             break
 
-            case 406:
-              alert('Missing parameters')
-              break
+          case 406:
+            alert('Missing parameters')
+            break
 
-            case 409:
-              alert('Missing parameters')
-              break
+          case 409:
+            alert('Missing parameters')
+            break
 
           default:
             alert('An error has occurred')
             break
         }
       }
-})
-.catch(error => {
-  console.log(error)
-});
-
-    }
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+}
 </script>
 
 <template>
@@ -73,16 +72,28 @@ function addUser() {
         <div>
           <img src="img/logo.png" id="LogoStyle" />
           <form onsubmit="return false">
-            <input type="text" class="inputRegister" id="username" placeholder="Usuario..." /><br/>
-            <input type="text" class="inputRegister" id="surname" placeholder="Surname..." /><br/>
-            <input type="text" class="inputRegister" id="email" placeholder="E-mail..." /><br/>
-            <input type="password" class="inputRegister" id="password" name="password" placeholder="Contraseña..."/><br/>
+            <input type="text" class="inputRegister" id="username" placeholder="Usuario..." /><br />
+            <input type="text" class="inputRegister" id="surname" placeholder="Surname..." /><br />
+            <input type="text" class="inputRegister" id="email" placeholder="E-mail..." /><br />
+            <input
+              type="password"
+              class="inputRegister"
+              id="password"
+              name="password"
+              placeholder="Contraseña..."
+            /><br />
 
             <div class="file-upload-wrapper">
-              <button type="button" class="upload-btn" onclick="document.getElementById('file-upload').click();">Profile photo</button>
-              <input type="file" id="file-upload" name="file" accept="image/*">
+              <button
+                type="button"
+                class="upload-btn"
+                onclick="document.getElementById('file-upload').click();"
+              >
+                Profile photo
+              </button>
+              <input type="file" id="file-upload" name="file" accept="image/*" />
             </div>
-            
+
             <button id="registerButton" @click="addUser"><a> Siguiente </a></button>
           </form>
         </div>
@@ -110,81 +121,77 @@ function addUser() {
 </template>
 
 <style>
-  @media screen and (max-width: 600px) {
-    #LogoStyle{
-      width: 200px !important;
-      height: 60px !important;
-      margin-left: 50px !important;
-      margin-top: 20px;
-    }
-
-    #GeneralSectionRegister {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    #RegisterSection {
-      width: 300px;
-      margin-top: 20px;
-    }
-    
-    .inputRegister{
-      width: 280px !important;
-      margin-right: 20px;
-    }
-
-    #GeneralSectionRegister2 {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 350px;
-      margin-bottom: 50px !important;
-    }
-
-    #RegisterSection2 {
-      margin-top: 400px;
-    }
-    #registerFooter {
-      display: none;
-    }
-
-    .upload-btn {
-      width: 250px !important;
-    }
-
-    .file-upload-wrapper{
-      margin-left: 25px !important;
-    }
-
-    #registerButton {
-      width: 250px !important;
-      height: 50px !important;
-      margin-left: 25px !important;
-      margin-bottom: 30px;
-    }
-
-    #RegisterSection2 {
-      width: 210% !important;
-      height: 30% !important;
-      margin-top: 250px !important;
-      padding-top: 7px !important;
-
-    }
-
-    #textRegister2{
-     font-size: small !important;
-     margin-left: 20px !important;
-     padding-bottom: 10px !important;
-    }
-
-    #textRegister2 a{
-      font-size: large !important;
-
-    }
-    
+@media screen and (max-width: 600px) {
+  #LogoStyle {
+    width: 200px !important;
+    height: 60px !important;
+    margin-left: 50px !important;
+    margin-top: 20px;
   }
-   
-  </style>
+
+  #GeneralSectionRegister {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #RegisterSection {
+    width: 300px;
+    margin-top: 20px;
+  }
+
+  .inputRegister {
+    width: 280px !important;
+    margin-right: 20px;
+  }
+
+  #GeneralSectionRegister2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+    margin-bottom: 50px !important;
+  }
+
+  #RegisterSection2 {
+    margin-top: 400px;
+  }
+  #registerFooter {
+    display: none;
+  }
+
+  .upload-btn {
+    width: 250px !important;
+  }
+
+  .file-upload-wrapper {
+    margin-left: 25px !important;
+  }
+
+  #registerButton {
+    width: 250px !important;
+    height: 50px !important;
+    margin-left: 25px !important;
+    margin-bottom: 30px;
+  }
+
+  #RegisterSection2 {
+    width: 210% !important;
+    height: 30% !important;
+    margin-top: 250px !important;
+    padding-top: 7px !important;
+  }
+
+  #textRegister2 {
+    font-size: small !important;
+    margin-left: 20px !important;
+    padding-bottom: 10px !important;
+  }
+
+  #textRegister2 a {
+    font-size: large !important;
+  }
+}
+</style>
 
 <style scoped>
 @import '../assets/HomeStyle.css';
