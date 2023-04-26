@@ -1,44 +1,73 @@
-<script setup>
+<script>
 import NavBar from './../components/NavBar.vue'
 import language from './../components/language.vue'
 import MiComponente from './../components/separarTrama.vue'
 
-const token = localStorage.getItem('accessToken')
-console.log(token)
-  if (token === undefined || token === null) {
-    window.location.href = '/'
-  } else {
-    //llamar a la funcion que separa
-    const id = MiComponente.methods.obtenerIdDesdeToken(token)
-    //Hacer una peticion GET pasandole el email del usuario logueado
+export default {
+  name: 'MiComponente',
+  components: {
+    NavBar,
+    language
+  },
+  data() {
+    return {
+      llistes: []
+    }
+  },
+  mounted() {
+    const token = localStorage.getItem('accessToken')
+    console.log(token)
+    if (token === undefined || token === null) {
+      window.location.href = '/'
+    } else {
+      //llamar a la funcion que separa
+      const id = MiComponente.methods.obtenerIdDesdeToken(token)
+      //Hacer una peticion GET pasandole el email del usuario logueado
 
-    fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${id}`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          return response.json()
+      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${id}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`
         }
       })
-      .then((data) => {
-        //mostrar el cotenido que nos devuelve el servidor
-        document.getElementById('usernameJS').innerHTML = data.name
-        document.getElementById('lastnameJS').innerHTML = data.name
-        document.getElementById('profileImageJS').src = data.image
-        
-        
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json()
+          }
+        })
+        .then((data) => {
+          //mostrar el cotenido que nos devuelve el servidor
+          document.getElementById('usernameJS').innerHTML = data.name
+          document.getElementById('lastnameJS').innerHTML = data.last_name
+          document.getElementById('profileImageJS').src = data.image
+        })
+        .catch((error) => {
+          //Respuesta en caso de error de servidor
+        })
+
+      //Hacer un get para obtener las listas del usuario
+      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${id}/wishlists`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
-      .catch((error) => {
-        //Respuesta en caso de error de servidor
-      })
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json()
+          }
+        })
+        .then((data) => {
+          console.log(data)
+          this.llistes = data
+        })
+        .catch((error) => {
+          // Respuesta en caso de error de servidor
+        })
+    }
   }
-
-  
+}
 </script>
-
 
 <template>
   <div>
@@ -50,15 +79,20 @@ console.log(token)
         <div id="profile-box">
           <img id="profileImageJS" class="profileimg" src="" />
           <div>
-            <h3 id="usernameJS"><a href="editarperfil"></a></h3>
+            <h3><a id="usernameJS" href="profile"></a></h3>
             <h5 id="lastnameJS"><a></a></h5>
           </div>
         </div>
+        <h3>Tus Listas</h3>
+        <!--id 125-->
+        <ul id="lista-nombres">
+          <li v-for="llista in llistes">{{ llista.name }}</li>
+        </ul>
         <h3>Plantillas de listas</h3>
         <ul>
-          <li><a href="#">Lista de Deseos</a></li>
-          <li><a href="#">Lista de Cumpleaños</a></li>
-          <li><a href="#">Lista Blanco y Negro</a></li>
+          <li>Lista de deseos</li>
+          <li>Lista de cumpleaños</li>
+          <li>Lista blanco y negro</li>
         </ul>
       </div>
       <div class="image-section">
