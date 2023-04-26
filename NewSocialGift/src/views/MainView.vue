@@ -1,12 +1,44 @@
 <script setup>
 import NavBar from './../components/NavBar.vue'
 import language from './../components/language.vue'
-</script>
+import MiComponente from './../components/separarTrama.vue'
 
-<script>
 const token = localStorage.getItem('accessToken')
 console.log(token)
+  if (token === undefined || token === null) {
+    window.location.href = '/'
+  } else {
+    //llamar a la funcion que separa
+    const id = MiComponente.methods.obtenerIdDesdeToken(token)
+    //Hacer una peticion GET pasandole el email del usuario logueado
+
+    fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${id}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json()
+        }
+      })
+      .then((data) => {
+        //mostrar el cotenido que nos devuelve el servidor
+        document.getElementById('usernameJS').innerHTML = data.name
+        document.getElementById('lastnameJS').innerHTML = data.name
+        document.getElementById('profileImageJS').src = data.image
+        
+        
+      })
+      .catch((error) => {
+        //Respuesta en caso de error de servidor
+      })
+  }
+
+  
 </script>
+
 
 <template>
   <div>
@@ -16,9 +48,11 @@ console.log(token)
       <NavBar />
       <div class="options-box">
         <div id="profile-box">
-          <img class="profileimg" src="../../img/DefaultProfilePhoto.png" />
-          <h3><a href="editarperfil">Pablo03</a></h3>
-          <h5><a> Pablo Garcia </a></h5>
+          <img id="profileImageJS" class="profileimg" src="" />
+          <div>
+            <h3 id="usernameJS"><a href="editarperfil"></a></h3>
+            <h5 id="lastnameJS"><a></a></h5>
+          </div>
         </div>
         <h3>Plantillas de listas</h3>
         <ul>

@@ -11,8 +11,8 @@ function addUser() {
   const last_name = document.getElementById('surname').value
   const email = document.getElementById('email').value
   const password = document.getElementById('password').value
-  const image =
-    'https://balandrau.salle.url.edu/i3/repositoryimages/photo/47601a8b-dc7f-41a2-a53b-19d2e8f54cd0.png'
+  const image = document.getElementById('file-upload').value
+
 
   const user = {
     name: name,
@@ -32,7 +32,7 @@ function addUser() {
     .then((response) => {
       if (response.status === 201) {
         alert('User added')
-        window.location.href('/')
+        window.location.replace('/')
       } else {
         console.log('hey')
         switch (response.status) {
@@ -84,14 +84,7 @@ function addUser() {
             /><br />
 
             <div class="file-upload-wrapper">
-              <button
-                type="button"
-                class="upload-btn"
-                onclick="document.getElementById('file-upload').click();"
-              >
-                Profile photo
-              </button>
-              <input type="file" id="file-upload" name="file" accept="image/*" />
+              <input id="file-upload" class="inputRegister" name="file" accept="image/*" placeholder="Profile photo URL (http://...)" />
             </div>
 
             <button id="registerButton" @click="addUser"><a> Siguiente </a></button>

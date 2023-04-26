@@ -4,7 +4,7 @@ import NavBar from './../components/NavBar.vue'
 import MiComponente from './../components/separarTrama.vue'
 
 const token = localStorage.getItem('accessToken')
-console.log('Token2 ' + token)
+const flag = true;
 
 if (token === undefined || token === null) {
   window.location.href = '/'
@@ -31,72 +31,173 @@ if (token === undefined || token === null) {
       document.getElementById('input_last_name').placeholder = data.last_name
       document.getElementById('input_email').placeholder = data.email
       document.getElementById('profileImageJS').src = data.image
+      document.getElementById('input_profile_photo').placeholder = data.image
     })
     .catch((error) => {
       //Respuesta en caso de error de servidor
     })
 }
 
-function editData() {
-  const id = MiComponente.methods.obtenerIdDesdeToken(token)
-  const name = document.getElementById('input_name').value
-  const last_name = document.getElementById('input_last_name').value
-  const email = document.getElementById('input_email').value
-  const password = document.getElementById('current_password').value
-  const image =
-    'https://balandrau.salle.url.edu/i3/repositoryimages/photo/47601a8b-dc7f-41a2-a53b-19d2e8f54cd0.png'
+function verifyPassword( password, new_password, new_password2, email ){
+  console.log( password, new_password, new_password2, email)
+  if (new_password != new_password2) {
+    alert('The new passwords do not match')
+    flag = false;
+    return Promise.resolve(false);
 
-  const user = {
-    id: id,
-    name: name,
-    last_name: last_name,
-    email: email,
-    password: password,
-    image: image
+  } else {
+    const user = {
+      email: email,
+      password: password
+    }
+
+    return fetch('https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+        return false;
+      })
   }
 
-  fetch('https://balandrau.salle.url.edu/i3/socialgift/api/v1/users', {
-    method: 'PUT',
-    headers: {
-      Authorization: `Bearer ${token}`
-    },
-    body: JSON.stringify(user)
-  })
-    .then((response) => {
-      if (response.status === 200) {
-        alert('User edited correctly')
-      } else {
-        switch (response.status) {
-          case 400:
-            alert('Bad request')
-            break
+}
 
-          case 401:
-            alert('Unauthorized')
-            break
 
-          case 406:
-            alert('Missing parameters')
-            break
+async function editData() {
+  const password = document.getElementById('current_password').value
+  const new_password = document.getElementById('new_password').value
+  const new_password2 = document.getElementById('new_password2').value
+  const email = document.getElementById('input_email').placeholder
 
-          case 409:
-            alert('The email address has already been previously registered')
-            break
+  //Verficar si la contraseña introducida es correcta
+  if (await verifyPassword(password , new_password , new_password2, email)){
+    
+    const name = document.getElementById('input_name').value
+    const last_name = document.getElementById('input_last_name').value
+    const email = document.getElementById('input_email').value
+    const image = document.getElementById('input_profile_photo').value
 
-          case 410:
-            alert('No user has been edited')
-            break
 
-          default:
-            alert('An error has occurred')
-            break
+    if (name === undefined){
+      name = document.getElementById('input_name').placeholder
+    }
+
+    if (last_name === undefined){
+      last_name = document.getElementById('input_last_name').placeholder
+    }
+
+    if (email === undefined){
+      email = document.getElementById('input_email').placeholder
+    }
+
+    if(image === undefined){
+      image = document.getElementById('input_profile_photo').placeholder
+    }
+
+    const user = {
+      name: name,
+      last_name: last_name,
+      email: email,
+      password: password,
+      image: image
+    }
+
+    fetch('https://balandrau.salle.url.edu/i3/socialgift/api/v1/users', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(user)
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          alert('User edited correctly')
+          window.location.href = '/editarperfil'
+        } else {
+          switch (response.status) {
+            case 400:
+              alert('Bad request')
+              break
+
+            case 401:
+              alert('Unauthorized')
+              break
+
+            case 406:
+              alert('Missing parameters')
+              break
+
+            case 409:
+              alert('The email address has already been previously registered')
+              break
+
+            case 410:
+              alert('No user has been edited')
+              break
+
+            default:
+              alert('An error has occurred')
+              break
+          }
         }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    
+    } else {
+      if (flag){
+        alert('The current password is incorrect')
+      }
+    }
+}
+
+function deleteAccount(){
+  fetch('https://balandrau.salle.url.edu/i3/socialgift/api/v1/users', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
       }
     })
-    .catch((error) => {
-      console.log(error)
-    })
-}
+      .then((response) => {
+        if (response.status === 200) {
+          alert('User edited correctly')
+          localStorage.removeItem('accessToken')
+          window.location.href = '/'
+        } else {
+          switch (response.status) {
+            case 401:
+              alert('Unauthorized')
+              break
+            case 500:
+              alert('User not deleted')
+              break
+            case 502:
+              alert('Internal server error')
+              break
+            default:
+              alert('An error has occurred')
+              break
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
 </script>
 
 <template>
@@ -111,9 +212,8 @@ function editData() {
           <img id="profileImageJS" src="" />
 
           <h3 id="usernameJS"></h3>
-          <a href="#"><button id="EliminarButton">Eliminar Cuenta</button></a>
+          <a href="#"><button id="EliminarButton" @click="deleteAccount">Eliminar Cuenta</button></a>
         </div>
-        <a href="#"><h4>Cambiar Foto</h4></a>
         <div class="diveditarperfil">
           <h3>Nombre</h3>
           <input type="text" id="input_name" placeholder="" />
@@ -126,6 +226,11 @@ function editData() {
           <h3>Email</h3>
           <input type="text" id="input_email" placeholder="" />
         </div>
+        <div class="diveditarperfil">
+          <h3>URL profile photo</h3>
+          <input type="text" id="input_profile_photo" placeholder="" />
+        </div>
+
         <h3>Cambiar Contraseña</h3>
         <input type="text" id="current_password" placeholder="*******" />
         <input type="text" id="new_password" placeholder="New password" />

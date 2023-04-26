@@ -198,6 +198,17 @@ body{
         font-family: 'Inter', sans-serif;
     }
 
+    #input_profile_photo{
+        position: relative;
+        top: 10px;
+        left: 30px;
+        width: 300px;
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid #cccccc;
+        font-family: 'Inter', sans-serif;
+    }
+
     h3{
         font-family: 'Inter', sans-serif;
     }
@@ -205,6 +216,15 @@ body{
     h4{
         font-family: 'Inter', sans-serif;
     }
+
+/*Estilos para redondear una imagen*/
+  #profileImageJS{
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin-top: 20px;
+    margin-right: 20px;
+  }
     
 
     
