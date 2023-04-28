@@ -4,7 +4,7 @@ import language from './../components/language.vue'
 import MiComponente from './../components/separarTrama.vue'
 
 export default {
-  name: 'MiComponente',
+  name: 'MainView',
   components: {
     NavBar,
     language
@@ -14,80 +14,37 @@ export default {
       llistes: []
     }
   },
-  mounted() {
-    const token = localStorage.getItem('accessToken')
-    console.log(token)
-    if (token === undefined || token === null) {
-      window.location.href = '/'
-    } else {
-      //llamar a la funcion que separa
-      const id = MiComponente.methods.obtenerIdDesdeToken(token)
-      //Hacer una peticion GET pasandole el email del usuario logueado
+  methods: {
+    
+    obtainFriendsWishlist(token,ids) {
+      let wishlists = [];
+      for(let i = 0; i < ids.length; i++) {
+            fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${ids[i]}/wishlists`, {
 
-      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${id}`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-        .then((response) => {
-          if (response.status === 200) {
-            return response.json()
+              method: 'GET',
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
+            })
+              .then((response) => {
+                if (response.status === 200) {
+                  return response.json()
+                }
+              })
+              .then((data) => {
+                console.log(ids[i])
+                console.log(data)
+                wishlists.push = data
+                
+              })
+              .catch((error) => {
+                // Respuesta en caso de error de servidor
+              })
           }
-        })
-        .then((data) => {
-          //mostrar el cotenido que nos devuelve el servidor
-          document.getElementById('usernameJS').innerHTML = data.name
-          document.getElementById('lastnameJS').innerHTML = data.last_name
-          document.getElementById('profileImageJS').src = data.image
-        })
-        .catch((error) => {
-          //Respuesta en caso de error de servidor
-        })
+          console.log(wishlists)
+    },
 
-      //Hacer un get para obtener las listas del usuario
-      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${id}/wishlists`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-        .then((response) => {
-          if (response.status === 200) {
-            return response.json()
-          }
-        })
-        .then((data) => {
-          console.log(data)
-          this.llistes = data
-        })
-        .catch((error) => {
-          // Respuesta en caso de error de servidor
-        })
-
-      //Hacer un get para obtener la lista de amigos
-      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${id}`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-        .then((response) => {
-          if (response.status === 200) {
-            return response.json()
-          }
-        })
-        .then((data) => {
-          //mostrar el cotenido que nos devuelve el servidor
-          document.getElementById('usernameJS').innerHTML = data.name
-          document.getElementById('lastnameJS').innerHTML = data.last_name
-          document.getElementById('profileImageJS').src = data.image
-        })
-        .catch((error) => {
-          //Respuesta en caso de error de servidor
-        })
-
-      //Hacer un get para obtener las listas del usuario
+    obtainFriends(token, id){
       fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${id}/friends`, {
         method: 'GET',
         headers: {
@@ -100,16 +57,74 @@ export default {
           }
         })
         .then((data) => {
-          console.log(data)
-          
+          //console.log("Amigos usuario actual ")
+          //console.log(data)
+          const ids = data.map(obj => obj.id);
+          this.obtainFriendsWishlist(token,ids)
+        })
+        .catch((error) => {
+          //Respuesta en caso de error de servidor
+        })
+    },
+    
+    obtainOwnWishlist(token,id){
+
+      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${id}/wishlists`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json()
+          }
+        })
+        .then((data) => {
+          //console.log("Listas usuario actual ")
+          //console.log(data)
+          this.llistes = data
+          this.obtainFriends(token, id)
         })
         .catch((error) => {
           // Respuesta en caso de error de servidor
         })
-      
-
     }
-  }
+  },
+  mounted() {
+    const token = localStorage.getItem('accessToken')
+    console.log(token)
+    if (token === undefined || token === null) {
+      window.location.href = '/'
+    } else {
+      //llamar a la funcion que separa
+      const id = MiComponente.methods.obtenerIdDesdeToken(token)
+      
+      //Hacer una peticion GET pasandole el email del usuario logueado
+      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${id}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json()
+          }
+        })
+        .then((data) => {
+          //mostrar el cotenido que nos devuelve el servidor
+          document.getElementById('usernameJS').innerHTML = data.name
+          document.getElementById('lastnameJS').innerHTML = data.last_name
+          document.getElementById('profileImageJS').src = data.image 
+          this.obtainOwnWishlist(token, id) // aquí agregamos el operador this
+        })
+        .catch((error) => {
+          //Respuesta en caso de error de servidor
+        })
+
+      }
+    }
 }
 </script>
 
@@ -130,7 +145,9 @@ export default {
         <h3>Tus Listas</h3>
         <!--id 125-->
         <ul id="lista-nombres">
-          <li v-for="llista in llistes">{{ lista.name }}</li>
+          <li v-if = "llistes.length == 0">No tienes listas</li>
+          <li v-for="llista in llistes">{{ llista.name }}</li>
+          
         </ul>
         <h3>Plantillas de listas</h3>
         <ul>

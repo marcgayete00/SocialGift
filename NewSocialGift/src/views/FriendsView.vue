@@ -1,6 +1,86 @@
-<script setup>
+<script >
 import NavBar from './../components/NavBar.vue'
 import language from './../components/language.vue'
+import MiComponente from './../components/separarTrama.vue'
+
+export default{
+  name: 'FriendsView',
+  components: {
+    NavBar,
+    language,
+    MiComponente
+  },
+  data(){
+    return{
+      llistes: []
+    }
+  },
+  methods: {
+    removeFriend(friendId){
+      const token = localStorage.getItem('accessToken')
+      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/friends/${friendId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then((response) => {
+          if (response.status === 200) {-
+            alert('Friend removed')
+            window.location.replace('friends')
+          } else {
+            switch (response.status) {
+              case 401:
+                alert('Unauthorized')
+                break
+
+              case 500:
+                alert('Error getting list of users friends');
+                break
+
+              default:
+                alert('An error has occurred')
+                break
+            }
+          }
+        })
+        .catch((error) => {
+          // Respuesta en caso de error de servidor
+        })
+    }
+  },
+  mounted() {
+    const token = localStorage.getItem('accessToken')
+    console.log(token)
+
+    if (token === null) {
+      windows.location.href-'/'
+    } else {
+
+      //llamar a la funcion que separa
+      const id = MiComponente.methods.obtenerIdDesdeToken(token)
+      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${id}/friends`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json()
+          }
+        })
+        .then((data) => {
+          console.log(data)
+          this.llistes = data
+        })
+        .catch((error) => {
+          // Respuesta en caso de error de servidor
+        })
+      } 
+    }  
+}
+
 </script>
 <template>
   <div>
@@ -17,31 +97,13 @@ import language from './../components/language.vue'
       </div>
       <div id="FriendsElement">
         <ul id="ElementParts">
-          <li>
+          <li v-for="llista in llistes" :key="llista.id">
             <div class="icon-container">
-              <img src="../../img/DefaultProfilePhoto.png">
-              <a><h4>Martin50</h4></a>
+              <img id ="profileImageJS" :src="llista.image">
+              <a><h4>{{ llista.name }}</h4></a>
             </div>
             <div class="icon-container2">
-                <a href="#"><button id="EliminarButton">Eliminar</button></a>
-            </div>
-          </li>
-          <li>
-            <div class="icon-container">
-                <img src="../../img/DefaultProfilePhoto.png">
-                <a><h4>Patricia96</h4></a>
-            </div>
-            <div class="icon-container2">
-                <a href="#"><button id="EliminarButton">Eliminar</button></a>
-            </div>
-          </li>
-          <li>
-            <div class="icon-container">
-                <img src="../../img/DefaultProfilePhoto.png">
-                <a><h4>Felixx</h4></a>
-            </div>
-            <div class="icon-container2">
-                <a href="#"><button id="EliminarButton">Eliminar</button></a>
+              <a href="#" @click="removeFriend(llista.id)"><button id="EliminarButton">Eliminar</button></a>
             </div>
           </li>
         </ul>
