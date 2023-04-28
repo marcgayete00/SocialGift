@@ -64,6 +64,50 @@ export default {
         .catch((error) => {
           // Respuesta en caso de error de servidor
         })
+
+      //Hacer un get para obtener la lista de amigos
+      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${id}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json()
+          }
+        })
+        .then((data) => {
+          //mostrar el cotenido que nos devuelve el servidor
+          document.getElementById('usernameJS').innerHTML = data.name
+          document.getElementById('lastnameJS').innerHTML = data.last_name
+          document.getElementById('profileImageJS').src = data.image
+        })
+        .catch((error) => {
+          //Respuesta en caso de error de servidor
+        })
+
+      //Hacer un get para obtener las listas del usuario
+      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${id}/friends`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json()
+          }
+        })
+        .then((data) => {
+          console.log(data)
+          
+        })
+        .catch((error) => {
+          // Respuesta en caso de error de servidor
+        })
+      
+
     }
   }
 }
@@ -86,7 +130,7 @@ export default {
         <h3>Tus Listas</h3>
         <!--id 125-->
         <ul id="lista-nombres">
-          <li v-for="llista in llistes">{{ llista.name }}</li>
+          <li v-for="llista in llistes">{{ lista.name }}</li>
         </ul>
         <h3>Plantillas de listas</h3>
         <ul>

@@ -1,8 +1,6 @@
 <script setup>
 import language from './../components/language.vue'
 
-localStorage.removeItem('accessToken')
-
 function loginUser() {
   var email = document.getElementById('email').value
   var password = document.getElementById('password').value

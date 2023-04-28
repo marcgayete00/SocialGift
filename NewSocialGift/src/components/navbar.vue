@@ -1,3 +1,15 @@
+<script>
+  export default{
+    methods: {
+        logout() {
+            localStorage.removeItem('accessToken')
+            this.$router.push('/')
+        },
+      }
+    }
+
+</script>
+
 <template>
   <div class="navigation">
         <ul>
@@ -39,7 +51,7 @@
             <a href="#"><i class="fa-solid fa-bars"></i> More</a>
             <ul id="moreSlide">
               <li><a href="editarperfil">Editar Perfil</a></li>
-              <li><a href="/">Desconectar</a></li>
+              <li><a href="#" @click="logout">Desconectar</a></li>
             </ul>
           </li>
         </ul>
