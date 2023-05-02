@@ -10,42 +10,22 @@ export default {
     language
   },
   data() {
-    return {
-      llistes: []
+  return {
+    llistes: [],
+    friendList: {
+      friends: []
     }
-  },
+  }
+},
+
   methods: {
     
-    obtainFriendsWishlist(token,ids) {
-      let wishlists = [];
-      for(let i = 0; i < ids.length; i++) {
-            fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${ids[i]}/wishlists`, {
-
-              method: 'GET',
-              headers: {
-                Authorization: `Bearer ${token}`
-              }
-            })
-              .then((response) => {
-                if (response.status === 200) {
-                  return response.json()
-                }
-              })
-              .then((data) => {
-                console.log(ids[i])
-                console.log(data)
-                wishlists.push = data
-                
-              })
-              .catch((error) => {
-                // Respuesta en caso de error de servidor
-              })
-          }
-          console.log(wishlists)
-    },
-
-    obtainFriends(token, id){
-      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${id}/friends`, {
+  async obtainFriendsWishlist(token, ids) {
+  const wishlistPromises = [];
+  console.log(ids);
+  for (let i = 0; i < ids.length; i++) {
+    wishlistPromises.push(
+      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${ids[i]}/wishlists`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`
@@ -53,43 +33,67 @@ export default {
       })
         .then((response) => {
           if (response.status === 200) {
-            return response.json()
+            return response.json();
+          } else {
+            throw new Error(`Failed to fetch wishlist for user ${ids[i]}.`);
           }
         })
-        .then((data) => {
-          //console.log("Amigos usuario actual ")
-          //console.log(data)
-          const ids = data.map(obj => obj.id);
-          this.obtainFriendsWishlist(token,ids)
-        })
-        .catch((error) => {
-          //Respuesta en caso de error de servidor
-        })
-    },
-    
-    obtainOwnWishlist(token,id){
+    );
+  }
 
-      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${id}/wishlists`, {
+  try {
+    const wishlists = await Promise.all(wishlistPromises);
+    console.log(wishlists);
+
+    return wishlists;
+
+  } catch (error) {
+    console.error(error);
+    // Manejar el error de forma adecuada
+  }
+},
+
+  async obtainFriends(token, id) {
+    try {
+      const response = await fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${id}/friends`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`
         }
-      })
-        .then((response) => {
-          if (response.status === 200) {
-            return response.json()
-          }
-        })
-        .then((data) => {
-          //console.log("Listas usuario actual ")
-          //console.log(data)
-          this.llistes = data
-          this.obtainFriends(token, id)
-        })
-        .catch((error) => {
-          // Respuesta en caso de error de servidor
-        })
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        console.log(data); // debugging line
+        this.friendList.friends = data;
+        const ids = data.map(obj => obj.id);
+        await this.obtainFriendsWishlist(token, ids);
+      }
+    } catch (error) {
+      // Manejar el error de forma adecuada
     }
+  },
+    
+
+  async obtainOwnWishlist(token, id) {
+    try {
+      const response = await fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${id}/wishlists`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        //console.log("Listas usuario actual ")
+        //console.log(data)
+        this.llistes = data;
+        await this.obtainFriends(token, id);
+      }
+    } catch (error) {
+      // Manejar el error de forma adecuada
+    }
+  }
+
   },
   mounted() {
     const token = localStorage.getItem('accessToken')
@@ -147,7 +151,6 @@ export default {
         <ul id="lista-nombres">
           <li v-if = "llistes.length == 0">No tienes listas</li>
           <li v-for="llista in llistes">{{ llista.name }}</li>
-          
         </ul>
         <h3>Plantillas de listas</h3>
         <ul>
@@ -157,37 +160,15 @@ export default {
         </ul>
       </div>
       <div class="image-section">
-        <div>
-          <div class="listheader">
-            <img class="profileimglist" src="../../img/DefaultProfilePhoto.png" />
-            <h3>NickName</h3>
-            <img class="moreimg" src="../../img/Mas.png" />
+        <div v-if="friendList.friends.length > 0">
+          <div v-for="friend in friendList.friends" :key="friend.id">
+            <div class="listheader">
+              <img class="profileimglist" :src="friend.image" />
+              <h3>{{ friend.name }}</h3>
+              <img class="moreimg" src="../../img/Mas.png" />
+            </div>
+            <img class="imageslide" src="../../img/mainScrenshoot.png" />
           </div>
-          <img class="imageslide" src="../../img/mainScrenshoot.png" />
-        </div>
-        <div>
-          <div class="listheader">
-            <img class="profileimglist" src="../../img/DefaultProfilePhoto.png" />
-            <h3>NickName</h3>
-            <img class="moreimg" src="../../img/Mas.png" />
-          </div>
-          <img class="imageslide" src="../../img/mainScrenshoot.png" />
-        </div>
-        <div>
-          <div class="listheader">
-            <img class="profileimglist" src="../../img/DefaultProfilePhoto.png" />
-            <h3>NickName</h3>
-            <img class="moreimg" src="../../img/Mas.png" />
-          </div>
-          <img class="imageslide" src="../../img/mainScrenshoot.png" />
-        </div>
-        <div>
-          <div class="listheader">
-            <img class="profileimglist" src="../../img/DefaultProfilePhoto.png" />
-            <h3>NickName</h3>
-            <img class="moreimg" src="../../img/Mas.png" />
-          </div>
-          <img class="imageslide" src="../../img/mainScrenshoot.png" />
         </div>
       </div>
     </section>
