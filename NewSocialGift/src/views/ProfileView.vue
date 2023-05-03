@@ -1,43 +1,101 @@
-<script setup>
+<script>
 import NavBar from './../components/NavBar.vue'
 import language from './../components/language.vue'
-</script>
-<script>
+import MiComponente from './../components/separarTrama.vue'
+
+
+const token = localStorage.getItem('accessToken')
+
 export default {
+  name: 'ProfileView',
+  components: {
+    NavBar,
+    language
+  },
   data() {
-    return {
-      user: {
-        id: 0,
-        name: '',
-        last_name: '',
-        email: '',
-        image: ''
+  return {
+    llistes: [],
+    friendList: {
+      friends: []
+    },
+    gifts: []
+  }
+},
+
+  methods: {
+
+  async obtainGifts(token, idgift) {
+    try {
+      const response = await fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/gifts/${idgift}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        //console.log("Listas usuario actual ")
+        //console.log(data)
+        this.gifts = data;
       }
+    } catch (error) {
+      // Manejar el error de forma adecuada
     }
   },
-  mounted() {
-    const email = localStorage.getItem('email')
-    console.log(email)
-    const token = localStorage.getItem('accessToken')
-    const encodedEmail = encodeURIComponent(email).replace('@', '%40')
-    console.log(encodedEmail)
-    fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/search?s=${encodedEmail}`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`
+  async obtainOwnWishlist(token, id) {
+    try {
+      const response = await fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${id}/wishlists`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        //console.log("Listas usuario actual ")
+        //console.log(data)
+        this.llistes = data;
+        await this.obtainFriends(token, id);
       }
-    }).then((response) => response.json())
-    /*.then(data => {
-      const userData = data[0];
-      this.user.id = userData.id;
-      this.user.name = userData.name;
-      this.user.last_name = userData.last_name;
-      this.user.email = userData.email;
-      this.user.image = userData.image;
-      console.log(this.user);
-    })
-    .catch(error => console.error(error));*/
+    } catch (error) {
+      // Manejar el error de forma adecuada
+    }
   }
+
+  },
+  mounted() {
+    const token = localStorage.getItem('accessToken')
+    console.log(token)
+    if (token === undefined || token === null) {
+      window.location.href = '/'
+    } else {
+      //llamar a la funcion que separa
+      const id = MiComponente.methods.obtenerIdDesdeToken(token)
+      
+      //Hacer una peticion GET pasandole el email del usuario logueado
+      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${id}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json()
+          }
+        })
+        .then((data) => {
+          //mostrar el cotenido que nos devuelve el servidor
+          document.getElementById('usernameJS').innerHTML = data.name
+          document.getElementById('profileImageJS').src = data.image 
+          this.obtainOwnWishlist(token, id) // aquí agregamos el operador this
+        })
+        .catch((error) => {
+          //Respuesta en caso de error de servidor
+        })
+
+      }
+    }
 }
 </script>
 
@@ -57,15 +115,15 @@ export default {
         </div>
         <div id="ProfileInfo">
           <div id="ProfileImage">
-            <img :src="user.image" alt="Imagen del usuario" />
+            <img id="profileImageJS" class="profileimg" src="" />
           </div>
           <div id="ProfileName">
-            <h1>{{ user.name }}</h1>
+            <h1 id="usernameJS"></h1>
           </div>
           <div id="UserCount">
-            <h1>6</h1>
+            <h1>{{ llistes.length }}</h1>
             <h3>Listas</h3>
-            <h1>340</h1>
+            <h1>{{ friendList.friends.length }}</h1>
             <a href="friends"><h3>Amigos</h3></a>
           </div>
           <div id="ProfileDescription">
@@ -86,18 +144,11 @@ export default {
     </section>
     <section id="PostSection">
       <div class="grid-container">
-        <div class="grid-item" @click="myFunction()">1</div>
-        <div class="grid-item" @click="myFunction()">2</div>
-        <div class="grid-item" @click="myFunction()">3</div>
-        <div class="grid-item" @click="myFunction()">4</div>
-        <div class="grid-item" @click="myFunction()">5</div>
-        <div class="grid-item" @click="myFunction()">6</div>
-        <div class="grid-item" @click="myFunction()">7</div>
-        <div class="grid-item" @click="myFunction()">8</div>
-        <div class="grid-item" @click="myFunction()">9</div>
-        <div class="grid-item" @click="myFunction()">10</div>
-        <div class="grid-item" @click="myFunction()">11</div>
-        <div class="grid-item" @click="myFunction()">12</div>
+          <div class="grid-item" v-for="llista in llistes">
+            <li><h3>{{ llista.name }}</h3></li>
+            <li><h4>{{ llista.description }}</h4></li>
+            <li> {{ llista.gifts }}</li>
+          </div>
       </div>
     </section>
   </div>

@@ -25,18 +25,17 @@
     align-items: flex-start;
   }
   
-  #ProfileImage {
-    margin-right: 20px;
-  }
-  
   #ProfileImage img {
     width: 200px;
     height: 200px;
     border-radius: 50%;
+    margin-left: -50px;
+    border: 5px solid #79B2DD;
+    margin-right: 50px;
   }
   
   #ProfileName{
-    margin: 0;
+    margin-left: -20px;
   }
 
   #EditProfileButton{
@@ -78,7 +77,7 @@
   #ProfileDescription {
     display: flex;
     margin-top: 110px;
-    margin-left: -215px;
+    margin-left: -180px;
   }
 
   hr{
@@ -121,6 +120,10 @@
     gap: 10px;
     width: 80vw; /* Ajusta el ancho del contenedor a la ventana */
     height: 100vh; /* Ajusta la altura del contenedor a la ventana */
+  }
+
+  .grid-container li{
+    list-style: none;
   }
   
   .grid-item {
