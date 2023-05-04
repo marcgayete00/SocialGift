@@ -154,9 +154,9 @@ export default {
         </ul>
         <h3>Plantillas de listas</h3>
         <ul>
-          <li>Lista de deseos</li>
-          <li>Lista de cumpleaños</li>
-          <li>Lista blanco y negro</li>
+          <li>💝 Lista de deseos</li>
+          <li>🍰 Lista de cumpleaños</li>
+          <li>🌓 Lista blanco y negro</li>
         </ul>
       </div>
       <div class="image-section">
