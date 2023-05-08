@@ -18,13 +18,14 @@ export default {
     friendList: {
       friends: []
     },
-    gifts: []
+    gifts: [],
+    wishlistId: []
   }
 },
 
   methods: {
 
-  async obtainGifts(token, idgift) {
+  async obtainGifts(token, idgift,wishlistId) {
     try {
       for (let i = 0; i < idgift.length; i++) {
         const response = await fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/gifts/${idgift[i]}`, {
@@ -37,6 +38,9 @@ export default {
           const data = await response.json();
           //console.log("Listas usuario actual ")
           console.log(data)
+          if(data.wishlist_Id == wishlistId[i]){
+            
+          }
           this.gifts[i] = data;
         }
       }
@@ -59,8 +63,11 @@ export default {
         //console.log(data)
         this.llistes = data;
         const giftIds = this.llistes.flatMap(llista => llista.gifts.map(gift => gift.id));
+        const wishlistIds = this.llistes.map(llista => llista.id);
+        console.log(wishlistIds);
         console.log(giftIds);
-        await this.obtainGifts(token, giftIds);
+
+        await this.obtainGifts(token, giftIds,wishlistIds);
         await this.obtainFriends(token, id);
       }
     } catch (error) {
