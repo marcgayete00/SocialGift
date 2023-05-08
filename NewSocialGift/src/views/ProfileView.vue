@@ -25,6 +25,24 @@ export default {
 
   methods: {
 
+  async obtainFriends(token, id) {
+  try {
+    const response = await fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${id}/friends`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    if (response.status === 200) {
+      const data = await response.json();
+      console.log(data); // debugging line
+      this.friendList.friends = data;
+    }
+  } catch (error) {
+    // Manejar el error de forma adecuada
+  }
+},
+
   async obtainGifts(token, idgift,wishlistId) {
     try {
       for (let i = 0; i < idgift.length; i++) {
@@ -38,9 +56,6 @@ export default {
           const data = await response.json();
           //console.log("Listas usuario actual ")
           console.log(data)
-          if(data.wishlist_Id == wishlistId[i]){
-            
-          }
           this.gifts[i] = data;
         }
       }
