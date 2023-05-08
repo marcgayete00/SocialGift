@@ -26,18 +26,21 @@ export default {
 
   async obtainGifts(token, idgift) {
     try {
-      const response = await fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/gifts/${idgift}`, {
+      for (let i = 0; i < idgift.length; i++) {
+        const response = await fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/gifts/${idgift[i]}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`
         }
-      });
-      if (response.status === 200) {
-        const data = await response.json();
-        //console.log("Listas usuario actual ")
-        //console.log(data)
-        this.gifts = data;
+        });
+        if (response.status === 200) {
+          const data = await response.json();
+          //console.log("Listas usuario actual ")
+          console.log(data)
+          this.gifts[i] = data;
+        }
       }
+      
     } catch (error) {
       // Manejar el error de forma adecuada
     }
@@ -55,6 +58,9 @@ export default {
         //console.log("Listas usuario actual ")
         //console.log(data)
         this.llistes = data;
+        const giftIds = this.llistes.flatMap(llista => llista.gifts.map(gift => gift.id));
+        console.log(giftIds);
+        await this.obtainGifts(token, giftIds);
         await this.obtainFriends(token, id);
       }
     } catch (error) {
@@ -147,7 +153,7 @@ export default {
           <div class="grid-item" v-for="llista in llistes">
             <li><h3>{{ llista.name }}</h3></li>
             <li><h4>{{ llista.description }}</h4></li>
-            <li> {{ llista.gifts }}</li>
+            <li> {{ gifts }}</li>
           </div>
       </div>
     </section>
