@@ -18,8 +18,6 @@ export default {
     friendList: {
       friends: []
     },
-    gifts: [],
-    wishlistId: []
   }
 },
 
@@ -175,7 +173,7 @@ export default {
           <div class="grid-item" v-for="llista in llistes">
             <li><h3>{{ llista.name }}</h3></li>
             <li><h4>{{ llista.description }}</h4></li>
-            <li> {{ gifts }}</li>
+            <li> {{ llista.gifts }}</li>
           </div>
       </div>
     </section>
