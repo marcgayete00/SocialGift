@@ -13,7 +13,8 @@ export default {
     return {
       llistes: [],
       friendList: {
-        friends: []
+        friends: [],
+        wishlists: []
       }
     }
   },
@@ -43,7 +44,10 @@ export default {
           console.error(error)
         }
       }
-      console.log(wishlistData)
+      const flattenedArray = wishlistData.flatMap(obj => obj.map(item => ({ id: item.id, name: item.name, description : item.description, creation_date: item.creation_date })));
+      console.log(flattenedArray);
+
+
       return wishlistData
     },
 
@@ -63,7 +67,9 @@ export default {
           //console.log(data) // debugging line
           this.friendList.friends = data
           const ids = data.map((obj) => obj.id)
-          await this.obtainFriendsWishlist(token, ids)
+          const wishlists = await this.obtainFriendsWishlist(token, ids)
+          this.friendList.wishlists = wishlists;
+          console.log(this.friendList.wishlists.length);
         }
       } catch (error) {
         // Manejar el error de forma adecuada
@@ -165,7 +171,7 @@ export default {
               <img class="moreimg" src="../../img/Mas.png" />
             </div>
             <h1>My wishlist</h1>
-            <h4>daadadadadadaddada</h4>
+            <h4>wishlist description</h4>
             <ul id="PostGiftList">
               <li class="product">
                 <div class="emoji">🌓</div>
