@@ -201,3 +201,12 @@ body{
     padding-top: 3px;
   }
 
+
+  #giftImage{
+    width: 120px;
+    height: 120px;
+    border-radius: 10%;
+    
+ 
+  }
+

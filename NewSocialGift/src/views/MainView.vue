@@ -13,43 +13,42 @@ export default {
     return {
       llistes: [],
       friendList: {
-        friends: [],
+        friends: []
       }
     }
   },
 
   methods: {
-    async obtainGiftInfo(wishlists){
+    async obtainGiftInfo(wishlists) {
       const gifts = wishlists.map((obj) => obj.gifts)
       //console.log(gifts)
 
       const productURL = wishlists.map((wishlist) => {
-        return wishlist.gifts.map((gift) => gift.product_url);
-      });
+        return wishlist.gifts.map((gift) => gift.product_url)
+      })
       //console.log(productURL)
       //obtener el ultimo caracter de la URL despues de la ultima /
       const productIds = productURL.map((url) => {
-        return url.map((url) => url.substring(url.lastIndexOf('/') + 1));
-      });
+        return url.map((url) => url.substring(url.lastIndexOf('/') + 1))
+      })
       //console.log(productIds)
 
       //hacer un flatMap para obtener un array de ids
-      const flattenedProducIds = productIds.flatMap((obj) => obj);  
+      const flattenedProducIds = productIds.flatMap((obj) => obj)
       //hacer un fetch para cada URL
       //console.log(flattenedProducIds)
       const giftData = []
       for (let i = 0; i < flattenedProducIds.length; i++) {
-        
         try {
           const response = await fetch(
-            
             `https://balandrau.salle.url.edu/i3/mercadoexpress/api/v1/products/${flattenedProducIds[i]}`,
             {
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json'
-              },
-            })
+              }
+            }
+          )
           if (response.status === 200) {
             const data = await response.json() // O response.text() si la respuesta es en formato de texto
             giftData.push(data)
@@ -62,27 +61,25 @@ export default {
       }
       //console.log(giftData)
 
-          gifts.forEach(element => {
-        const productIds = element.map(gift => {
-            const id = gift.product_url.substring(gift.product_url.lastIndexOf('/') + 1);
+      gifts.forEach((element) => {
+        const productIds = element.map((gift) => {
+          const id = gift.product_url.substring(gift.product_url.lastIndexOf('/') + 1)
 
-            giftData.forEach(giftDataElement => {
-                if (giftDataElement.id == id) {
-                    // copiar los campos name y description del array giftData al array gifts
-                    gift.name = giftDataElement.name;
-                    gift.description = giftDataElement.description;
-                    gift.link = giftDataElement.link;
-                    gift.photo = giftDataElement.photo;
-                    gift.categoryIds = giftDataElement.categoryIds;
-                }
-            });
-        });
-    });
-  
-    console.log(gifts)
-    
-  },
+          giftData.forEach((giftDataElement) => {
+            if (giftDataElement.id == id) {
+              // copiar los campos name y description del array giftData al array gifts
+              gift.name = giftDataElement.name
+              gift.description = giftDataElement.description
+              gift.link = giftDataElement.link
+              gift.photo = giftDataElement.photo
+              gift.categoryIds = giftDataElement.categoryIds
+            }
+          })
+        })
+      })
 
+      return gifts
+    },
 
     async obtainFriendsWishlist(token, ids) {
       const wishlistData = []
@@ -108,9 +105,17 @@ export default {
           console.error(error)
         }
       }
-      const flattenedArray = wishlistData.flatMap(obj => obj.map(item => ({ id: item.id, user_id: item.user_id, name: item.name, description : item.description, creation_date: item.creation_date, gifts: item.gifts,  })));
+      const flattenedArray = wishlistData.flatMap((obj) =>
+        obj.map((item) => ({
+          id: item.id,
+          user_id: item.user_id,
+          name: item.name,
+          description: item.description,
+          creation_date: item.creation_date,
+          gifts: item.gifts
+        }))
+      )
       //console.log(flattenedArray);
-
 
       return flattenedArray
     },
@@ -129,17 +134,30 @@ export default {
         if (response.status === 200) {
           const data = await response.json()
           //console.log(data) // Show friends
-          
+
           const ids = data.map((obj) => obj.id)
           const wishlists = await this.obtainFriendsWishlist(token, ids)
           //console.log(wishlists)
           const gifts = await this.obtainGiftInfo(wishlists)
-          //this.friendList.wishlists = wishlists;
+          //console.log(wishlists)
+          //console.log(gifts)
+          //Hacer un flatMa para obtener un array de gifts
+          const flattenedGifts = gifts.flatMap((obj) => obj)
+          //console.log(flattenedGifts)
+
           // Itera sobre el array wishlists y busca el amigo correspondiente en friends
-          data.forEach(friend => {
-          friend.wishlists = wishlists.filter(list => list.user_id === friend.id);
-        });
-        this.friendList.friends = data;
+          data.forEach((friend) => {
+            friend.wishlists = wishlists.filter((list) => list.user_id === friend.id)
+          })
+
+          //Iterar sobre el array data y añadir los gifts correspondientes a cada wishlist
+          data.forEach((friend) => {
+            friend.wishlists.forEach((wishlist) => {
+              wishlist.gifts = flattenedGifts.filter((gift) => gift.wishlist_id === wishlist.id)
+            })
+          })
+          console.log(data)
+          this.friendList.friends = data //Array al que queremos meter los regalos
         }
       } catch (error) {
         // Manejar el error de forma adecuada
@@ -240,16 +258,14 @@ export default {
               <h3>{{ friend.name }}</h3>
               <img class="moreimg" src="../../img/Mas.png" />
             </div>
-            <h1>{{wishlist.name}}</h1>
-            <h4>{{wishlist.description}}</h4>
-            <ul id="PostGiftList" >
-              <!--
+            <h1>{{ wishlist.name }}</h1>
+            <h4>{{ wishlist.description }}</h4>
+            <ul id="PostGiftList">
               <li class="product" v-for="gift in wishlist.gifts" :key="gift.id">
-                <div class="emoji">{{gift.gift.product_url}}</div>
-                <div class="name">{{gift.product_url}}</div>
+                <div class="emoji"><img id="giftImage" :src="gift.photo" /></div>
+                <div class="name">{{ gift.name }}</div>
                 <div class="checkbox"><input type="checkbox" id="reserveCheckbox" /></div>
               </li>
-            -->
             </ul>
           </div>
         </div>

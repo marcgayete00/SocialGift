@@ -1,22 +1,22 @@
-<script >
+<script>
 import NavBar from './../components/NavBar.vue'
 import language from './../components/language.vue'
 import MiComponente from './../components/separarTrama.vue'
 
-export default{
+export default {
   name: 'FriendsView',
   components: {
     NavBar,
     language,
     MiComponente
   },
-  data(){
-    return{
+  data() {
+    return {
       llistes: []
     }
   },
   methods: {
-    removeFriend(friendId){
+    removeFriend(friendId) {
       const token = localStorage.getItem('accessToken')
       fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/friends/${friendId}`, {
         method: 'DELETE',
@@ -25,8 +25,8 @@ export default{
         }
       })
         .then((response) => {
-          if (response.status === 200) {-
-            alert('Friend removed')
+          if (response.status === 200) {
+            ;-alert('Friend removed')
             window.location.replace('friends')
           } else {
             switch (response.status) {
@@ -35,7 +35,7 @@ export default{
                 break
 
               case 500:
-                alert('Error getting list of users friends');
+                alert('Error getting list of users friends')
                 break
 
               default:
@@ -54,9 +54,8 @@ export default{
     console.log(token)
 
     if (token === null) {
-      windows.location.href-'/'
+      windows.location.href - '/'
     } else {
-
       //llamar a la funcion que separa
       const id = MiComponente.methods.obtenerIdDesdeToken(token)
       fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${id}/friends`, {
@@ -77,10 +76,9 @@ export default{
         .catch((error) => {
           // Respuesta en caso de error de servidor
         })
-      } 
-    }  
+    }
+  }
 }
-
 </script>
 <template>
   <div>
@@ -99,11 +97,15 @@ export default{
         <ul id="ElementParts">
           <li v-for="llista in llistes" :key="llista.id">
             <div class="icon-container">
-              <img id ="profileImageJS" :src="llista.image">
-              <a><h4>{{ llista.name }}</h4></a>
+              <img id="profileImageJS" :src="llista.image" />
+              <a
+                ><h4>{{ llista.name }}</h4></a
+              >
             </div>
             <div class="icon-container2">
-              <a href="#" @click="removeFriend(llista.id)"><button id="EliminarButton">Eliminar</button></a>
+              <a href="#" @click="removeFriend(llista.id)"
+                ><button id="EliminarButton">Eliminar</button></a
+              >
             </div>
           </li>
         </ul>
@@ -123,86 +125,83 @@ export default{
     margin-left: 20px !important;
     height: 100% !important;
   }
-  #banner h1{
+  #banner h1 {
     font-size: 20px !important;
   }
 
-  #FriendsElement{ 
+  #FriendsElement {
     display: flex !important;
     margin-top: -50px;
     margin-left: -440px !important;
   }
-  #FriendsElement h4{
+  #FriendsElement h4 {
     font-size: 15px !important;
     width: 20px !important;
     margin-left: 225px;
   }
-  #FriendsElement button{
+  #FriendsElement button {
     width: 75px;
     font-size: 12px !important;
   }
-  #FriendsElement img{
+  #FriendsElement img {
     width: 50px;
   }
 
-  #ElementParts li{
+  #ElementParts li {
     display: flex !important;
     margin-left: 0px !important;
     width: auto !important;
   }
 
   /*Texto item*/
-  .icon-container a{
+  .icon-container a {
     display: flex !important;
     margin-left: -220px !important;
-    font-size:medium !important;
-   
+    font-size: medium !important;
   }
 
   /*Iconos item*/
-  .icon-container2 i{
+  .icon-container2 i {
     display: flex !important;
   }
 
-  #share{
+  #share {
     position: relative !important;
     left: 15px !important;
     top: 2px !important;
   }
 
-  #cross{
+  #cross {
     position: relative !important;
     left: 15px !important;
     top: 2px !important;
   }
 
-  .icon-container2 input{
+  .icon-container2 input {
     position: relative !important;
     left: 10px !important;
   }
 
-  #addButton{
+  #addButton {
     display: flex !important;
     margin-top: -50px;
     margin-left: -650px !important;
   }
 
-  #popup-container{
+  #popup-container {
     display: hidden !important;
     left: 190px !important;
     top: 700px !important;
-    width: 30% !important;  
+    width: 30% !important;
     height: 20% !important;
   }
 
-  .upload-btn{
+  .upload-btn {
     margin-left: auto !important;
   }
 
-  .popup-form button{
+  .popup-form button {
     margin-left: 30px !important;
   }
-
-  
 }
 </style>
