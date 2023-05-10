@@ -14,15 +14,79 @@ export default {
       llistes: [],
       friendList: {
         friends: [],
-        wishlists: []
       }
     }
   },
 
   methods: {
+    async obtainGiftInfo(wishlists){
+      const gifts = wishlists.map((obj) => obj.gifts)
+      //console.log(gifts)
+
+      const productURL = wishlists.map((wishlist) => {
+        return wishlist.gifts.map((gift) => gift.product_url);
+      });
+      //console.log(productURL)
+      //obtener el ultimo caracter de la URL despues de la ultima /
+      const productIds = productURL.map((url) => {
+        return url.map((url) => url.substring(url.lastIndexOf('/') + 1));
+      });
+      //console.log(productIds)
+
+      //hacer un flatMap para obtener un array de ids
+      const flattenedProducIds = productIds.flatMap((obj) => obj);  
+      //hacer un fetch para cada URL
+      //console.log(flattenedProducIds)
+      const giftData = []
+      for (let i = 0; i < flattenedProducIds.length; i++) {
+        
+        try {
+          const response = await fetch(
+            
+            `https://balandrau.salle.url.edu/i3/mercadoexpress/api/v1/products/${flattenedProducIds[i]}`,
+            {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+            })
+          if (response.status === 200) {
+            const data = await response.json() // O response.text() si la respuesta es en formato de texto
+            giftData.push(data)
+          } else {
+            throw new Error(`Failed to fetch gift for url ${product_urls[i]}.`)
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      //console.log(giftData)
+
+          gifts.forEach(element => {
+        const productIds = element.map(gift => {
+            const id = gift.product_url.substring(gift.product_url.lastIndexOf('/') + 1);
+
+            giftData.forEach(giftDataElement => {
+                if (giftDataElement.id == id) {
+                    // copiar los campos name y description del array giftData al array gifts
+                    gift.name = giftDataElement.name;
+                    gift.description = giftDataElement.description;
+                    gift.link = giftDataElement.link;
+                    gift.photo = giftDataElement.photo;
+                    gift.categoryIds = giftDataElement.categoryIds;
+                }
+            });
+        });
+    });
+  
+    console.log(gifts)
+    
+  },
+
+
     async obtainFriendsWishlist(token, ids) {
       const wishlistData = []
-      console.log(ids)
+      //console.log(ids)
       for (let i = 0; i < ids.length; i++) {
         try {
           const response = await fetch(
@@ -44,11 +108,11 @@ export default {
           console.error(error)
         }
       }
-      const flattenedArray = wishlistData.flatMap(obj => obj.map(item => ({ id: item.id, name: item.name, description : item.description, creation_date: item.creation_date })));
-      console.log(flattenedArray);
+      const flattenedArray = wishlistData.flatMap(obj => obj.map(item => ({ id: item.id, user_id: item.user_id, name: item.name, description : item.description, creation_date: item.creation_date, gifts: item.gifts,  })));
+      //console.log(flattenedArray);
 
 
-      return wishlistData
+      return flattenedArray
     },
 
     async obtainFriends(token, id) {
@@ -64,12 +128,18 @@ export default {
         )
         if (response.status === 200) {
           const data = await response.json()
-          //console.log(data) // debugging line
-          this.friendList.friends = data
+          //console.log(data) // Show friends
+          
           const ids = data.map((obj) => obj.id)
           const wishlists = await this.obtainFriendsWishlist(token, ids)
-          this.friendList.wishlists = wishlists;
-          console.log(this.friendList.wishlists.length);
+          //console.log(wishlists)
+          const gifts = await this.obtainGiftInfo(wishlists)
+          //this.friendList.wishlists = wishlists;
+          // Itera sobre el array wishlists y busca el amigo correspondiente en friends
+          data.forEach(friend => {
+          friend.wishlists = wishlists.filter(list => list.user_id === friend.id);
+        });
+        this.friendList.friends = data;
         }
       } catch (error) {
         // Manejar el error de forma adecuada
@@ -163,36 +233,23 @@ export default {
         </ul>
       </div>
       <div class="image-section">
-        <div v-if="friendList.friends.length > 0">
-          <div v-for="friend in friendList.friends" :key="friend.id">
+        <div v-for="friend in friendList.friends" :key="friend.id">
+          <div v-for="wishlist in friend.wishlists" :key="wishlist.id">
             <div class="listheader">
               <img class="profileimglist" :src="friend.image" />
               <h3>{{ friend.name }}</h3>
               <img class="moreimg" src="../../img/Mas.png" />
             </div>
-            <h1>My wishlist</h1>
-            <h4>wishlist description</h4>
-            <ul id="PostGiftList">
-              <li class="product">
-                <div class="emoji">🌓</div>
-                <div class="name">Product name</div>
+            <h1>{{wishlist.name}}</h1>
+            <h4>{{wishlist.description}}</h4>
+            <ul id="PostGiftList" >
+              <!--
+              <li class="product" v-for="gift in wishlist.gifts" :key="gift.id">
+                <div class="emoji">{{gift.gift.product_url}}</div>
+                <div class="name">{{gift.product_url}}</div>
                 <div class="checkbox"><input type="checkbox" id="reserveCheckbox" /></div>
               </li>
-              <li class="product">
-                <div class="emoji">🌓</div>
-                <div class="name">Product name</div>
-                <div class="checkbox"><input type="checkbox" id="reserveCheckbox" /></div>
-              </li>
-              <li class="product">
-                <div class="emoji">🌓</div>
-                <div class="name">Product name</div>
-                <div class="checkbox"><input type="checkbox" id="reserveCheckbox" /></div>
-              </li>
-              <li class="product">
-                <div class="emoji">🌓</div>
-                <div class="name">Product name</div>
-                <div class="Divcheckbox"><input type="checkbox" id="reserveCheckbox" /></div>
-              </li>
+            -->
             </ul>
           </div>
         </div>
