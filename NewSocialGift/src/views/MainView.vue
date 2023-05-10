@@ -251,7 +251,13 @@ export default {
         </ul>
       </div>
       <div class="image-section">
-        <div v-for="friend in friendList.friends" :key="friend.id">
+      <div v-for="friend in friendList.friends" :key="friend.id">
+        <!-- Mostrar un mensaje en caso de no tener wishlists-->
+        <div v-if="friend.wishlists.length === 0">
+          <h1>No hay listas de deseos disponibles 😢</h1>
+          <h2 style="font-weight: normal;">¡Agrega a mas amigos!</h2>
+        </div>
+        <div v-else>
           <div v-for="wishlist in friend.wishlists" :key="wishlist.id">
             <div class="listheader">
               <img class="profileimglist" :src="friend.image" />
@@ -270,6 +276,8 @@ export default {
           </div>
         </div>
       </div>
+</div>
+
     </section>
   </div>
 </template>
