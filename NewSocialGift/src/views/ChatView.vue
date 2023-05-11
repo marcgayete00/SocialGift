@@ -11,7 +11,9 @@ import language from './../components/language.vue'
         <NavBar />
         <div id="chat-profiles">
             <div>
-                <img class="iconocrear" src="../../img/Crear.png">
+                <h1> Search friend </h1>
+                <input type="text" placeholder="User name..." id="search-friend" />
+                <input type="button" value="Search" id="search-button" />
             </div>
             <div id="list-profiles">
                 <ul>

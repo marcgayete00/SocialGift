@@ -19,6 +19,39 @@ export default {
   },
 
   methods: {
+    async bookGift(id, booked){
+      let toBook = false;
+      let method = 'POST';
+      const token = localStorage.getItem('accessToken')
+      if (!booked){
+        toBook = true;
+      } else {
+        method = 'DELETE';
+      }
+      
+      //Hacer un post para indicar que el book de un regalo ha sido cambiado
+      try {
+        const response = await fetch(
+          `https://balandrau.salle.url.edu/i3/socialgift/api/v1/gifts/${id}/book`,
+          {
+            method: method,
+            headers: {
+              Authorization: `Bearer ${token}`
+            },
+          }
+        )
+        if (response.status === 200) {
+          const data = await response.json()
+        } else {
+
+         } 
+        
+      } catch (error) {
+        // Manejar el error de forma adecuada
+      }
+
+    },
+
     async obtainGiftInfo(wishlists) {
       const gifts = wishlists.map((obj) => obj.gifts)
       //console.log(gifts)
@@ -245,9 +278,9 @@ export default {
         </ul>
         <h3>Plantillas de listas</h3>
         <ul>
-          <li>💝 Lista de deseos</li>
-          <li>🍰 Lista de cumpleaños</li>
-          <li>🌓 Lista blanco y negro</li>
+          <li><a href="createlist">💝 Lista de deseos</a></li>
+          <li><a href="createlist">🍰 Lista de cumpleaños</a></li>
+          <li><a href="createlist">🌓 Lista blanco y negro</a></li>
         </ul>
       </div>
       <div class="image-section">
@@ -270,7 +303,7 @@ export default {
               <li class="product" v-for="gift in wishlist.gifts" :key="gift.id">
                 <div class="emoji"><img id="giftImage" :src="gift.photo" /></div>
                 <div class="name">{{ gift.name }}</div>
-                <div class="checkbox"><input type="checkbox" id="reserveCheckbox" /></div>
+                <div class="checkbox"><input type="checkbox" id="reserveCheckbox" :checked="gift.booked" v-on:click="bookGift(gift.id, gift.booked)" /></div>
               </li>
             </ul>
           </div>
