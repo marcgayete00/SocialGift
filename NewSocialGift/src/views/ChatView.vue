@@ -1,6 +1,31 @@
-<script setup>
+<script>
 import NavBar from './../components/NavBar.vue'
 import language from './../components/language.vue'
+import MiComponente from './../components/separarTrama.vue'
+
+export default {
+  components: {
+    NavBar,
+    language,
+    MiComponente
+  },
+  data() {
+    return {
+      
+    }
+  },
+  methods: {
+    
+    
+    
+  },
+  mounted() {
+    
+  },
+
+}
+
+
 </script>
 
 <template>
@@ -12,8 +37,10 @@ import language from './../components/language.vue'
         <div id="chat-profiles">
             <div>
                 <h1> Search friend </h1>
-                <input type="text" placeholder="User name..." id="search-friend" />
-                <input type="button" value="Search" id="search-button" />
+                <div class="search-container">
+                    <input type="text" placeholder="User name..." id="search-friend" />
+                    <a id="search-button"> Search </a>
+                </div>
             </div>
             <div id="list-profiles">
                 <ul>
