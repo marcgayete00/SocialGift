@@ -12,25 +12,23 @@ export default {
   methods:{
     async createWishlist() {
       const token = localStorage.getItem('accessToken')
-      var nameInput = document.getElementById('listname');
-      var descriptionInput = document.getElementById('listdesc');
+      var nameInput = document.getElementById('listname').value;
+      var descriptionInput = document.getElementById('listdesc').value;
 
-      var name = nameInput.value;
-      var description = descriptionInput.value;
-
-      console.log(name);
-      console.log(description);
+   
       
       const wishlistData = {
-        name: name,
-        description: description,
+        name: nameInput,
+        description: descriptionInput,
         end_date: '2024-05-16T16:15:03.706Z'
       };
       try {
+        console.log(wishlistData)
         const response = await fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/wishlists`,
           {
             method: 'POST',
             headers: {
+              'Content-Type': 'application/json',
               Authorization: `Bearer ${token}`
             },
             body: JSON.stringify(wishlistData)
@@ -80,7 +78,7 @@ export default {
 		<h1>Añadir lista</h1>
     <input type="text" class="inputRegister" id="listname" placeholder="Nombre de la lista" /><br />
     <input type="text" class="inputRegister" id="listdesc" placeholder="Descripción de la lista" /><br />
-    <button type="submit" @click="createWishlist"><a href="#"> Enviar </a></button>
+    <button type="submit" @click="createWishlist">Enviar</button>
 
 	</div>    
 </template>
