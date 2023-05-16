@@ -1,6 +1,72 @@
-<script setup>
-import language from './../components/language.vue'
+<script>
 import NavBar from './../components/NavBar.vue'
+import language from './../components/language.vue'
+
+export default {
+  name: 'MainView',
+  components: {
+    NavBar,
+    language
+  },
+
+  methods:{
+    async createWishlist() {
+      const token = localStorage.getItem('accessToken')
+      var nameInput = document.getElementById('listname');
+      var descriptionInput = document.getElementById('listdesc');
+
+      var name = nameInput.value;
+      var description = descriptionInput.value;
+
+      console.log(name);
+      console.log(description);
+      
+      const wishlistData = {
+        name: name,
+        description: description,
+        end_date: '2024-05-16T16:15:03.706Z'
+      };
+      try {
+        const response = await fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/wishlists`,
+          {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(wishlistData)
+          }
+        )
+        if (response.status === 201) {
+        alert('Wishlist created successfully')
+        return response.json()
+        } else {
+          switch (response.status) {
+            case 400:
+              alert('An error has occurred')
+              break
+            case 406:
+              alert('Missing parameters')
+              break
+            case 409:
+              alert('The wish list has already been pre-registered')
+              break
+            case 500:
+              alert('The wish list has not been created')
+              break
+            case 502:
+              alert('Internal Server Error')
+              break
+          }
+        }
+            
+            
+      } catch (error) {
+        // Manejar el error de forma adecuada
+      }    
+    }   
+  }
+}
+
 </script>
 
 <template>
@@ -12,34 +78,13 @@ import NavBar from './../components/NavBar.vue'
 
 	<div class="container">
 		<h1>Añadir lista</h1>
-		<input type="text" placeholder="Nombre de la lista">
-        <label class="colorPickerLabel"> Color: </label>
-        <input type="color" class="colorPicker" value="#79B2DD"><br>
-		<input type="submit" value="Enviar">
+    <input type="text" class="inputRegister" id="listname" placeholder="Nombre de la lista" /><br />
+    <input type="text" class="inputRegister" id="listdesc" placeholder="Descripción de la lista" /><br />
+    <button type="submit" @click="createWishlist"><a href="#"> Enviar </a></button>
+
 	</div>    
 </template>
 
-<script>
-export default {
-  mounted() {
-    // Esperar a que el DOM se cargue antes de seleccionar el botón
-    var button = document.getElementById("color-button");
-    button.onclick = function() {
-      // Crear un elemento de entrada de color
-      var colorPicker = document.createElement("input");
-      colorPicker.type = "color";
-
-      // Agregar un evento de cambio de color
-      colorPicker.onchange = function() {
-        button.style.backgroundColor = colorPicker.value;
-      };
-
-      // Mostrar el selector de color
-      colorPicker.click();
-    };
-  }
-}
-</script>
 <style scoped>
 @import '../assets/CreateList.css';
 </style>
