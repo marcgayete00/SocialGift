@@ -15,7 +15,39 @@ export default {
     }
   },
   methods: {
-    
+    async searchFriend(){
+      const criteria = document.getElementById('search-friend').value;
+      const token = localStorage.getItem('accessToken')
+      
+      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/search?s=${criteria}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json()
+          }
+        })
+        .then((data) => {
+          //mostrar el cotenido que nos devuelve el servidor
+          for(var i = 0; i < data.length; i++){
+            if (data[i].name === criteria){
+              console.log(data)
+              document.getElementById("usernameJS").innerHTML = data[i].name;
+              document.getElementById("imageJS").src = data[i].image;
+            }
+          }
+          
+
+
+        })
+        .catch((error) => {
+          //Respuesta en caso de error de servidor
+        })
+
+    }
     
     
   },
@@ -39,7 +71,7 @@ export default {
                 <h1> Search friend </h1>
                 <div class="search-container">
                     <input type="text" placeholder="User name..." id="search-friend" />
-                    <a id="search-button"> Search </a>
+                    <a id="search-button" @click="searchFriend"> Search </a>
                 </div>
             </div>
             <div id="list-profiles">
@@ -56,8 +88,8 @@ export default {
         </div>
         <div class="chat-section">
             <div class="listheader">
-                <img class="profileimglist" src="../../img/DefaultProfilePhoto.png">
-                <h3>NickName</h3>
+                <img class="profileimglist" src="../../img/DefaultProfilePhoto.png" id="imageJS">
+                <h3 id="usernameJS">NickName</h3>
                 <a href="#"><i id="moreimg" class="fa-solid fa-info" style="color: #000000;"></i></a>
             </div>
             <div id="chatdiv">
