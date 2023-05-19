@@ -23,6 +23,10 @@ export default {
 
   methods: {
 
+  async Redirect(llistaID) {
+    window.location.href = '/wishlist/' + llistaID
+  },
+
   async obtainFriends(token, id) {
   try {
     const response = await fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${id}/friends`, {
@@ -33,7 +37,6 @@ export default {
     });
     if (response.status === 200) {
       const data = await response.json();
-      console.log(data); // debugging line
       this.friendList.friends = data;
     }
   } catch (error) {
@@ -52,8 +55,6 @@ export default {
         });
         if (response.status === 200) {
           const data = await response.json();
-          //console.log("Listas usuario actual ")
-          console.log(data)
           this.gifts[i] = data;
         }
       }
@@ -72,13 +73,9 @@ export default {
       });
       if (response.status === 200) {
         const data = await response.json();
-        //console.log("Listas usuario actual ")
-        //console.log(data)
         this.llistes = data;
         const giftIds = this.llistes.flatMap(llista => llista.gifts.map(gift => gift.id));
         const wishlistIds = this.llistes.map(llista => llista.id);
-        console.log(wishlistIds);
-        console.log(giftIds);
 
         await this.obtainGifts(token, giftIds,wishlistIds);
         await this.obtainFriends(token, id);
@@ -91,7 +88,6 @@ export default {
   },
   mounted() {
     const token = localStorage.getItem('accessToken')
-    console.log(token)
     if (token === undefined || token === null) {
       window.location.href = '/'
     } else {
@@ -120,8 +116,8 @@ export default {
           //Respuesta en caso de error de servidor
         })
 
-      }
     }
+  }
 }
 </script>
 
@@ -170,7 +166,7 @@ export default {
     </section>
     <section id="PostSection">
       <div class="grid-container">
-          <div class="grid-item" v-for="llista in llistes">
+          <div class="grid-item" v-for="llista in llistes" :key="llista.id" @click="Redirect(llista.id)">
             <li><h3>{{ llista.name }}</h3></li>
             <li><h4>{{ llista.description }}</h4></li>
             <li> {{ llista.gifts }}</li>

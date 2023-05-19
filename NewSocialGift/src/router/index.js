@@ -45,9 +45,10 @@ const router = createRouter({
       component: EditarPerfilView
     },
     {
-      path: '/wishlists',
-      name: 'wishlists',
-      component:WishlistsView
+      path: '/wishlist/:id',
+      name: 'wishlist',
+      component:WishlistsView,
+      props: true
     },{
       path: '/createlist',
       name: 'createlist',

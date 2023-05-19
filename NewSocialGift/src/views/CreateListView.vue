@@ -14,9 +14,7 @@ export default {
       const token = localStorage.getItem('accessToken')
       var nameInput = document.getElementById('listname').value;
       var descriptionInput = document.getElementById('listdesc').value;
-
    
-      
       const wishlistData = {
         name: nameInput,
         description: descriptionInput,
@@ -35,7 +33,8 @@ export default {
           }
         )
         if (response.status === 201) {
-        alert('Wishlist created successfully')
+        alert('Wishlist created successfully');
+        window.location.href = '/profile'
         return response.json()
         } else {
           switch (response.status) {

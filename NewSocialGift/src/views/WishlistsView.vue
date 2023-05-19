@@ -1,6 +1,132 @@
-<script setup>
+<script>
 import NavBar from './../components/NavBar.vue'
 import language from './../components/language.vue'
+
+
+const token = localStorage.getItem('accessToken')
+
+
+export default {
+  name: 'MainView',
+  components: {
+    NavBar,
+    language
+  },
+  data() {
+    return {
+      gifts: [],
+      listaId: null // Variable para almacenar el ID de la lista
+    };
+  },
+
+  methods:{
+    async obtainGiftInfo(wishlist) {
+      const gifts = wishlist.map((obj) => obj.gifts)
+      //console.log(gifts)
+
+      const productURL = wishlists.map((wishlist) => {
+        return wishlist.gifts.map((gift) => gift.product_url)
+      })
+      //console.log(productURL)
+      //obtener el ultimo caracter de la URL despues de la ultima /
+      const productIds = productURL.map((url) => {
+        return url.map((url) => url.substring(url.lastIndexOf('/') + 1))
+      })
+      //console.log(productIds)
+
+      //hacer un flatMap para obtener un array de ids
+      const flattenedProducIds = productIds.flatMap((obj) => obj)
+      //hacer un fetch para cada URL
+      //console.log(flattenedProducIds)
+      const giftData = []
+      for (let i = 0; i < flattenedProducIds.length; i++) {
+        try {
+          const response = await fetch(
+            `https://balandrau.salle.url.edu/i3/mercadoexpress/api/v1/products/${flattenedProducIds[i]}`,
+            {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            }
+          )
+          if (response.status === 200) {
+            const data = await response.json() // O response.text() si la respuesta es en formato de texto
+            giftData.push(data)
+          } else {
+            throw new Error(`Failed to fetch gift for url ${product_urls[i]}.`)
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      //console.log(giftData)
+
+      gifts.forEach((element) => {
+        const productIds = element.map((gift) => {
+          const id = gift.product_url.substring(gift.product_url.lastIndexOf('/') + 1)
+
+          giftData.forEach((giftDataElement) => {
+            if (giftDataElement.id == id) {
+              // copiar los campos name y description del array giftData al array gifts
+              gift.name = giftDataElement.name
+              gift.description = giftDataElement.description
+              gift.link = giftDataElement.link
+              gift.photo = giftDataElement.photo
+              gift.categoryIds = giftDataElement.categoryIds
+            }
+          })
+        })
+      })
+
+      return gifts
+    },
+  },
+
+  mounted() {
+    this.listaId = this.$route.params.id; // Accede al ID de la lista desde la ruta
+    const addButton = document.querySelector('#addButton button');
+    const popupContainer = document.querySelector('#popup-container');
+    const popupOverlay = document.querySelector('#popup-overlay');
+    console.log(this.listaId);
+    addButton.addEventListener('click', function() {
+      popupContainer.classList.add('show-popup');
+      popupOverlay.style.display = 'block';
+    });
+
+    popupContainer.addEventListener('click', function(event) {
+      if (event.target === popupContainer) {
+        popupContainer.classList.remove('show-popup');
+        popupOverlay.style.display = 'none';
+      }
+    });
+    //Hacer una peticion GET pasandole el email del usuario logueado
+    fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/wishlists/${this.listaId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json()
+          }
+        })
+        .then((data) => {
+          this.gifts = data.gifts;
+          //mostrar el cotenido que nos devuelve el servidor
+          document.getElementById('listanameJS').innerHTML = data.name
+          document.getElementById('listadescJS').src = data.description
+          this.obtainGiftInfo(data.gifts) // aquí agregamos el operador this
+ 
+        })
+        .catch((error) => {
+          //Respuesta en caso de error de servidor
+        })
+  }
+}
+
 </script>
 
 <template>
@@ -14,36 +140,18 @@ import language from './../components/language.vue'
     <!--Mostrar listas de deseos-->
     <section id="WishListSection">
       <div id="banner">
-        <h1>Lista de cumpleaños</h1>
+        <h1 id="listanameJS"></h1>
+        <h2 id="listadescJS"></h2>
       </div>
-      <div id="WishListElement">
+      <div v-if="gifts.length === 0">
+        <h1>No hay regalos 😢</h1>
+      </div>
+      <div v-else  id="WishListElement">
         <ul id="ElementParts">
-          <li>
+          <li v-for="gift in gifts" :key="gift.id">
             <div class="icon-container">
-              <i class="fa-brands fa-playstation"></i>
-              <a>PlayStation 5</a>
-            </div>
-            <div class="icon-container2">
-              <a><i id="share" class="fa-solid fa-share-from-square"></i></a>
-              <a><i id="cross" class="fa-solid fa-circle-xmark"></i></a>
-              <input type="checkbox" id="reserveCheckbox">
-            </div>
-          </li>
-          <li>
-            <div class="icon-container">
-              <i class="fa-brands fa-xbox"></i>
-              <a>Xbox one</a>
-            </div>
-            <div class="icon-container2">
-              <a><i id="share" class="fa-solid fa-share-from-square"></i></a>
-              <a><i id="cross" class="fa-solid fa-circle-xmark"></i></a>
-              <input type="checkbox" id="reserveCheckbox">
-            </div>
-          </li>
-          <li>
-            <div class="icon-container">
-              <i class="fa-solid fa-desktop"></i>
-              <a>Desktop computer</a>
+              <i></i>
+              <a>{{ gift.name }}</a>
             </div>
             <div class="icon-container2">
               <a><i id="share" class="fa-solid fa-share-from-square"></i></a>
@@ -76,31 +184,6 @@ import language from './../components/language.vue'
     </section>
   </div>
 </template>
-
-<script>
-export default {
-  mounted() {
-    const addButton = document.querySelector('#addButton button');
-    const popupContainer = document.querySelector('#popup-container');
-    const popupOverlay = document.querySelector('#popup-overlay');
-
-    addButton.addEventListener('click', function() {
-      popupContainer.classList.add('show-popup');
-      popupOverlay.style.display = 'block';
-    });
-
-    popupContainer.addEventListener('click', function(event) {
-      if (event.target === popupContainer) {
-        popupContainer.classList.remove('show-popup');
-        popupOverlay.style.display = 'none';
-      }
-    });
-
-  }
-}
-</script>
-
-
 
 <style scoped>
 @import '../assets/Wishlists.css';

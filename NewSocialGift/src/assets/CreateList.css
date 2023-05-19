@@ -30,7 +30,7 @@ input[type=text] {
     font-family: 'Inter', sans-serif; 
 }
 
-input[type=submit] {
+button[type=submit] {
     background: #3cff76;
     color: black;
     padding: 12px 20px;

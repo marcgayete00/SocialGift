@@ -3,7 +3,7 @@
     <nav><!-- BORRAR -->
       <ol id="LanguageList">
         <li>
-          <img id="switchImg" src="src/components/icons/CurrentWhite.png" />
+          <img id="switchImg" src="../../src/components/icons/CurrentWhite.png" />
         </li>
         <li id="switchLi">
           <label class="switch">
