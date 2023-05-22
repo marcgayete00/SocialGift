@@ -11,11 +11,13 @@ export default {
   },
   data() {
     return {
-      
+      users: []
     }
   },
   methods: {
     async searchFriend(){
+      this.users = [];
+      document.getElementById("search-results").style.display = "block";
       const criteria = document.getElementById('search-friend').value;
       const token = localStorage.getItem('accessToken')
       
@@ -32,21 +34,20 @@ export default {
         })
         .then((data) => {
           //mostrar el cotenido que nos devuelve el servidor
+          console.log(data);
           for(var i = 0; i < data.length; i++){
-            if (data[i].name === criteria){
-              console.log(data)
-              document.getElementById("usernameJS").innerHTML = data[i].name;
-              document.getElementById("imageJS").src = data[i].image;
-            }
+              this.users.push(data[i]);
           }
-          
-
 
         })
         .catch((error) => {
           //Respuesta en caso de error de servidor
         })
 
+    },
+    selectFriend(name, image){
+      document.getElementById("usernameJS").style.visibility = name;
+      document.getElementById("imageJS").style.display = image;
     }
     
     
@@ -73,6 +74,12 @@ export default {
                     <input type="text" placeholder="User name..." id="search-friend" />
                     <a id="search-button" @click="searchFriend"> Search </a>
                 </div>
+                <div id="search-results" class="search-results">
+                  <ul v-for="user in users" :key="user.id">
+                    <li><a @click="selectFriend(user.name, user.image)"><img :src="user.image">{{user.name}}</a></li>
+                  </ul>
+                </div>
+
             </div>
             <div id="list-profiles">
                 <ul>
@@ -87,6 +94,7 @@ export default {
             </div>
         </div>
         <div class="chat-section">
+        <h1> Selecciona un chat!  </h1>
             <div class="listheader">
                 <img class="profileimglist" src="../../img/DefaultProfilePhoto.png" id="imageJS">
                 <h3 id="usernameJS">NickName</h3>
