@@ -9,7 +9,7 @@
   }
 
   #WishListSection{
-    max-width: 80%;
+    max-width: 73%;
     height: 700px;
     padding: 20px;
     margin-top: -50%;
@@ -27,13 +27,20 @@
     line-height: 1.1;
     color: #333333;
     text-align: center;
-  
+}
+
+#banner h2{
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.1;
+  color: #333333;
+  text-align: center;
 }
 
 #ElementParts{
     list-style: none;
     margin-top: 60px;
-    margin-left: 400px;
+    margin-left: 150px;
     width: 700px;
 }
 
@@ -59,8 +66,9 @@
     margin-left: 10px;
 }
 
-.icon-container i {
-    margin-right: 230px;
+.icon-container img{
+    margin-right: 200px;
+    width: 100px;
 }
 
 .icon-container2 {
@@ -68,9 +76,6 @@
     margin-right: 10px;
 }
 
-.icon-container2 i{
-    margin-right: 10px;
-}
 
 #ElementParts a{
     font-size: x-large;
@@ -85,7 +90,7 @@
 #addButton button{
     position: relative;
     top: 40px;
-    margin-left: 720px;
+    margin-left: 485px;
     font-size: 20px;  
     background: #3cff76 !important;
     border-radius: 4px;
@@ -104,7 +109,7 @@
 #saveButton button{
     position: relative;
     top: 40px;
-    margin-left: 720px;
+    margin-left: 485px;
     font-size: 20px;  
     background: #79B2DD;
     border-radius: 4px;
