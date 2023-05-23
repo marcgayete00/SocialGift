@@ -19,7 +19,6 @@ function loginUser() {
   })
     .then((response) => {
       if (response.status === 200) {
-        alert('User Logged In')
         return response.json()
       } else {
         switch (response.status) {
@@ -69,6 +68,7 @@ function loginUser() {
               id="password"
               name="password"
               placeholder="Contraseña"
+              @keydown.enter="loginUser"
             /><br />
             <button id="loginButton" @click="loginUser"><a href="#"> Login </a></button>
             <hr />
