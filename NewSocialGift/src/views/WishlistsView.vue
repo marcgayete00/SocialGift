@@ -20,19 +20,15 @@ export default {
   },
 
   methods:{
-    async obtainGiftInfo(wishlist) {
-      const gifts = wishlist.map((obj) => obj.gifts)
-      //console.log(gifts)
+    async obtainGiftInfo() {
 
-      const productURL = wishlists.map((wishlist) => {
-        return wishlist.gifts.map((gift) => gift.product_url)
-      })
-      //console.log(productURL)
+      const productURL = this.gifts.map((regalos) => regalos.product_url);
+
+      console.log(productURL)
       //obtener el ultimo caracter de la URL despues de la ultima /
-      const productIds = productURL.map((url) => {
-        return url.map((url) => url.substring(url.lastIndexOf('/') + 1))
-      })
-      //console.log(productIds)
+      const productIds = productURL.map((url) => url.substring(url.lastIndexOf('/') + 1));
+
+      console.log(productIds)
 
       //hacer un flatMap para obtener un array de ids
       const flattenedProducIds = productIds.flatMap((obj) => obj)
@@ -60,9 +56,9 @@ export default {
           console.log(error)
         }
       }
-      //console.log(giftData)
+      console.log(giftData)
 
-      gifts.forEach((element) => {
+      /*this.gifts.forEach((element) => {
         const productIds = element.map((gift) => {
           const id = gift.product_url.substring(gift.product_url.lastIndexOf('/') + 1)
 
@@ -74,12 +70,13 @@ export default {
               gift.link = giftDataElement.link
               gift.photo = giftDataElement.photo
               gift.categoryIds = giftDataElement.categoryIds
+              console.log(giftDataElement.name)
             }
           })
         })
-      })
+      })*/
 
-      return gifts
+      return giftData
     },
   },
 
@@ -113,13 +110,17 @@ export default {
             return response.json()
           }
         })
-        .then((data) => {
+        .then(async (data) => {
           this.gifts = data.gifts;
           //mostrar el cotenido que nos devuelve el servidor
           document.getElementById('listanameJS').innerHTML = data.name
-          document.getElementById('listadescJS').src = data.description
-          this.obtainGiftInfo(data.gifts) // aquí agregamos el operador this
- 
+          document.getElementById('listadescJS').innerHTML = data.description
+          
+          const datagift = await this.obtainGiftInfo(); // Espera a que se resuelva la promesa
+          this.gifts = datagift; // Asigna los datos obtenidos a this.gifts
+          console.log(this.gifts);
+          
+
         })
         .catch((error) => {
           //Respuesta en caso de error de servidor
@@ -148,9 +149,9 @@ export default {
       </div>
       <div v-else  id="WishListElement">
         <ul id="ElementParts">
-          <li v-for="gift in gifts" :key="gift.id">
+          <li v-for="gift in this.gifts" :key="gift.id">
             <div class="icon-container">
-              <i></i>
+              <img :src="gift.photo">
               <a>{{ gift.name }}</a>
             </div>
             <div class="icon-container2">
