@@ -44,12 +44,18 @@ export default {
         })
     },
     selectFriend(name, image) {
-      console.log(name)
+      console.log(name, image)
+
+      document.getElementById('noChats').style.display = 'none'
+      document.getElementById('listheader').style.display = 'block'
       document.getElementById('usernameJS').innerHTML = name
-      document.getElementById('imageJS').innerHTML = image
+      document.getElementById('imageJS').src = image
+      
     }
   },
-  mounted() {}
+  mounted() {
+    
+  }
 }
 </script>
 
@@ -100,13 +106,19 @@ export default {
         <div></div>
       </div>
       <div class="chat-section">
-        <h1>Selecciona un chat!</h1>
-        <div class="listheader">
+        <h1 id="noChats">Selecciona un chat!</h1>
+        <div id="listheader" class="listheader">
           <img class="profileimglist" src="../../img/DefaultProfilePhoto.png" id="imageJS" />
           <h3 id="usernameJS">NickName</h3>
           <a href="#"><i id="moreimg" class="fa-solid fa-info" style="color: #000000"></i></a>
         </div>
-        <div id="chatdiv"></div>
+        <div class="chat-div">
+          <!-- Chat messages-->
+        </div>
+        <div class="chat-input">
+          <input type="text" id="message" placeholder="Write a message..." />
+          <a href="#"><i class="fa-solid fa-paper-plane"></i></a>
+        </div>
       </div>
     </section>
   </div>
