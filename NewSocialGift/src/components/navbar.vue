@@ -1,13 +1,41 @@
 <script>
   export default{
+    
     methods: {
         logout() {
             localStorage.removeItem('accessToken')
             this.$router.push('/')
         },
+        async searchFriend() {
+          this.users = []
+          document.getElementById('search-results').style.display = 'block'
+          const criteria = document.getElementById('search-friend').value
+          const token = localStorage.getItem('accessToken')
+
+          fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/search?s=${criteria}`, {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
+            .then((response) => {
+              if (response.status === 200) {
+                return response.json()
+              }
+            })
+            .then((data) => {
+              //mostrar el cotenido que nos devuelve el servidor
+              console.log(data)
+              for (var i = 0; i < data.length; i++) {
+                this.users.push(data[i])
+              }
+            })
+            .catch((error) => {
+              //Respuesta en caso de error de servidor
+            })
+        },
       }
     }
-
 </script>
 
 <template>
@@ -23,9 +51,24 @@
             <a href="#"><i class="fa-solid fa-magnifying-glass"></i> Search</a>
             <ul id="SearchSlide">
               <li>
-                <input type="text" placeholder="Search..."/>
-                <i class="fa-solid fa-user"><a href="#">Martin50</a></i>
-                
+                <div class="search-container">
+                <input
+                  type="text"
+                  placeholder="User name..."
+                  id="search-friend"
+                  @keydown.enter="searchFriend"
+                />
+                <a id="search-button" @click="searchFriend"> Search </a>
+                </div>
+                <div id="search-results" class="search-results">
+                  <ul v-for="user in users" :key="user.id">
+                    <li>
+                      <a @click="selectFriend(user.name, user.image)"
+                        ><img :src="user.image" />{{ user.name }}</a
+                      >
+                    </li>
+                  </ul>
+                </div>
               </li>
             </ul>
           </li>

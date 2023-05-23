@@ -14,26 +14,64 @@ export default {
   },
   data() {
     return {
+      wishlists: [],
       gifts: [],
       listaId: null // Variable para almacenar el ID de la lista
     };
   },
 
   methods:{
+
+    async addGift(){
+      var url = document.getElementById('nombre-producto').value
+      var prioridad = document.getElementById('prioridad-producto').value
+      console.log(this.wishlists)
+      const wishlist = {
+        id: this.listaId,
+        name: this.wishlists.name,
+        description: this.wishlists.description,
+        user_id: 121,
+        gifts: [
+          {
+            id: 1,
+            wishlist_id: this.listaId,
+            product_url: url,
+            priority: prioridad,
+            booked: false
+          }
+        ],
+      }
+      console.log(wishlist)
+      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/wishlists/${this.listaId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(wishlist)
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            alert('Regalo añadido correctamente')
+          } else {
+            alert('Error al añadir el regalo')
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+
     async obtainGiftInfo() {
 
       const productURL = this.gifts.map((regalos) => regalos.product_url);
 
-      console.log(productURL)
       //obtener el ultimo caracter de la URL despues de la ultima /
       const productIds = productURL.map((url) => url.substring(url.lastIndexOf('/') + 1));
 
-      console.log(productIds)
 
       //hacer un flatMap para obtener un array de ids
       const flattenedProducIds = productIds.flatMap((obj) => obj)
       //hacer un fetch para cada URL
-      //console.log(flattenedProducIds)
       const giftData = []
       for (let i = 0; i < flattenedProducIds.length; i++) {
         try {
@@ -56,25 +94,6 @@ export default {
           console.log(error)
         }
       }
-      console.log(giftData)
-
-      /*this.gifts.forEach((element) => {
-        const productIds = element.map((gift) => {
-          const id = gift.product_url.substring(gift.product_url.lastIndexOf('/') + 1)
-
-          giftData.forEach((giftDataElement) => {
-            if (giftDataElement.id == id) {
-              // copiar los campos name y description del array giftData al array gifts
-              gift.name = giftDataElement.name
-              gift.description = giftDataElement.description
-              gift.link = giftDataElement.link
-              gift.photo = giftDataElement.photo
-              gift.categoryIds = giftDataElement.categoryIds
-              console.log(giftDataElement.name)
-            }
-          })
-        })
-      })*/
 
       return giftData
     },
@@ -85,7 +104,6 @@ export default {
     const addButton = document.querySelector('#addButton button');
     const popupContainer = document.querySelector('#popup-container');
     const popupOverlay = document.querySelector('#popup-overlay');
-    console.log(this.listaId);
     addButton.addEventListener('click', function() {
       popupContainer.classList.add('show-popup');
       popupOverlay.style.display = 'block';
@@ -111,6 +129,8 @@ export default {
           }
         })
         .then(async (data) => {
+          this.wishlists = data;
+          console.log(this.wishlists);
           this.gifts = data.gifts;
           //mostrar el cotenido que nos devuelve el servidor
           document.getElementById('listanameJS').innerHTML = data.name
@@ -118,8 +138,6 @@ export default {
           
           const datagift = await this.obtainGiftInfo(); // Espera a que se resuelva la promesa
           this.gifts = datagift; // Asigna los datos obtenidos a this.gifts
-          console.log(this.gifts);
-          
 
         })
         .catch((error) => {
@@ -170,18 +188,16 @@ export default {
       <div id="popup-overlay"></div>
       <div id="popup-container">
       <form class="popup-form">
+        <button id="close-button"><i class="fa-solid fa-xmark"></i></button>
         <h2>Añadir producto</h2>
-        <label for="nombre-producto">Nombre del producto:</label>
+        <label for="nombre-producto">Url del producto:</label>
         <input type="text" id="nombre-producto" name="nombre-producto">
-        <label for="file-upload" class="upload-btn">Imagen del producto:</label>
-        <input type="file" id="file-upload">
-        <button type="submit">Agregar</button>
+        <label for="nombre-producto">Prioridad: </label>
+        <input type="number" id="prioridad-producto" name="nombre-producto">
+
+        <button @click="addGift()">Agregar</button>
       </form>
     </div>
-
-      <div id="saveButton">
-        <button><a href="profile">Guardar</a></button>
-      </div>
     </section>
   </div>
 </template>
