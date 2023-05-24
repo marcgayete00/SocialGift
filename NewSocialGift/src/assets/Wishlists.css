@@ -221,6 +221,12 @@
     cursor: pointer;
     top: 20px;
   }
+
+  #flechaback{
+    display: block;
+    margin-top: -42%;
+    margin-left: -93%;
+  }
   
   .popup-form button[type="submit"] {
     position: fixed;

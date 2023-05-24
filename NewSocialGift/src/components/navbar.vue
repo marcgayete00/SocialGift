@@ -41,10 +41,10 @@ export default {
   <div class="navigation">
     <ul>
       <li>
-        <a href="main"> <img src="../../img/logo.png" id="logoNavBar" alt="" /></a>
+        <a href="/main"> <img src="../../img/logo.png" id="logoNavBar" alt="" /></a>
       </li>
       <li>
-        <a href="main"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="/main"><i class="fa-solid fa-house"></i> Home</a>
       </li>
       <li>
         <a href="#"><i class="fa-solid fa-magnifying-glass"></i> Search</a>
@@ -72,7 +72,7 @@ export default {
         </ul>
       </li>
       <li>
-        <a href="chat"><i class="fa-solid fa-envelope"></i> Messages</a>
+        <a href="/chat"><i class="fa-solid fa-envelope"></i> Messages</a>
       </li>
       <li>
         <a href="#"><i class="fa-sharp fa-solid fa-bell"></i> Notifications</a>
@@ -87,12 +87,12 @@ export default {
         </ul>
       </li>
       <li>
-        <a href="createList"><i class="fa-solid fa-pen-to-square"></i> Create</a>
+        <a href="/createList"><i class="fa-solid fa-pen-to-square"></i> Create</a>
       </li>
       <li id="MoreLi">
         <a href="#"><i class="fa-solid fa-bars"></i> More</a>
         <ul id="moreSlide">
-          <li><a href="editarperfil">Editar Perfil</a></li>
+          <li><a href="/editarperfil">Editar Perfil</a></li>
           <li><a href="#" @click="logout">Desconectar</a></li>
         </ul>
       </li>

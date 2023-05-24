@@ -83,9 +83,23 @@ export default {
     } catch (error) {
       // Manejar el error de forma adecuada
     }
-  }
-
   },
+
+  async getRandomColor() {
+    const gridItems = document.getElementsByClassName('grid-item');
+    const colors = [];
+
+    for (let i = 0; i < gridItems.length; i++) {
+      const color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+      colors.push(color);
+      gridItems[i].style.backgroundColor = color;
+    }
+
+    console.log(colors);
+    return colors;
+  },
+
+},
   mounted() {
     const token = localStorage.getItem('accessToken')
     if (token === undefined || token === null) {
@@ -150,7 +164,7 @@ export default {
           </div>
           <div id="ProfileDescription">
             <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. del usuario
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry.
             </p>
           </div>
         </div>
@@ -158,33 +172,19 @@ export default {
     </section>
     <hr />
 
-    <section>
-      <div id="SelectList">
-        <a href="#" id="Lists">List</a>
-        <a href="#" id="Lists">WishList</a>
-      </div>
-    </section>
+    <div id="SelectList">
+      <a href="#" id="Lists">WishLists</a>
+    </div>
     <section id="PostSection">
       <div class="grid-container">
-          <div class="grid-item" v-for="llista in llistes" :key="llista.id" @click="Redirect(llista.id)">
-            <li><h3>{{ llista.name }}</h3></li>
+          <div :style="{ backgroundColor: getRandomColor() }" class="grid-item" v-for="llista in llistes" :key="llista.id" @click="Redirect(llista.id)">
+            <li style=""><h3>{{ llista.name }}</h3></li>
             <li><h4>{{ llista.description }}</h4></li>
-            <li> {{ llista.gifts }}</li>
           </div>
       </div>
     </section>
   </div>
 </template>
-
-<!--<script>
-export default {
-  methods: {
-    myFunction() {
-      window.location.href = '/Wishlists';
-    }
-  }
-}
-</script>-->
 
 <style>
 @media screen and (max-width: 600px) {
@@ -255,4 +255,6 @@ export default {
 }
 </style>
 
-<style scoped src="../assets/ProfileStyle.css"></style>
+<style scoped>
+@import '../assets/ProfileStyle.css';
+</style>
