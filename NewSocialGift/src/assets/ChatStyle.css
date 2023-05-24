@@ -43,7 +43,7 @@
     .listheader{
       position: fixed;
       display: none;
-      width: 100%;
+      width: 38.3%;
       height: 120px;
       border-top: 1px solid #ccc;
       border-bottom: 1px solid #ccc;
@@ -63,9 +63,9 @@
         border-top: 1px solid #ccc;
         border-left: 1px solid #ccc;
         border-radius: 5px;
-        margin-top: 200px;
+        margin-top: 100px;
         margin-right: -110px;
-        height: 850px;
+        height: 750px;
         width: 600px;
         overflow-y: hidden;
         overflow-x: hidden;
@@ -112,8 +112,8 @@
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
       border: 1px solid #ccc;
       border-radius: 5px;
-      margin-top: 200px;
-      height: 850px;
+      margin-top: 100px;
+      height: 750px;
       width: 1200px;
       overflow-y: scroll;
       overflow-x: hidden;
@@ -145,7 +145,7 @@
       margin-top: 30px
     }
 
-    #search-friend{
+    #valor{
       display: flex;
       align-items: center;
       width: 250px;
@@ -191,7 +191,7 @@
       margin-top: 10px;
     }
 
-    .search-results {
+    #search-results{
       display: none;
       width: 350px;
       font-size: 20px;
@@ -234,13 +234,12 @@
     }
 
     .chat-input{
-      display: none;
       position: fixed;
       width: 40%;
       height: 50px;
       border-radius: 4px;
-      top: 10px;
-      left: 950px;
+      top: 900px;
+      left: 1000px;
       margin-bottom: 10px;
       outline: none;
       font-size: 20px;
@@ -251,7 +250,8 @@
       font-family: 'Inter', sans-serif;
     }
 
-    .chat-input input{
+    .chat-input textarea{
+      resize: none;
       width: 70%;
       height: 70%;
       border-radius: 50px;

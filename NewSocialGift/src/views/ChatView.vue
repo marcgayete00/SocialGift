@@ -17,8 +17,9 @@ export default {
   methods: {
     async searchFriend() {
       this.users = []
-      document.getElementById('search-results').style.display = 'block'
-      const criteria = document.getElementById('search-friend').value
+      document.getElementById('search-results-id').style.display = 'block'
+      const criteria = document.getElementById('valor').value
+      console.log('valor ' + criteria)
       const token = localStorage.getItem('accessToken')
 
       fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/search?s=${criteria}`, {
@@ -38,6 +39,7 @@ export default {
           for (var i = 0; i < data.length; i++) {
             this.users.push(data[i])
           }
+          console.log(this.users)
         })
         .catch((error) => {
           //Respuesta en caso de error de servidor
@@ -50,12 +52,9 @@ export default {
       document.getElementById('listheader').style.display = 'block'
       document.getElementById('usernameJS').innerHTML = name
       document.getElementById('imageJS').src = image
-      
     }
   },
-  mounted() {
-    
-  }
+  mounted() {}
 }
 </script>
 
@@ -72,12 +71,12 @@ export default {
             <input
               type="text"
               placeholder="User name..."
-              id="search-friend"
+              id="valor"
               @keydown.enter="searchFriend"
             />
             <a id="search-button" @click="searchFriend"> Search </a>
           </div>
-          <div id="search-results" class="search-results">
+          <div id="search-results-id" class="search-results">
             <ul v-for="user in users" :key="user.id">
               <li>
                 <a @click="selectFriend(user.name, user.image)"
@@ -116,7 +115,7 @@ export default {
           <!-- Chat messages-->
         </div>
         <div class="chat-input">
-          <input type="text" id="message" placeholder="Write a message..." />
+          <textarea type="text" id="message" placeholder="Write a message..." />
           <a href="#"><i class="fa-solid fa-paper-plane"></i></a>
         </div>
       </div>
