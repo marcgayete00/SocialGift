@@ -3,6 +3,7 @@ import NavBar from './../components/NavBar.vue'
 import language from './../components/language.vue'
 import MiComponente from './../components/separarTrama.vue'
 
+
 export default {
   components: {
     NavBar,
@@ -11,7 +12,8 @@ export default {
   },
   data() {
     return {
-      users: []
+      users: [],
+      userMessaged: []
     }
   },
   methods: {
@@ -45,17 +47,77 @@ export default {
           //Respuesta en caso de error de servidor
         })
     },
-    selectFriend(name, image) {
+    selectFriend(name, image, id) {
       console.log(name, image)
-
+      localStorage.setItem('CurrentUserToTalkId', id);
       document.getElementById('noChats').style.display = 'none'
       document.getElementById('listheader').style.display = 'block'
       document.getElementById('chat-input-id').style.display = 'block'
       document.getElementById('usernameJS').innerHTML = name
       document.getElementById('imageJS').src = image
+      document.getElementById('messageUser').style.display = 'none'
+    },
+
+    async sendMessage() {
+      var message = document.getElementById('message').value;
+      const token = localStorage.getItem('accessToken')
+      const id = MiComponente.methods.obtenerIdDesdeToken(token)
+      
+      const bodymessage = {
+        content: message,
+        user_id_send: id,
+        user_id_recived: localStorage.getItem('CurrentUserToTalkId')
+      }
+
+      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/messages`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          
+        },
+        body: JSON.stringify(bodymessage)
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            console.log("Mensaje enviado correctamente");
+            return response.json()
+          } else {
+            console.log(response)
+          }
+        })
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   },
-  mounted() {}
+  mounted() {
+    fetch('https://balandrau.salle.url.edu/i3/socialgift/api/v1/messages/users', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json()
+        }
+      })
+      .then((data) => {
+        //mostrar el cotenido que nos devuelve el servidor
+        console.log(data)
+        for (var i = 0; i < data.length; i++) {
+          this.userMessaged.push(data[i])
+        }
+        console.log(this.userMessaged)
+      })
+      .catch((error) => {
+        //Respuesta en caso de error de servidor
+      })
+  }
 }
 </script>
 
@@ -80,27 +142,18 @@ export default {
           <div id="search-results-id" class="search-results">
             <ul v-for="user in users" :key="user.id">
               <li>
-                <a @click="selectFriend(user.name, user.image)"
-                  ><img :src="user.image" />{{ user.name }}</a
+                <a @click="selectFriend(user.name, user.image, user.id)"><img :src="user.image" />{{ user.name }}</a
                 >
               </li>
             </ul>
           </div>
         </div>
-        <div id="list-profiles">
-          <ul>
+        <div id="list-profiles" >
+          <ul v-for="user in userMessaged" :key="userMessaged.id">
             <li>
-              <a><img />NickName</a>
+              <a><img :src="user.image" />{{user.name}}</a>
             </li>
-            <li>
-              <a><img />NickName</a>
-            </li>
-            <li>
-              <a><img />NickName</a>
-            </li>
-            <li>
-              <a><img />NickName</a>
-            </li>
+            
           </ul>
         </div>
         <div></div>
@@ -116,8 +169,8 @@ export default {
           <h4 id="messageUser">Lorem Ipsum hoal que tal me allamo apcao</h4>
         </div>
         <div class="chat-input" id="chat-input-id">
-          <textarea type="text" id="message" placeholder="Write a message..." />
-          <a href="#"><i class="fa-solid fa-paper-plane"></i></a>
+          <input type="text" id="message" placeholder="Write a message..." @keydown.enter="sendMessage">
+          <a @keydown.enter="sendMessage"><i class="fa-solid fa-paper-plane"></i></a>
         </div>
       </div>
     </section>

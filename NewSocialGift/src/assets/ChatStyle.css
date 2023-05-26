@@ -41,6 +41,7 @@
     }
 
     .listheader {
+      display: none;
       position: sticky;
       top: 0;
       background-color: #FFF;
@@ -87,11 +88,20 @@
         font-weight: bold;
         padding: 20px;
         text-align: left;
+        font-family: 'Inter', sans-serif;
     }
 
-    #list-profiles ul li:hover{
-        transition: 1s;
-        background-color: #ccc;
+    #list-profiles ul li img{
+      position: relative;
+        text-decoration: none;
+        top: 20px;
+    }
+
+    #list-profiles ul li img{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 20px;
     }
 
     .iconocrear{
@@ -205,9 +215,10 @@
       border-radius: 50%;
       margin-left: 40px;
       margin-top: 10px;
+      margin-right: 20px;
     }
 
-    #search-results{
+    .search-results{
       display: none;
       width: 350px;
       font-size: 20px;
@@ -255,8 +266,8 @@
       width: 40%;
       height: 50px;
       border-radius: 4px;
-      top: 900px;
-      left: 1090px;
+      top: 800px;
+      left: 750px;
       margin-bottom: 10px;
       outline: none;
       font-size: 20px;
@@ -267,7 +278,7 @@
       font-family: 'Inter', sans-serif;
     }
 
-    .chat-input textarea{
+    .chat-input input{
       resize: none;
       width: 70%;
       height: 70%;
@@ -309,10 +320,11 @@
     }
     
     #messageUser{
+      display: none;
       position: fixed;
       top: 45%;
       left: 55%;
-      font-size: 30px;
+      font-size:20px;
       font-family: 'Inter', sans-serif;
       background-color: antiquewhite;
       padding-left: 10px;
