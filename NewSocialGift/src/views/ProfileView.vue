@@ -85,14 +85,16 @@ export default {
     }
   },
 
-  async getRandomColor() {
+  async getRandomGradient() {
     const gridItems = document.getElementsByClassName('grid-item');
     const colors = [];
 
     for (let i = 0; i < gridItems.length; i++) {
-      const color = '#' + Math.floor(Math.random() * 16777215).toString(16);
-      colors.push(color);
-      gridItems[i].style.backgroundColor = color;
+      const color1 = '#' + Math.floor(Math.random() * 16777215).toString(16);
+      const color2 = '#' + Math.floor(Math.random() * 16777215).toString(16);
+      const gradient = `linear-gradient(to right, ${color1}, ${color2})`;
+      colors.push([color1, color2]);
+      gridItems[i].style.background = gradient;
     }
 
     console.log(colors);
@@ -177,7 +179,7 @@ export default {
     </div>
     <section id="PostSection">
       <div class="grid-container">
-          <div :style="{ backgroundColor: getRandomColor() }" class="grid-item" v-for="llista in llistes" :key="llista.id" @click="Redirect(llista.id)">
+          <div :style="{ backgroundColor: getRandomGradient() }" class="grid-item" v-for="llista in llistes" :key="llista.id" @click="Redirect(llista.id)">
             <li style=""><h3>{{ llista.name }}</h3></li>
             <li><h4>{{ llista.description }}</h4></li>
           </div>

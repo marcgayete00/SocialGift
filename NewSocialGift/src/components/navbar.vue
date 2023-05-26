@@ -1,14 +1,48 @@
 <script>
 export default {
+  data() {
+    return {
+      users: []
+    }
+  },
   methods: {
-    logout() {
+    async showS(){
+      document.getElementById('close-buttonS').style.display = 'block';
+      document.getElementById('SearchSlide').style.display = 'block';
+      if(document.getElementById('NotificationsSlide').style.display == 'block'){
+        document.getElementById('NotificationsSlide').style.display = 'none';
+      }
+    },
+
+    async showN(){
+      document.getElementById('close-buttonN').style.display = 'block';
+      document.getElementById('NotificationsSlide').style.display = 'block';
+      if(document.getElementById('SearchSlide').style.display == 'block'){
+        document.getElementById('SearchSlide').style.display = 'none';
+      }
+    },
+
+    async closeS(){
+      document.getElementById('close-buttonS').style.display = 'none';
+      document.getElementById('close-buttonN').style.display = 'none';
+      document.getElementById('SearchSlide').style.display = 'none';
+    },
+
+    async closeN(){
+      document.getElementById('close-buttonS').style.display = 'none';
+      document.getElementById('close-buttonN').style.display = 'none';
+      document.getElementById('NotificationsSlide').style.display = 'none';
+      
+    },
+
+    async logout() {
       localStorage.removeItem('accessToken')
       this.$router.push('/')
     },
     async searchFriend() {
       this.users = []
-      document.getElementById('search-results').style.display = 'block'
-      const criteria = document.getElementById('search-friend').value
+      document.getElementById('search-results-id').style.display = 'block'
+      const criteria = document.getElementById('valor').value
       const token = localStorage.getItem('accessToken')
 
       fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/search?s=${criteria}`, {
@@ -24,7 +58,6 @@ export default {
         })
         .then((data) => {
           //mostrar el cotenido que nos devuelve el servidor
-          console.log(data)
           for (var i = 0; i < data.length; i++) {
             this.users.push(data[i])
           }
@@ -32,7 +65,8 @@ export default {
         .catch((error) => {
           //Respuesta en caso de error de servidor
         })
-    }
+        console.log(this.users)
+    },
   }
 }
 </script>
@@ -47,27 +81,26 @@ export default {
         <a href="/main"><i class="fa-solid fa-house"></i> Home</a>
       </li>
       <li>
-        <a href="#"><i class="fa-solid fa-magnifying-glass"></i> Search</a>
+        <a @click="showS()"><i class="fa-solid fa-magnifying-glass" ></i> Search</a>
+        <button @click="closeS()" id="close-buttonS"><i class="fa-solid fa-xmark"></i></button>
         <ul id="SearchSlide">
           <li>
             <div class="search-container">
-              <input
-                type="text"
-                placeholder="User name..."
-                id="search-friend"
-                @keydown.enter="searchFriend"
-              />
-              <a id="search-button" @click="searchFriend"> Search </a>
-            </div>
-            <div id="search-results" class="search-results">
-              <ul v-for="user in users" :key="user.id">
-                <li>
-                  <a @click="selectFriend(user.name, user.image)"
-                    ><img :src="user.image" />{{ user.name }}</a
-                  >
-                </li>
-              </ul>
-            </div>
+            <input
+              type="text"
+              placeholder="Username..."
+              id="valor"
+              @keydown.enter="searchFriend"
+            />
+            <a id="search-button" @click="searchFriend"> Search </a>
+          </div>
+          <div id="search-results-id" class="search-results">
+            <ul v-for="user in users" :key="user.id">
+              <li>
+                <a><img :src="user.image" />{{ user.name }}</a>
+              </li>
+            </ul>
+          </div>
           </li>
         </ul>
       </li>
@@ -75,7 +108,8 @@ export default {
         <a href="/chat"><i class="fa-solid fa-envelope"></i> Messages</a>
       </li>
       <li>
-        <a href="#"><i class="fa-sharp fa-solid fa-bell"></i> Notifications</a>
+        <a @click="showN()"><i class="fa-sharp fa-solid fa-bell"></i> Notifications</a>
+        <button @click="closeN()" id="close-buttonN"><i class="fa-solid fa-xmark"></i></button>
         <ul id="NotificationsSlide">
           <li style="font-size: larger">Más recientes</li>
           <li id="InsideNotificationSlide">
