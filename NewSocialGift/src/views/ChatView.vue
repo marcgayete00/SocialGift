@@ -50,6 +50,7 @@ export default {
 
       document.getElementById('noChats').style.display = 'none'
       document.getElementById('listheader').style.display = 'block'
+      document.getElementById('chat-input-id').style.display = 'block'
       document.getElementById('usernameJS').innerHTML = name
       document.getElementById('imageJS').src = image
     }
@@ -112,9 +113,9 @@ export default {
           <a href="#"><i id="moreimg" class="fa-solid fa-info" style="color: #000000"></i></a>
         </div>
         <div class="chat-div">
-          <!-- Chat messages-->
+          <h4 id="messageUser">Lorem Ipsum hoal que tal me allamo apcao</h4>
         </div>
-        <div class="chat-input">
+        <div class="chat-input" id="chat-input-id">
           <textarea type="text" id="message" placeholder="Write a message..." />
           <a href="#"><i class="fa-solid fa-paper-plane"></i></a>
         </div>
