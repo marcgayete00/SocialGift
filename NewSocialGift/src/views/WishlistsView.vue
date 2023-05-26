@@ -97,6 +97,11 @@ export default {
 
       return giftData
     },
+
+    async goback(){
+      window.history.back();
+    },
+
   },
 
   mounted() {
@@ -154,7 +159,12 @@ export default {
 
     <section id="GeneralSection">
       <NavBar />
+      <a id="flechaback" href="#" @click="goback()">
+        <i class="fa-sharp fa-solid fa-arrow-left fa-2xl" style="color: #195583;"></i>
+      </a>
     </section>
+
+    
 
     <!--Mostrar listas de deseos-->
     <section id="WishListSection">
