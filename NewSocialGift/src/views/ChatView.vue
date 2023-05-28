@@ -13,8 +13,10 @@ export default {
   data() {
     return {
       users: [],
+      showNoResultsMessage: false,
       userMessaged: [],
-      messages: []
+      messages: [],
+      GlobalId: 0,
     }
   },
   methods: {
@@ -22,6 +24,7 @@ export default {
       this.users = []
       const criteria = document.getElementById('criteria').value;
       //console.log('criteria ' + criteria)
+      document.getElementById('closeResults').style.display = 'block'
       document.getElementById('search-results-id').style.display = 'block'
       
       
@@ -43,6 +46,12 @@ export default {
           console.log(data)
           for (let i = 0; i < data.length; i++) {
             this.users.push(data[i])
+          }
+
+          if (this.users.length === 0) {
+            this.showNoResultsMessage = true; // Mostrar el mensaje si no se encuentran resultados
+          } else {
+            this.showNoResultsMessage = false; // Ocultar el mensaje si se encuentran resultados
           }
           //console.log(this.users)
         })
@@ -123,9 +132,17 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+    closeResults(){
+      this.users = []
+      document.getElementById('closeResults').style.display = 'none'
     }
   },
   mounted() {
+    const token = localStorage.getItem('accessToken')
+    const id = MiComponente.methods.obtenerIdDesdeToken(token)
+    this.GlobalId = id;
+    console.log(this.GlobalId)
     fetch('https://balandrau.salle.url.edu/i3/socialgift/api/v1/messages/users', {
       method: 'GET',
       headers: {
@@ -171,17 +188,19 @@ export default {
             <a id="search-button" @click="searchFriend"> Search </a>
           </div>
           <div id="search-results-id" class="search-results">
+            <i class="fa-solid fa-xmark" id="closeResults" @click="closeResults"></i>
             <ul v-for="user in users" :key="user.id">
               <li>
                 <a @click="selectFriend(user.name, user.image, user.id)"><img :src="user.image" />{{ user.name }}</a>
               </li>
             </ul>
+            <p v-show="showNoResultsMessage && users.length === 0" id="no-results-message">No results</p>
           </div>
         </div>
         <div id="list-profiles" >
           <ul v-for="user in userMessaged" :key="userMessaged.id"  >
             <li>
-              <a><img :src="user.image" />{{user.name}}</a>
+              <a @click="selectFriend(user.name, user.image, user.id)"><img :src="user.image" />{{user.name}}</a>
             </li>
           </ul>
         </div>
@@ -190,14 +209,15 @@ export default {
       <div class="chat-section">
         <h1 id="noChats">Selecciona un chat!</h1>
         <div id="listheader" class="listheader">
-          <img class="profileimglist" src="../../img/DefaultProfilePhoto.png" id="imageJS" />
-          <h3 id="usernameJS">NickName</h3>
+          <img class="profileimglist" id="imageJS" />
+          <h3 id="usernameJS"></h3>
           <a href="#"><i id="moreimg" class="fa-solid fa-info" style="color: #000000"></i></a>
         </div>
         <div class="chat-div" >
           <ul v-for="message in messages" :key="message.id">
             <li>
-              <a>{{message.content}}</a>
+               <a v-if="message.user_id_send == this.GlobalId" id="YourMessage">{{message.content}}</a>
+               <a v-else id="TheriMessage">{{message.content}}</a>
             </li>
           </ul>
         </div>

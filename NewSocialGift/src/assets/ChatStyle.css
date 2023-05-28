@@ -259,6 +259,14 @@
       right: 5px;
     }
 
+    #no-results-message{
+      font-size: 20px;
+      font-family: 'Inter', sans-serif;
+      margin-left: 10px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
     .chat-input{
       display: none;
       position: fixed;
@@ -298,8 +306,6 @@
        font-size: xx-large;
        color : #79B2DD;
        margin-left: 20px;
-       top: -15px;
-       
     }
 
     .chat-div {
@@ -312,20 +318,41 @@
       list-style-type: none;
       padding: 0;
       margin: 0;
-      margin-top: 10px;
+      margin-top: 30px   ;
 
     }
 
-    .chat-div li {
+
+    #YourMessage{
       padding: 5px;
       margin-right: 10px;
       padding: 0;
       margin-bottom: 10px;
-      background-color: #427BA5;
+      background-color: #ff6a00;
       width: 20%;
-      border-radius: 30px;
-      margin-left: 500px;
-     
+      border-top-left-radius: 30px;
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    #TheriMessage{
+      padding: 5px;
+      margin-right: 10px;
+      padding: 0;
+      margin-bottom: 10px;
+      background-color: rgb(53, 122, 172);
+      width: 20%;
+      border-top-left-radius: 30px;
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 10px;
+      padding-bottom: 10px;
     }
 
     .chat-div a {
@@ -352,3 +379,14 @@
       height: 100%;
       overflow: hidden;
     }
+
+    #closeResults{
+      display: none;
+      position: relative;
+      top: 10px;
+      left: 150px;
+      color: red;
+      font-size: 30px;
+    }
+
+    
