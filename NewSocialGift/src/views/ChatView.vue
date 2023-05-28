@@ -13,15 +13,18 @@ export default {
   data() {
     return {
       users: [],
-      userMessaged: []
+      userMessaged: [],
+      messages: []
     }
   },
   methods: {
     async searchFriend() {
       this.users = []
+      const criteria = document.getElementById('criteria').value;
+      //console.log('criteria ' + criteria)
       document.getElementById('search-results-id').style.display = 'block'
-      const criteria = document.getElementById('valor').value
-      console.log('valor ' + criteria)
+      
+      
       const token = localStorage.getItem('accessToken')
 
       fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/search?s=${criteria}`, {
@@ -38,16 +41,17 @@ export default {
         .then((data) => {
           //mostrar el cotenido que nos devuelve el servidor
           console.log(data)
-          for (var i = 0; i < data.length; i++) {
+          for (let i = 0; i < data.length; i++) {
             this.users.push(data[i])
           }
-          console.log(this.users)
+          //console.log(this.users)
         })
         .catch((error) => {
           //Respuesta en caso de error de servidor
         })
     },
     selectFriend(name, image, id) {
+      this.messages = []
       console.log(name, image)
       localStorage.setItem('CurrentUserToTalkId', id);
       document.getElementById('noChats').style.display = 'none'
@@ -55,7 +59,33 @@ export default {
       document.getElementById('chat-input-id').style.display = 'block'
       document.getElementById('usernameJS').innerHTML = name
       document.getElementById('imageJS').src = image
-      document.getElementById('messageUser').style.display = 'none'
+
+      const token = localStorage.getItem('accessToken')
+      
+      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/messages/`+id, {
+        method: 'GET',
+        headers: {
+          contentType: 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json()
+          }
+        })
+        .then((data) => {
+          //mostrar el cotenido que nos devuelve el servidor
+          console.log(data)
+          for (let i = 0; i < data.length; i++) {
+            this.messages.push(data[i])
+          }
+          //console.log(this.users)
+        })
+        .catch((error) => {
+          //Respuesta en caso de error de servidor
+        })
+
     },
 
     async sendMessage() {
@@ -66,23 +96,25 @@ export default {
       const bodymessage = {
         content: message,
         user_id_send: id,
-        user_id_recived: localStorage.getItem('CurrentUserToTalkId')
+        user_id_recived: parseInt(localStorage.getItem('CurrentUserToTalkId'))
       }
+      
+      console.log(bodymessage)
 
       fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/messages`, {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${token}`,
-          
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(bodymessage)
       })
         .then((response) => {
-          if (response.status === 200) {
+          if (response.ok) {
             console.log("Mensaje enviado correctamente");
-            return response.json()
+            return response.json();
           } else {
-            console.log(response)
+            throw new Error('Error en la petición');
           }
         })
         .then((data) => {
@@ -133,8 +165,7 @@ export default {
           <div class="search-container">
             <input
               type="text"
-              placeholder="User name..."
-              id="valor"
+              placeholder="User name..." id="criteria"
               @keydown.enter="searchFriend"
             />
             <a id="search-button" @click="searchFriend"> Search </a>
@@ -142,18 +173,16 @@ export default {
           <div id="search-results-id" class="search-results">
             <ul v-for="user in users" :key="user.id">
               <li>
-                <a @click="selectFriend(user.name, user.image, user.id)"><img :src="user.image" />{{ user.name }}</a
-                >
+                <a @click="selectFriend(user.name, user.image, user.id)"><img :src="user.image" />{{ user.name }}</a>
               </li>
             </ul>
           </div>
         </div>
         <div id="list-profiles" >
-          <ul v-for="user in userMessaged" :key="userMessaged.id">
+          <ul v-for="user in userMessaged" :key="userMessaged.id"  >
             <li>
               <a><img :src="user.image" />{{user.name}}</a>
             </li>
-            
           </ul>
         </div>
         <div></div>
@@ -165,8 +194,12 @@ export default {
           <h3 id="usernameJS">NickName</h3>
           <a href="#"><i id="moreimg" class="fa-solid fa-info" style="color: #000000"></i></a>
         </div>
-        <div class="chat-div">
-          <h4 id="messageUser">Lorem Ipsum hoal que tal me allamo apcao</h4>
+        <div class="chat-div" >
+          <ul v-for="message in messages" :key="message.id">
+            <li>
+              <a>{{message.content}}</a>
+            </li>
+          </ul>
         </div>
         <div class="chat-input" id="chat-input-id">
           <input type="text" id="message" placeholder="Write a message..." @keydown.enter="sendMessage">
