@@ -22,6 +22,14 @@ export default {
       }
     },
 
+    async showM(){
+      if(document.getElementById('moreSlide').style.display == 'block'){
+        document.getElementById('moreSlide').style.display = 'none';
+      }else{
+        document.getElementById('moreSlide').style.display = 'block';
+      }
+    },
+
     async closeS(){
       document.getElementById('close-buttonS').style.display = 'none';
       document.getElementById('close-buttonN').style.display = 'none';
@@ -124,7 +132,7 @@ export default {
         <a href="/createList"><i class="fa-solid fa-pen-to-square"></i> Create</a>
       </li>
       <li id="MoreLi">
-        <a href="#"><i class="fa-solid fa-bars"></i> More</a>
+        <a @click="showM()"><i class="fa-solid fa-bars"></i> More</a>
         <ul id="moreSlide">
           <li><a href="/editarperfil">Editar Perfil</a></li>
           <li><a href="#" @click="logout">Desconectar</a></li>
