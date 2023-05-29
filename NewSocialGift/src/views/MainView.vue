@@ -197,6 +197,10 @@ export default {
       }
     },
 
+    async Redirectllista(llistaID) {
+    window.location.href = '/wishlist/' + llistaID
+    },
+
     async obtainOwnWishlist(token, id) {
       try {
         const response = await fetch(
@@ -274,7 +278,7 @@ export default {
         <!--id 125-->
         <ul id="lista-nombres">
           <li v-if="llistes.length == 0">No tienes listas</li>
-          <li v-for="llista in llistes">{{ llista.name }}</li>
+          <li v-for="llista in llistes" key:llista.id><a id="tulista" @click="Redirectllista(llista.id)">{{ llista.name }}</a></li>
         </ul>
         <h3>Plantillas de listas</h3>
         <ul>

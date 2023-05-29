@@ -137,13 +137,19 @@
     padding: 20px;
     text-align: center;
     width: calc((100% - 20px * 2)); /* Establece el ancho de cada elemento para que sean cuadrados y estén separados horizontalmente */
-    height:auto;/* Establece la altura de cada elemento para que sean cuadrados y estén separados verticalmente */
+    height: 200px;/* Establece la altura de cada elemento para que sean cuadrados y estén separados verticalmente */
     transition: all 0.5s ease;
-
   }
 
   .grid-item:hover {
+    cursor: pointer;
     background-color: #fafafa;
+  }
+
+  .grid-item h3{
+    margin-top: 3em;
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
   }
 
   

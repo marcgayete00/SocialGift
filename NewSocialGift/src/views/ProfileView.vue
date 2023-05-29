@@ -179,7 +179,7 @@ export default {
     </div>
     <section id="PostSection">
       <div class="grid-container">
-          <div :style="{ backgroundColor: getRandomGradient() }" class="grid-item" v-for="llista in llistes" :key="llista.id" @click="Redirect(llista.id)">
+          <div   :style="{ backgroundColor: getRandomGradient() }" class="grid-item" v-for="llista in llistes" :key="llista.id" @click="Redirect(llista.id)">
             <li style=""><h3>{{ llista.name }}</h3></li>
             <li><h4>{{ llista.description }}</h4></li>
           </div>

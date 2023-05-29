@@ -43,6 +43,10 @@ body{
     border-radius: 50%;
   }
 
+  #tulista:hover{
+    cursor: pointer;
+  }
+
   .moreimg{
     margin-top: -60px;
     margin-right: 75px;

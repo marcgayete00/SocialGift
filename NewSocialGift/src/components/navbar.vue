@@ -2,6 +2,7 @@
 export default {
   data() {
     return {
+      hasNotifications: false, // Estado de las notificaciones
       users: []
     }
   },
@@ -20,6 +21,7 @@ export default {
       if(document.getElementById('SearchSlide').style.display == 'block'){
         document.getElementById('SearchSlide').style.display = 'none';
       }
+      await this.getFriendRequests();
     },
 
     async showM(){
@@ -47,6 +49,111 @@ export default {
       localStorage.removeItem('accessToken')
       this.$router.push('/')
     },
+
+    async getFriendRequests() {
+      this.users = [];
+      const token = localStorage.getItem('accessToken');
+
+      fetch('https://balandrau.salle.url.edu/i3/socialgift/api/v1/friends/requests', {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: 'application/json'
+        }
+      })
+        .then(response => {
+          if (response.status === 200) {
+            return response.json();
+          } else {
+            throw new Error('Error al obtener las solicitudes de amistad');
+          }
+        })
+        .then(data => {
+          // Actualizar el arreglo users con las solicitudes de amistad
+          for (let i = 0; i < data.length; i++) {
+            this.users.push(data[i]);
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          // Manejo de errores en caso de falla de la solicitud
+        });
+    },
+    
+    async addFriend(userId) {
+      const token = localStorage.getItem('accessToken');
+
+      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/friends/${userId}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: 'application/json'
+        }
+      })
+        .then(response => {
+          if (response.status === 201) {
+            // Aquí puedes realizar acciones adicionales después de enviar la solicitud
+            console.log('Solicitud de amistad enviada con éxito');
+          } else {
+            throw new Error('Error al enviar la solicitud de amistad');
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          // Manejo de errores en caso de falla de la solicitud
+        });
+    }, 
+
+    async acceptFriend(userId) {
+      const token = localStorage.getItem('accessToken');
+
+      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/friends/${userId}`, {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: 'application/json'
+        }
+      })
+        .then(response => {
+          if (response.status === 200) {
+            // Aquí puedes realizar acciones adicionales después de aceptar la solicitud
+            console.log('Solicitud de amistad aceptada');
+          } else {
+            throw new Error('Error al aceptar la solicitud de amistad');
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          // Manejo de errores en caso de falla de la solicitud
+        });
+        window.location.reload();
+    },
+
+    async denyFriend(userId) {
+      const token = localStorage.getItem('accessToken');
+
+      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/friends/${userId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: 'application/json'
+        }
+      })
+        .then(response => {
+          if (response.status === 200) {
+            // Aquí puedes realizar acciones adicionales después de denegar la solicitud
+            console.log('Solicitud de amistad denegada');
+          } else {
+            throw new Error('Error al denegar la solicitud de amistad');
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          // Manejo de errores en caso de falla de la solicitud
+        });
+      window.location.reload();
+    },
+
     async searchFriend() {
       this.users = []
       document.getElementById('search-results-id').style.display = 'block'
@@ -75,6 +182,38 @@ export default {
         })
         console.log(this.users)
     },
+  },
+  mounted() {
+    this.users = [];
+    const token = localStorage.getItem('accessToken');
+
+    fetch('https://balandrau.salle.url.edu/i3/socialgift/api/v1/friends/requests', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json'
+      }
+    })
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error('Error al obtener las solicitudes de amistad');
+        }
+      })
+      .then(data => {
+        // Actualizar el arreglo users con las solicitudes de amistad
+        for (let i = 0; i < data.length; i++) {
+          this.users.push(data[i]);
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        // Manejo de errores en caso de falla de la solicitud
+      });
+      if(this.users.length > 0){
+        this.hasNotifications = true;
+      }
   }
 }
 </script>
@@ -107,6 +246,7 @@ export default {
               <li>
                 <a><img :src="user.image" />{{ user.name }}</a>
               </li>
+              <button id="add-button" @click="addFriend(user.id)">Enviar Solicitud</button>
             </ul>
           </div>
           </li>
@@ -116,17 +256,24 @@ export default {
         <a href="/chat"><i class="fa-solid fa-envelope"></i> Messages</a>
       </li>
       <li>
-        <a @click="showN()"><i class="fa-sharp fa-solid fa-bell"></i> Notifications</a>
+        <a @click="showN()">
+          <i v-if="this.hasNotifications === true" class="fa-solid fa-bell fa-shake"></i> 
+          <i v-else class="fa-sharp fa-solid fa-bell"></i>
+          Notifications</a>
         <button @click="closeN()" id="close-buttonN"><i class="fa-solid fa-xmark"></i></button>
         <ul id="NotificationsSlide">
           <li style="font-size: larger">Más recientes</li>
-          <li id="InsideNotificationSlide">
-            <i class="fa-solid fa-user"></i>
-            <a>Patricia96</a>
-            <p>Te ha empezado a seguir</p>
-            <button>Seguir</button>
-          </li>
-        </ul>
+          <div id="notifications-results-id">
+            <ul v-for="user in users" :key="user.id">
+              <li>
+                <a><img :src="user.image" />{{ user.name }}</a>
+                <button id="accept-button" @click="acceptFriend(user.id)">Aceptar</button>
+                <button id="deny-button" @click="denyFriend(user.id)">Denegar</button>
+              </li>
+              
+            </ul>
+          </div>
+          </ul>
       </li>
       <li>
         <a href="/createList"><i class="fa-solid fa-pen-to-square"></i> Create</a>
