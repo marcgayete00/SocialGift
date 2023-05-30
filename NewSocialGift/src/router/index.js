@@ -30,7 +30,7 @@ const router = createRouter({
       component: MainView
     },
     {
-      path: '/profile',
+      path: '/profile/:id',
       name: 'profile',
       component: ProfileView
     },
@@ -54,7 +54,7 @@ const router = createRouter({
       name: 'createlist',
       component:CreateListView
     },{
-      path: '/friends',
+      path: '/friends/:id',
       name: 'friends',
       component:FriendsView
     }
