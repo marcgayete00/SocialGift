@@ -222,6 +222,17 @@ export default {
       } catch (error) {
         // Manejar el error de forma adecuada
       }
+    },
+    showPopUp(id){
+      console.log(id)
+      var x = document.getElementById('popupId')
+      if (x.style.display === 'block') {
+        x.style.display = 'none'
+      } else {
+        x.style.display = 'block'
+      }
+
+      
     }
   },
   mounted() {
@@ -299,8 +310,16 @@ export default {
             <div class="listheader">
               <img class="profileimglist" :src="friend.image" />
               <h3>{{ friend.name }}</h3>
-              <img class="moreimg" src="../../img/Mas.png" />
+              
+              <i @click="showPopUp(friend.id)" class="fa-solid fa-bars" id="moreimg" style="color: #000000;"> </i>
+              <div class="popup" id="popupId">
+                <ul>
+                  <li> Ver perfil </li>
+                  <li> Enviar solicitud de amistad</li>
+                </ul>
+              </div>
             </div>
+
             <h1>{{ wishlist.name }}</h1>
             <h4>{{ wishlist.description }}</h4>
             <ul id="PostGiftList">
@@ -313,6 +332,7 @@ export default {
           </div>
         </div>
       </div>
+       
 </div>
 
     </section>
