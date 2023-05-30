@@ -228,6 +228,30 @@
       padding-bottom: 30px;
       outline: none;
     }
+
+    .search-results .scrollable-list {
+      display: none;
+      overflow-y: scroll;
+      height: 200px;
+      padding: 0;
+    }
+    
+    .search-results .scrollable-list::-webkit-scrollbar {
+      width: 10px;
+    }
+    
+    .search-results .scrollable-list::-webkit-scrollbar-track {
+      border-radius: 10px;
+    }
+    
+    .search-results .scrollable-list::-webkit-scrollbar-thumb {
+    background: #79B2DD; 
+    border-radius: 10px;
+    }
+    
+    .search-results .scrollable-list::-webkit-scrollbar-thumb:hover {
+      background: #455b6b; 
+    }
     
     .search-results ul {
       list-style-type: none;

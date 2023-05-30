@@ -2,6 +2,7 @@
 import NavBar from './../components/NavBar.vue'
 import language from './../components/language.vue'
 import MiComponente from './../components/separarTrama.vue'
+import io from 'socket.io-client';
 
 
 export default {
@@ -26,6 +27,7 @@ export default {
       //console.log('criteria ' + criteria)
       document.getElementById('closeResults').style.display = 'block'
       document.getElementById('search-results-id').style.display = 'block'
+      document.getElementById('scrolleable-list-id').style.display = 'block'
       
       
       const token = localStorage.getItem('accessToken')
@@ -66,6 +68,7 @@ export default {
       document.getElementById('noChats').style.display = 'none'
       document.getElementById('listheader').style.display = 'block'
       document.getElementById('chat-input-id').style.display = 'block'
+      
       document.getElementById('usernameJS').innerHTML = name
       document.getElementById('imageJS').src = image
 
@@ -98,6 +101,10 @@ export default {
     },
 
     async sendMessage() {
+      const socket = io("https://balandrau.salle.url.edu",{
+        path: '/i3/socialgift/socket.io',
+      });
+
       var message = document.getElementById('message').value;
       const token = localStorage.getItem('accessToken')
       const id = MiComponente.methods.obtenerIdDesdeToken(token)
@@ -109,6 +116,15 @@ export default {
       }
       
       console.log(bodymessage)
+      
+      socket.on('connection', () => {
+        console.log('Conectado al servidor');
+      });
+
+      socket.on("connect_error", (err) => {
+        console.log(`connect_error due to ${err.message}`);
+      });
+      
 
       fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/messages`, {
         method: 'POST',
@@ -136,6 +152,7 @@ export default {
     closeResults(){
       this.users = []
       document.getElementById('closeResults').style.display = 'none'
+      document.getElementById('scrolleable-list-id').style.display = 'none'
     }
   },
   mounted() {
@@ -188,14 +205,20 @@ export default {
             <a id="search-button" @click="searchFriend"> Search </a>
           </div>
           <div id="search-results-id" class="search-results">
-            <i class="fa-solid fa-xmark" id="closeResults" @click="closeResults"></i>
-            <ul v-for="user in users" :key="user.id">
-              <li>
-                <a @click="selectFriend(user.name, user.image, user.id)"><img :src="user.image" />{{ user.name }}</a>
-              </li>
-            </ul>
-            <p v-show="showNoResultsMessage && users.length === 0" id="no-results-message">No results</p>
-          </div>
+              <i class="fa-solid fa-xmark" id="closeResults" @click="closeResults"></i>
+              <div class="scrollable-list" id="scrolleable-list-id">
+                <ul v-for="user in users" :key="user.id">
+                  <li>
+                    <a @click="selectFriend(user.name, user.image, user.id)">
+                      <img :src="user.image" />
+                      {{ user.name }}
+                    </a>
+                  </li>
+                </ul>
+                <p v-show="showNoResultsMessage && users.length === 0" id="no-results-message">No results</p>
+              </div>
+              
+            </div>
         </div>
         <div id="list-profiles" >
           <ul v-for="user in userMessaged" :key="userMessaged.id"  >
