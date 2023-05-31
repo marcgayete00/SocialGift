@@ -48,7 +48,14 @@ export default {
         .catch((error) => {
           // Respuesta en caso de error de servidor
         })
-    }
+    },
+    async RedirectProfile(userID) {
+      window.location.href = '/profile/' + userID
+    },
+    async goback(){
+      window.history.back();
+    },
+
   },
   mounted() {
     const token = localStorage.getItem('accessToken')
@@ -61,9 +68,9 @@ export default {
       const id = MiComponente.methods.obtenerIdDesdeToken(token)
       this.friendID = this.$route.params.id; // Accede al ID de la lista desde la ruta
       
-      if(this.friendID != id){
-          document.getElementById('EliminarButton').style.display = 'none'
-        }
+      /*if(this.friendID != id){
+        document.getElementById('EliminarButton').style.display = 'none'
+      }*/
       
       console.log(this.friendID+ " "+id)
       fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${this.friendID}/friends`, {
@@ -80,6 +87,7 @@ export default {
         .then((data) => {
           console.log(data)
           this.llistes = data
+          
         })
         .catch((error) => {
           // Respuesta en caso de error de servidor
@@ -96,6 +104,9 @@ export default {
 
     <section id="GeneralSection">
       <NavBar />
+      <a id="flechaback" href="#" @click="goback()">
+        <i class="fa-sharp fa-solid fa-arrow-left fa-2xl" style="color: #195583;"></i>
+      </a>
     </section>
 
     <!--Mostrar listas de deseos-->
@@ -108,13 +119,12 @@ export default {
           <li v-for="llista in llistes" :key="llista.id">
             <div class="icon-container">
               <img id="profileImageJS" :src="llista.image" />
-              <a
-                ><h4>{{ llista.name }}</h4></a
-              >
+              <a @click="RedirectProfile(llista.id)"><h4>{{ llista.name }}</h4></a>
             </div>
             <div class="icon-container2">
               <a href="#" @click="removeFriend(llista.id)"><button id="EliminarButton">Eliminar</button></a>
             </div>
+            
           </li>
         </ul>
       </div>

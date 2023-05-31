@@ -1,7 +1,11 @@
 <script>
+import MiComponente from './../components/separarTrama.vue'
+
+
 export default {
   data() {
     return {
+      mainID: null,
       hasNotifications: false, // Estado de las notificaciones
       users: []
     }
@@ -48,6 +52,10 @@ export default {
     async logout() {
       localStorage.removeItem('accessToken')
       this.$router.push('/')
+    },
+
+    async RedirectUser(userID) {
+      window.location.href = '/profile/' + userID
     },
 
     async getFriendRequests() {
@@ -186,7 +194,8 @@ export default {
   mounted() {
     this.users = [];
     const token = localStorage.getItem('accessToken');
-
+    const id = MiComponente.methods.obtenerIdDesdeToken(token)
+    this.mainID = id;
     fetch('https://balandrau.salle.url.edu/i3/socialgift/api/v1/friends/requests', {
       method: 'GET',
       headers: {
@@ -246,9 +255,11 @@ export default {
           <div id="search-results-id" class="search-results">
             <ul v-for="user in users" :key="user.id">
               <li>
-                <a><img :src="user.image" />{{ user.name }}</a>
+                <a @click="RedirectUser(user.id)"><img :src="user.image" />{{ user.name }}</a>
               </li>
-              <button id="add-button" @click="addFriend(user.id)">Enviar Solicitud</button>
+              <button v-if="user.id != this.mainID" id="add-button" @click="addFriend(user.id)">Enviar Solicitud</button>
+              <button v-else id="add-button" disabled>Enviar Solicitud</button>
+
             </ul>
           </div>
           </li>

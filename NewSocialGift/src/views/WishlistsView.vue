@@ -1,6 +1,7 @@
 <script>
 import NavBar from './../components/NavBar.vue'
 import language from './../components/language.vue'
+import MiComponente from './../components/separarTrama.vue'
 
 
 const token = localStorage.getItem('accessToken')
@@ -16,7 +17,9 @@ export default {
     return {
       wishlists: [],
       gifts: [],
-      listaId: null // Variable para almacenar el ID de la lista
+      giftsonly: [],
+      listaId: null, // Variable para almacenar el ID de la lista
+      mainId: null
     };
   },
 
@@ -102,18 +105,74 @@ export default {
       window.history.back();
     },
 
+    async ComprobarLista(){
+      const result = false;
+      try {
+      const response = await fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${this.mainId}/wishlists`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        this.llistes = data;
+        for(let i = 0; i < this.llistes.length; i++){
+          console.log(this.llistes[i].id)
+          if(this.llistes[i].id == this.listaId){
+            result = true;
+          }else{
+            document.getElementById('share').style.display = 'none'
+            document.getElementById('cross').style.display = 'none'
+            result = false;
+          }
+        }
+
+      }
+    } catch (error) {
+      // Manejar el error de forma adecuada
+    }
+    console.log(result)
+    return result;
+  },
+
+    async RemoveGift(giftId){
+      console.log(giftId)
+      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/gifts/${giftId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+
+        }
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            alert('Regalo eliminado correctamente')
+          } else {
+            alert('Error al eliminar el regalo')
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+
   },
 
   mounted() {
     this.listaId = this.$route.params.id; // Accede al ID de la lista desde la ruta
-    const addButton = document.querySelector('#addButton button');
+    const id = MiComponente.methods.obtenerIdDesdeToken(token)
+    this.mainId = id; // Accede al ID de la lista desde la ruta
+    const addButton = document.querySelector('#addButton');
     const popupContainer = document.querySelector('#popup-container');
     const popupOverlay = document.querySelector('#popup-overlay');
-    addButton.addEventListener('click', function() {
-      popupContainer.classList.add('show-popup');
-      popupOverlay.style.display = 'block';
-    });
-
+    if(addButton != null){
+      addButton.addEventListener('click', function() {
+        popupContainer.classList.add('show-popup');
+        popupOverlay.style.display = 'block';
+      });
+    }
     popupContainer.addEventListener('click', function(event) {
       if (event.target === popupContainer) {
         popupContainer.classList.remove('show-popup');
@@ -142,7 +201,7 @@ export default {
           document.getElementById('listadescJS').innerHTML = data.description
           
           const datagift = await this.obtainGiftInfo(); // Espera a que se resuelva la promesa
-          this.gifts = datagift; // Asigna los datos obtenidos a this.gifts
+          this.giftsonly = datagift; // Asigna los datos obtenidos a this.gifts
 
         })
         .catch((error) => {
@@ -172,28 +231,30 @@ export default {
         <h1 id="listanameJS"></h1>
         <h2 id="listadescJS"></h2>
       </div>
-      <div v-if="gifts.length === 0">
+      <div v-if="giftsonly.length === 0">
         <h1>No hay regalos 😢</h1>
       </div>
       <div v-else  id="WishListElement">
         <ul id="ElementParts">
-          <li v-for="gift in this.gifts" :key="gift.id">
+          <li v-for="gift in this.giftsonly" :key="gift.id">
             <div class="icon-container">
               <img :src="gift.photo">
               <a>{{ gift.name }}</a>
             </div>
             <div class="icon-container2">
               <a><i id="share" class="fa-solid fa-share-from-square"></i></a>
-              <a><i id="cross" class="fa-solid fa-circle-xmark"></i></a>
-              <input type="checkbox" id="reserveCheckbox">
+              <a @click="RemoveGift(gift.id)"><i id="cross" class="fa-solid fa-circle-xmark"></i></a>
             </div>
+            <input type="checkbox" id="reserveCheckbox">
           </li>
         </ul>
       </div>
 
-      <div id="addButton">
-        <button><a href="#">Añadir</a></button>
+      <div id="addButton" >
+        <button v-if="ComprobarLista()"><a href="#">Añadir</a></button>
+        <button v-else><a href="#"></a></button>
       </div>
+
 
       <div id="popup-overlay"></div>
       <div id="popup-container">
@@ -204,7 +265,8 @@ export default {
         <input type="text" id="nombre-producto" name="nombre-producto">
         <label for="nombre-producto">Prioridad: </label>
         <input type="number" id="prioridad-producto" name="nombre-producto">
-
+        <label for="fecha-caducidad">Fecha de caducidad: </label>
+        <input type="date" id="fecha-caducidad" name="fecha-caducidad">
         <button @click="addGift()">Agregar</button>
       </form>
     </div>
