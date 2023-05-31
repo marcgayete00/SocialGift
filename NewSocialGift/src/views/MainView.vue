@@ -14,7 +14,8 @@ export default {
       llistes: [],
       friendList: {
         friends: []
-      }
+      },
+      mainId: null // Variable para almacenar el ID
     }
   },
 
@@ -198,7 +199,11 @@ export default {
     },
 
     async Redirectllista(llistaID) {
-    window.location.href = '/wishlist/' + llistaID
+      window.location.href = '/wishlist/' + llistaID
+    },
+
+    async RedirectProfile(profileID) {
+      window.location.href = '/profile/' + profileID
     },
 
     async obtainOwnWishlist(token, id) {
@@ -243,7 +248,7 @@ export default {
     } else {
       //llamar a la funcion que separa
       const id = MiComponente.methods.obtenerIdDesdeToken(token)
-
+      this.mainId = id
       //Hacer una peticion GET pasandole el email del usuario logueado
       fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${id}`, {
         method: 'GET',
@@ -281,7 +286,7 @@ export default {
         <div id="profile-box">
           <img id="profileImageJS" class="profileimg" src="" />
           <div>
-            <h3><a id="usernameJS" href="profile"></a></h3>
+            <h3><a id="usernameJS" @click="RedirectProfile(this.mainId)"></a></h3>
             <h5 id="lastnameJS"><a></a></h5>
           </div>
         </div>
@@ -309,7 +314,7 @@ export default {
           <div v-for="wishlist in friend.wishlists" :key="wishlist.id">
             <div class="listheader">
               <img class="profileimglist" :src="friend.image" />
-              <h3>{{ friend.name }}</h3>
+              <h3 @click="RedirectProfile(friend.id)">{{ friend.name }}</h3>
               
               <i @click="showPopUp(friend.id)" class="fa-solid fa-bars" id="moreimg" style="color: #000000;"> </i>
               <div class="popup" id="popupId">
@@ -320,7 +325,7 @@ export default {
               </div>
             </div>
 
-            <h1>{{ wishlist.name }}</h1>
+            <h1 @click="Redirectllista(wishlist.id)">{{ wishlist.name }}</h1>
             <h4>{{ wishlist.description }}</h4>
             <ul id="PostGiftList">
               <li class="product" v-for="gift in wishlist.gifts" :key="gift.id">

@@ -12,7 +12,8 @@ export default {
   },
   data() {
     return {
-      llistes: []
+      llistes: [],
+      friendID: null
     }
   },
   methods: {
@@ -58,7 +59,11 @@ export default {
     } else {
       //llamar a la funcion que separa
       const id = MiComponente.methods.obtenerIdDesdeToken(token)
-      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${id}/friends`, {
+      this.friendID = this.$route.params.id; // Accede al ID de la lista desde la ruta
+      if(this.friendID != id){
+        document.getElementById('EliminarButton').style.display = 'none'
+      }
+      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${this.friendID}/friends`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`
@@ -103,9 +108,7 @@ export default {
               >
             </div>
             <div class="icon-container2">
-              <a href="#" @click="removeFriend(llista.id)"
-                ><button id="EliminarButton">Eliminar</button></a
-              >
+              <a href="#" @click="removeFriend(llista.id)"><button id="EliminarButton">Eliminar</button></a>
             </div>
           </li>
         </ul>

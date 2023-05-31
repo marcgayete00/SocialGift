@@ -18,6 +18,7 @@ export default {
     friendList: {
       friends: []
     },
+    rutaID: null,
   }
 },
 
@@ -25,6 +26,10 @@ export default {
 
   async Redirect(llistaID) {
     window.location.href = '/wishlist/' + llistaID
+  },
+
+  async RedirectFriends() {
+    window.location.href = '/friends/' + this.rutaID
   },
 
   async obtainFriends(token, id) {
@@ -109,11 +114,15 @@ export default {
     } else {
       //llamar a la funcion que separa
       const id = MiComponente.methods.obtenerIdDesdeToken(token)
-      
+      this.rutaID = this.$route.params.id; // Accede al ID de la lista desde la ruta
+      if(this.rutaID != id){
+        document.getElementById('EditProfileButton').style.display = 'none'
+      }
       //Hacer una peticion GET pasandole el email del usuario logueado
-      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${id}`, {
+      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${this.rutaID}`, {
         method: 'GET',
         headers: {
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
         }
       })
@@ -126,7 +135,7 @@ export default {
           //mostrar el cotenido que nos devuelve el servidor
           document.getElementById('usernameJS').innerHTML = data.name
           document.getElementById('profileImageJS').src = data.image 
-          this.obtainOwnWishlist(token, id) // aquí agregamos el operador this
+          this.obtainOwnWishlist(token, this.rutaID) // aquí agregamos el operador this
         })
         .catch((error) => {
           //Respuesta en caso de error de servidor
@@ -149,7 +158,7 @@ export default {
     <section id="ProfileSection">
       <div>
         <div>
-          <button id="EditProfileButton"><a href="editarperfil">Editar perfil</a></button>
+          <button id="EditProfileButton"><a href="../editarperfil">Editar perfil</a></button>
         </div>
         <div id="ProfileInfo">
           <div id="ProfileImage">
@@ -162,12 +171,7 @@ export default {
             <h1>{{ llistes.length }}</h1>
             <h3>Listas</h3>
             <h1>{{ friendList.friends.length }}</h1>
-            <a href="friends"><h3>Amigos</h3></a>
-          </div>
-          <div id="ProfileDescription">
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-            </p>
+            <a @click="RedirectFriends()"><h3>Amigos</h3></a>
           </div>
         </div>
       </div>
