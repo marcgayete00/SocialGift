@@ -127,8 +127,7 @@
       margin-top: 100px;
       height: 750px;
       width: 1200px;
-      overflow-y: scroll;
-      overflow-x: hidden;
+    
     }
 
     .chat-section div{
@@ -143,19 +142,19 @@
 
     /* Ocultar la barra de desplazamiento vertical */
     /* Estilos para la barra de desplazamiento */
-.chat-section::-webkit-scrollbar {
+.chat-div::-webkit-scrollbar {
   width: 8px; /* Ancho de la barra de desplazamiento */
   background-color: #F5F5F5; /* Color de fondo de la barra de desplazamiento */
 }
 
 /* Estilos para el pulgar (thumb) de la barra de desplazamiento */
-.chat-section::-webkit-scrollbar-thumb {
+.chat-div::-webkit-scrollbar-thumb {
   background-color: #79B2DD; /* Color del pulgar de la barra de desplazamiento */
   border-radius: 4px; /* Borde redondeado del pulgar de la barra de desplazamiento */
 }
 
 /* Estilos para el pulgar (thumb) cuando se está arrastrando */
-.chat-section::-webkit-scrollbar-thumb:active {
+.chat-div::-webkit-scrollbar-thumb:active {
   background-color: #427BA5; /* Color del pulgar de la barra de desplazamiento cuando se arrastra */
 }
 
@@ -334,8 +333,8 @@
 
     .chat-div {
       width: 100%;
-      height: 100%;
-      overflow: hidden;
+      height: 500px;
+      overflow-y: auto;
     }
 
     .chat-div ul {
@@ -370,9 +369,9 @@
       margin-bottom: 10px;
       background-color: rgb(53, 122, 172);
       width: 20%;
-      border-top-left-radius: 30px;
       border-bottom-left-radius: 30px;
       border-bottom-right-radius: 30px;
+      border-top-right-radius: 30px;
       padding-left: 10px;
       padding-right: 10px;
       padding-top: 10px;

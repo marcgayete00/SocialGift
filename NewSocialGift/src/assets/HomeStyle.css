@@ -113,6 +113,11 @@ body{
   flex-wrap: wrap;
 }
 
+#backgroundImg{
+  width: 250%;
+  height: 290%;
+}
+
 #LanguageSection{
   flex-wrap: wrap;
   display: flex;

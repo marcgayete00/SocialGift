@@ -79,7 +79,7 @@ function loginUser() {
       </section>
 
       <section id="ImageSection">
-        <img src="img/mainScrenshoot.png" />
+        <img id="backgroundImg" src="img/mainScrenshoot.png" />
       </section>
     </section>
     <footer id="loginFooter">

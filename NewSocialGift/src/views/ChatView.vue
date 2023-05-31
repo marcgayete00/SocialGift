@@ -2,8 +2,8 @@
 import NavBar from './../components/NavBar.vue'
 import language from './../components/language.vue'
 import MiComponente from './../components/separarTrama.vue'
-import io from 'socket.io-client';
-
+import io from 'socket.io-client'
+import VueSocketIO from 'vue-socket.io'
 
 export default {
   components: {
@@ -101,11 +101,8 @@ export default {
     },
 
     async sendMessage() {
-      const socket = io("https://balandrau.salle.url.edu",{
-        path: '/i3/socialgift/socket.io',
-      });
-
       var message = document.getElementById('message').value;
+
       const token = localStorage.getItem('accessToken')
       const id = MiComponente.methods.obtenerIdDesdeToken(token)
       
@@ -115,16 +112,10 @@ export default {
         user_id_recived: parseInt(localStorage.getItem('CurrentUserToTalkId'))
       }
       
-      console.log(bodymessage)
-      
-      socket.on('connection', () => {
-        console.log('Conectado al servidor');
-      });
+      //console.log(bodymessage)  
 
-      socket.on("connect_error", (err) => {
-        console.log(`connect_error due to ${err.message}`);
-      });
-      
+      //enviar mensajes por sockets
+      this.socket.emit('send', message);
 
       fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/messages`, {
         method: 'POST',
@@ -136,14 +127,14 @@ export default {
       })
         .then((response) => {
           if (response.ok) {
-            console.log("Mensaje enviado correctamente");
+            //console.log("Mensaje enviado correctamente");
             return response.json();
           } else {
             throw new Error('Error en la petición');
           }
         })
         .then((data) => {
-          console.log(data);
+          //console.log(data);
         })
         .catch((error) => {
           console.log(error);
@@ -156,6 +147,25 @@ export default {
     }
   },
   mounted() {
+
+    this.socket = io("https://balandrau.salle.url.edu", {path: "/i3/socialgift/socket.io"});
+
+    if (this.socket) {
+      console.error("mySocket is not null and not undefined");
+      this.socket.on('connect', () => {
+        console.log("Connected to server");
+        console.log(this.socket.id);
+      });
+
+      // Agregar el listener para el evento 'message'
+      this.socket.on('send', (data) => {
+        console.log("Mensaje recibido:", data);
+        // Aquí puedes actualizar el estado de tu componente con el mensaje recibido y mostrarlo en la pantalla
+      });
+    } else {
+      console.error("mySocket is null or undefined");
+    }
+
     const token = localStorage.getItem('accessToken')
     const id = MiComponente.methods.obtenerIdDesdeToken(token)
     this.GlobalId = id;
@@ -234,7 +244,6 @@ export default {
         <div id="listheader" class="listheader">
           <img class="profileimglist" id="imageJS" />
           <h3 id="usernameJS"></h3>
-          <a href="#"><i id="moreimg" class="fa-solid fa-info" style="color: #000000"></i></a>
         </div>
         <div class="chat-div" >
           <ul v-for="message in messages" :key="message.id">
@@ -245,7 +254,7 @@ export default {
           </ul>
         </div>
         <div class="chat-input" id="chat-input-id">
-          <input type="text" id="message" placeholder="Write a message..." @keydown.enter="sendMessage">
+          <input type="text" id="message" placeholder="Write a message..." @keydown.enter="sendMessage" maxlength="45">
           <a @keydown.enter="sendMessage"><i class="fa-solid fa-paper-plane"></i></a>
         </div>
       </div>
