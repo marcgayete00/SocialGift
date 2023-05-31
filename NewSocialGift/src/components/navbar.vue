@@ -206,14 +206,16 @@ export default {
         for (let i = 0; i < data.length; i++) {
           this.users.push(data[i]);
         }
+
+        if(data.length > 0){
+          this.hasNotifications = true;
+        }
       })
       .catch(error => {
         console.error(error);
         // Manejo de errores en caso de falla de la solicitud
       });
-      if(this.users.length > 0){
-        this.hasNotifications = true;
-      }
+      
   }
 }
 </script>

@@ -111,10 +111,9 @@ export default {
         user_id_send: id,
         user_id_recived: parseInt(localStorage.getItem('CurrentUserToTalkId'))
       }
-      
-      //console.log(bodymessage)  
 
       //enviar mensajes por sockets
+      console.log(this.socket.id)
       this.socket.emit('send', message);
 
       fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/messages`, {
@@ -160,7 +159,8 @@ export default {
       // Agregar el listener para el evento 'message'
       this.socket.on('send', (data) => {
         console.log("Mensaje recibido:", data);
-        // Aquí puedes actualizar el estado de tu componente con el mensaje recibido y mostrarlo en la pantalla
+        // actualizar el estado de tu componente con el mensaje recibido y mostrarlo en la pantalla
+        this.messages.push(data)
       });
     } else {
       console.error("mySocket is null or undefined");
@@ -249,7 +249,7 @@ export default {
           <ul v-for="message in messages" :key="message.id">
             <li>
                <a v-if="message.user_id_send == this.GlobalId" id="YourMessage">{{message.content}}</a>
-               <a v-else id="TheriMessage">{{message.content}}</a>
+               <a v-else id="TheirMessage">{{message.content}}</a>
             </li>
           </ul>
         </div>

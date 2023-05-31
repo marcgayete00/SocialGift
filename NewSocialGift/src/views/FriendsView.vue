@@ -27,8 +27,8 @@ export default {
       })
         .then((response) => {
           if (response.status === 200) {
-            ;-alert('Friend removed')
-            window.location.replace('friends')
+            alert('Friend removed')
+            window.location.reload()
           } else {
             switch (response.status) {
               case 401:
@@ -60,9 +60,12 @@ export default {
       //llamar a la funcion que separa
       const id = MiComponente.methods.obtenerIdDesdeToken(token)
       this.friendID = this.$route.params.id; // Accede al ID de la lista desde la ruta
+      
       if(this.friendID != id){
-        document.getElementById('EliminarButton').style.display = 'none'
-      }
+          document.getElementById('EliminarButton').style.display = 'none'
+        }
+      
+      console.log(this.friendID+ " "+id)
       fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${this.friendID}/friends`, {
         method: 'GET',
         headers: {
@@ -81,6 +84,8 @@ export default {
         .catch((error) => {
           // Respuesta en caso de error de servidor
         })
+
+        
     }
   }
 }

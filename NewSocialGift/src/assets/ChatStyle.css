@@ -50,7 +50,6 @@
       border-top: 1px solid #ccc;
       border-bottom: 1px solid #ccc;
       text-align: left !important;
-      z-index: 1;
     }
 
     .listheader h3{
@@ -75,7 +74,8 @@
     }
 
     #list-profiles{
-        height: 100%;
+        height: 75%;
+        overflow-y: scroll;
     }
 
     #list-profiles ul{
@@ -251,6 +251,24 @@
     .search-results .scrollable-list::-webkit-scrollbar-thumb:hover {
       background: #455b6b; 
     }
+
+    #list-profiles::-webkit-scrollbar {
+      width: 10px;
+    }
+    
+    #list-profiles::-webkit-scrollbar-track {
+      border-radius: 10px;
+    }
+    
+    #list-profiles::-webkit-scrollbar-thumb {
+    background: #79B2DD; 
+    border-radius: 10px;
+    }
+    
+    #list-profiles::-webkit-scrollbar-thumb:hover {
+      background: #455b6b; 
+    }
+
     
     .search-results ul {
       list-style-type: none;
@@ -348,7 +366,7 @@
 
     #YourMessage{
       padding: 5px;
-      margin-right: 10px;
+      margin-right: -300px;
       padding: 0;
       margin-bottom: 10px;
       background-color: #ff6a00;
@@ -362,9 +380,10 @@
       padding-bottom: 10px;
     }
 
-    #TheriMessage{
+    #TheirMessage{
+      position: relative;
       padding: 5px;
-      margin-right: 10px;
+      left: -100px;
       padding: 0;
       margin-bottom: 10px;
       background-color: rgb(53, 122, 172);

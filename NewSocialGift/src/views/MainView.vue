@@ -228,17 +228,6 @@ export default {
         // Manejar el error de forma adecuada
       }
     },
-    showPopUp(id){
-      console.log(id)
-      var x = document.getElementById('popupId')
-      if (x.style.display === 'block') {
-        x.style.display = 'none'
-      } else {
-        x.style.display = 'block'
-      }
-
-      
-    }
   },
   mounted() {
     const token = localStorage.getItem('accessToken')
@@ -315,14 +304,7 @@ export default {
             <div class="listheader">
               <img class="profileimglist" :src="friend.image" />
               <h3 @click="RedirectProfile(friend.id)">{{ friend.name }}</h3>
-              
-              <i @click="showPopUp(friend.id)" class="fa-solid fa-bars" id="moreimg" style="color: #000000;"> </i>
-              <div class="popup" id="popupId">
-                <ul>
-                  <li> Ver perfil </li>
-                  <li> Enviar solicitud de amistad</li>
-                </ul>
-              </div>
+             
             </div>
 
             <h1 @click="Redirectllista(wishlist.id)">{{ wishlist.name }}</h1>

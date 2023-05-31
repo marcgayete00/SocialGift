@@ -127,7 +127,6 @@
     grid-template-rows: repeat(2, 1fr);
     gap: 10px;
     width: 73.7vw; /* Ajusta el ancho del contenedor a la ventana */
-    height: 100vh; /* Ajusta la altura del contenedor a la ventana */
   }
 
   .grid-container li{
@@ -140,6 +139,7 @@
     width: calc((100% - 20px * 2)); /* Establece el ancho de cada elemento para que sean cuadrados y estén separados horizontalmente */
     height: 200px;/* Establece la altura de cada elemento para que sean cuadrados y estén separados verticalmente */
     transition: all 0.5s ease;
+    font-family: 'Inter', sans-serif;
   }
 
   .grid-item:hover {

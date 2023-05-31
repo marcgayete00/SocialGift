@@ -232,10 +232,10 @@ function deleteAccount(){
         </div>
 
         <h3>Cambiar Contraseña</h3>
-        <input type="text" id="current_password" placeholder="*******" />
-        <input type="text" id="new_password" placeholder="New password" />
+        <input type="password" id="current_password" placeholder="*******" />
+        <input type="password" id="new_password" placeholder="New password" />
 
-        <input type="text" id="new_password2" placeholder="Retype new password" />
+        <input type="password" id="new_password2" placeholder="Retype new password" />
         <a href="#"><button @click="editData" id="GuardarButton">Guardar</button></a>
       </div>
     </section>
