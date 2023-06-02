@@ -2,6 +2,7 @@
 import NavBar from './../components/NavBar.vue'
 import language from './../components/language.vue'
 import MiComponente from './../components/separarTrama.vue'
+import gift from './../components/gift.vue'
 
 
 const token = localStorage.getItem('accessToken')
@@ -10,14 +11,15 @@ const token = localStorage.getItem('accessToken')
 export default {
   name: 'MainView',
   components: {
+    gift,
     NavBar,
-    language
+    language,
+    MiComponente
   },
   data() {
     return {
       wishlists: [],
       gifts: [],
-      giftsonly: [],
       listaId: null, // Variable para almacenar el ID de la lista
       mainId: null,
       show: true
@@ -149,6 +151,7 @@ export default {
       .then((response) => {
         if (response.status === 200) {
           alert('Regalo eliminado correctamente')
+          window.location.reload()
         } else {
           alert('Error al eliminar el regalo')
         }
@@ -189,6 +192,9 @@ export default {
       // Manejar el error de forma adecuada
     }
 
+  },
+  async MoveGift(giftID){
+
   }
 
   },
@@ -227,14 +233,13 @@ export default {
         })
         .then(async (data) => {
           this.wishlists = data;
-          console.log(this.wishlists);
+          console.log(this.wishlists)
           this.gifts = data.gifts;
+          
           //mostrar el cotenido que nos devuelve el servidor
           document.getElementById('listanameJS').innerHTML = data.name
           document.getElementById('listadescJS').innerHTML = data.description
-          
-          const datagift = await this.obtainGiftInfo(); // Espera a que se resuelva la promesa
-          this.giftsonly = datagift; // Asigna los datos obtenidos a this.gifts
+          // Asigna los datos obtenidos a this.gifts
         })
         .catch((error) => {
           //Respuesta en caso de error de servidor
@@ -263,22 +268,18 @@ export default {
         <h1 id="listanameJS"></h1>
         <h2 id="listadescJS"></h2>
       </div>
-      <div v-if="giftsonly.length === 0">
+      <div v-if="gifts.length === 0">
         <h1>No hay regalos 😢</h1>
       </div>
       <div v-else  id="WishListElement">
         <ul id="ElementParts">
-          <li v-for="gift in this.giftsonly" :key="gift.id">
-            <div class="icon-container">
-              <img :src="gift.photo">
-              <a>{{ gift.name }}</a>
-            </div>
+          <li v-for="gift in this.gifts" :key="gift.id">
+            <gift :gift="gift"/>
             <div class="icon-container2" v-if="this.show">
-              <a><i id="share" class="fa-solid fa-share-from-square"></i></a>
+              <a @click="MoveGift(gift.id)"  ><i id="share" class="fa-solid fa-share-from-square"></i></a>
               <a @click="RemoveGift(gift.id)"><i id="cross" class="fa-solid fa-circle-xmark"></i></a>
             </div>
             <input type="checkbox" id="reserveCheckbox" :checked="gift.booked" v-on:click="bookGift(gift.id, gift.booked)">
-
           </li>
         </ul>
       </div>
@@ -291,18 +292,19 @@ export default {
 
       <div id="popup-overlay"></div>
       <div id="popup-container">
-      <form class="popup-form">
-        <button id="close-button"><i class="fa-solid fa-xmark"></i></button>
-        <h2>Añadir producto</h2>
-        <label for="nombre-producto">Url del producto:</label>
-        <input type="text" id="nombre-producto" name="nombre-producto">
-        <label for="nombre-producto">Prioridad: </label>
-        <input type="number" id="prioridad-producto" name="nombre-producto">
-        <label for="fecha-caducidad">Fecha de caducidad: </label>
-        <input type="date" id="fecha-caducidad" name="fecha-caducidad">
-        <button @click="addGift()">Agregar</button>
-      </form>
-    </div>
+        <form class="popup-form">
+          <button id="close-button"><i class="fa-solid fa-xmark"></i></button>
+          <h2>Añadir producto</h2>
+          <label for="nombre-producto">Url del producto:</label>
+          <input type="text" id="nombre-producto" name="nombre-producto">
+          <label for="nombre-producto">Prioridad: </label>
+          <input type="number" id="prioridad-producto" name="nombre-producto">
+          <label for="fecha-caducidad">Fecha de caducidad: </label>
+          <input type="date" id="fecha-caducidad" name="fecha-caducidad">
+          <button @click="addGift()">Agregar</button>
+        </form>
+      </div>
+    
     </section>
   </div>
 </template>
