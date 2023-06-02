@@ -22,7 +22,7 @@ export default {
       gifts: [],
       listaId: null, // Variable para almacenar el ID de la lista
       mainId: null,
-      show: true
+      show: false
     };
   },
 
@@ -109,7 +109,6 @@ export default {
     },
 
     async ComprobarLista(){
-      const result = false;
       try {
       const response = await fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${this.mainId}/wishlists`, {
         method: 'GET',
@@ -121,12 +120,11 @@ export default {
         const data = await response.json();
         this.llistes = data;
         for(let i = 0; i < this.llistes.length; i++){
-          console.log(this.llistes[i].id)
           if(this.llistes[i].id == this.listaId){
-            result = true;
+            this.show = true;
+            return;
           }else{
             this.show = false;
-            result = false;
           }
         }
 
@@ -134,8 +132,8 @@ export default {
     } catch (error) {
       // Manejar el error de forma adecuada
     }
-    console.log(result)
-    return result;
+    console.log(this.show)
+
   },
 
   async RemoveGift(giftId){
@@ -218,6 +216,8 @@ export default {
         popupOverlay.style.display = 'none';
       }
     });
+    this.ComprobarLista();
+
     //Hacer una peticion GET pasandole el email del usuario logueado
     fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/wishlists/${this.listaId}`, {
         method: 'GET',
@@ -244,6 +244,7 @@ export default {
         .catch((error) => {
           //Respuesta en caso de error de servidor
         })
+
   }
 }
 
@@ -284,9 +285,8 @@ export default {
         </ul>
       </div>
 
-      <div id="addButton" >
-        <button v-if="ComprobarLista()"><a href="#">Añadir</a></button>
-        <button v-else><a href="#"></a></button>
+      <div id="addButton"  v-if="this.show">
+        <button><a href="#">Añadir</a></button>
       </div>
 
 
