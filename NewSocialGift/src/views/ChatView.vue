@@ -112,10 +112,10 @@ export default {
         user_id_recived: parseInt(localStorage.getItem('CurrentUserToTalkId'))
       }
 
-      //enviar mensajes por sockets
-      console.log(this.socket.id)
-      this.socket.emit('send', message);
+      //hacer un envio de mensajes por socket.io
+      this.socket.emit("new_msg", bodymessage);
 
+      
       fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/messages`, {
         method: 'POST',
         headers: {
@@ -146,7 +146,7 @@ export default {
     }
   },
   mounted() {
-
+    const tokenEmit = localStorage.getItem('accessToken')
     this.socket = io("https://balandrau.salle.url.edu", {path: "/i3/socialgift/socket.io"});
 
     if (this.socket) {
@@ -154,13 +154,26 @@ export default {
       this.socket.on('connect', () => {
         console.log("Connected to server");
         console.log(this.socket.id);
+        //this.socket.emit("login", JSON.stringify({"accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIxLCJlbWFpbCI6ImFkbWluc0BnbWFpbC5jb20iLCJpYXQiOjE2ODU2OTc3Mzl9.34S-_iU06GeaObnPqCJkugi2czCeMXquj05XgIqnwXY"}));
+      });
+    
+      this.socket.on("save_msg", (saveMsg) => {
+        console.log("saveMsg => " + saveMsg )
       });
 
-      // Agregar el listener para el evento 'message'
-      this.socket.on('send', (data) => {
-        console.log("Mensaje recibido:", data);
-        // actualizar el estado de tu componente con el mensaje recibido y mostrarlo en la pantalla
-        this.messages.push(data)
+      this.socket.on("new_msg", (newMsg) => {
+        console.log("newMsg => " + newMsg )
+      });
+
+      this.socket.on("connect_error", (error) => {
+        console.log("TransportError:", error);
+      });
+
+      this.socket.on("disconnect", (reason) => {
+        console.log("disconnect:");
+        setTimeout(() => {
+          socket.connect();
+        }, 1000);
       });
     } else {
       console.error("mySocket is null or undefined");
@@ -269,6 +282,7 @@ export default {
 @media screen and (max-width: 600px) {
   #GeneralSection {
     height: 100% !important;
+    width: 100% !important;
   }
   #chat-profiles {
     border: 0cm !important;
@@ -276,8 +290,14 @@ export default {
     margin-left: -110px;
     width: 105% !important;
   }
-  #chat-section {
-    visibility: hidden;
+  
+  .listheader{
+    width: 100% !important;
   }
+  .chat-div{
+    width: 100% !important;
+  }
+
+
 }
 </style>

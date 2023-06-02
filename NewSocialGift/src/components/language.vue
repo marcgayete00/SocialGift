@@ -17,14 +17,21 @@
             <option value="value2">English</option>
           </select>
         </li>
-        <li id="hamburguerMenu" v-if="showHamburguerMenu"><a href="#" ><i class="fa-solid fa-bars"></i></a></li>
+        <li id="hamburguerMenu" v-if="showHamburguerMenu"><a @click="toggleTaskBar" ><i class="fa-solid fa-bars"></i></a></li>
+        <li>
+          <nav id="navBar">
+            <NavBar /> 
+          </nav>
+        </li>
       </ol>
+      
     </nav>
   </section>
 </template>
 
 <!-- CHAT GPT-->
 <script>
+import NavBar from './navbar.vue'
 export default {
   name: 'Language',
   props: {
@@ -33,15 +40,26 @@ export default {
       default: true
     }
   },
+  components: {
+    NavBar
+  },
   methods: {
     toggleImage() {
       var img = document.getElementById("switchImg");
       if (img.src.match("CurrentWhite.png")) {
         img.src = "src/components/icons/CurrentDark.png";
         document.body.style.backgroundColor = "Black";
+        
       } else {
         img.src = "src/components/icons/CurrentWhite.png";
         document.body.style.backgroundColor = "White";
+      }
+    },
+    toggleTaskBar() {
+      if (document.getElementById("navBar").style.display == "none"){
+        document.getElementById("navBar").style.display = "block";
+      } else {
+        document.getElementById("navBar").style.display = "none";
       }
     }
   }

@@ -131,7 +131,23 @@ export default {
           )
           if (response.status === 200) {
             const data = await response.json() // O response.text() si la respuesta es en formato de texto
-            wishlistData.push(data)
+            const currentDate = new Date().toISOString();
+            let notExpired = [];
+            for(let j = 0; j < data.length; j++){
+              if (data[j].end_date > currentDate){
+                notExpired.push(data[j])
+              } else {
+                console.log("Lista caducada "+ data[j].name)
+              }
+            }
+           
+            for(let j = 0; j < notExpired.length; j++){
+             console.log(notExpired[j].name)
+            }
+
+            wishlistData.push(notExpired)
+
+
           } else {
             throw new Error(`Failed to fetch wishlist for user ${ids[i]}.`)
           }
@@ -146,10 +162,11 @@ export default {
           name: item.name,
           description: item.description,
           creation_date: item.creation_date,
+          end_date: item.end_date,
           gifts: item.gifts
         }))
       )
-      //console.log(flattenedArray);
+      
 
       return flattenedArray
     },
@@ -190,8 +207,9 @@ export default {
               wishlist.gifts = flattenedGifts.filter((gift) => gift.wishlist_id === wishlist.id)
             })
           })
-          console.log(data)
+          //console.log(data)
           this.friendList.friends = data //Array al que queremos meter los regalos
+          console.log(this.friendList.friends.length)
         }
       } catch (error) {
         // Manejar el error de forma adecuada
@@ -230,8 +248,9 @@ export default {
     },
   },
   mounted() {
+    
     const token = localStorage.getItem('accessToken')
-    console.log(token)
+    //console.log(token)
     if (token === undefined || token === null) {
       window.location.href = '/'
     } else {
@@ -269,7 +288,7 @@ export default {
   <div>
     <language />
 
-    <section id="GeneralSection">
+    <section id="MainGeneralSection">
       <NavBar />
       <div class="options-box">
         <div id="profile-box">
@@ -293,13 +312,12 @@ export default {
         </ul>
       </div>
       <div class="image-section">
+      <div v-if="this.friendList.friends.length === 0">
+        <h1>No hay listas de deseos disponibles 😢</h1>
+        <h2 style="font-weight: normal;">¡Agrega a mas amigos!</h2>
+      </div>
       <div v-for="friend in friendList.friends" :key="friend.id">
         <!-- Mostrar un mensaje en caso de no tener wishlists-->
-        <div v-if="friend.wishlists.length === 0">
-          <h1>No hay listas de deseos disponibles 😢</h1>
-          <h2 style="font-weight: normal;">¡Agrega a mas amigos!</h2>
-        </div>
-        <div v-else>
           <div v-for="wishlist in friend.wishlists" :key="wishlist.id">
             <div class="listheader">
               <img class="profileimglist" :src="friend.image" />
@@ -316,7 +334,7 @@ export default {
                 <div class="checkbox"><input type="checkbox" id="reserveCheckbox" :checked="gift.booked" v-on:click="bookGift(gift.id, gift.booked)" /></div>
               </li>
             </ul>
-          </div>
+          
         </div>
       </div>
        
@@ -329,17 +347,20 @@ export default {
 <style scoped src="../assets/mainStyle.css"></style>
 <style>
 @media screen and (max-width: 600px) {
-  #GeneralSection {
+  #MainGeneralSection {
     width: 100% !important;
     height: 100% !important;
+    margin-top: -30px !important;
   }
   .image-section {
     margin-top: 40px !important;
     width: 110% !important;
   }
-  .options-box {
-    visibility: hidden !important;
+
+  .options-box{
+    display: none;
   }
+
   .listheader {
     width: 100% !important;
     height: 100px !important;

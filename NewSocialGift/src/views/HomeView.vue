@@ -111,6 +111,7 @@ function loginUser() {
   #ImageSection {
     display: none;
   }
+
   #loginFooter {
     display: none;
   }
@@ -124,6 +125,10 @@ function loginUser() {
     display: flex;
     justify-content: center;
     margin-left: 60px !important;
+  }
+
+  .profileimglist{
+    margin-left: 10px !important;
   }
 }
 </style>

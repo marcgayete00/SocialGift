@@ -105,7 +105,7 @@ export default {
     <section id="GeneralSection">
       <NavBar />
       <a id="flechaback" href="#" @click="goback()">
-        <i class="fa-sharp fa-solid fa-arrow-left fa-2xl" style="color: #195583;"></i>
+        <i class="fa-sharp fa-solid fa-arrow-left fa-2xl" style="color: #195583;" id="backArrow"></i>
       </a>
     </section>
 
@@ -155,10 +155,10 @@ export default {
   #FriendsElement h4 {
     font-size: 15px !important;
     width: 20px !important;
-    margin-left: 225px;
+    margin-left: 215px;
   }
   #FriendsElement button {
-    width: 75px;
+    width: auto !important;
     font-size: 12px !important;
   }
   #FriendsElement img {
@@ -168,7 +168,7 @@ export default {
   #ElementParts li {
     display: flex !important;
     margin-left: 0px !important;
-    width: auto !important;
+    width: 105% !important;
   }
 
   /*Texto item*/
@@ -221,5 +221,18 @@ export default {
   .popup-form button {
     margin-left: 30px !important;
   }
+
+  #profileImageJS{
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  #backArrow{
+    position: relative !important;
+    top: 200px;
+    left: 50px;
+  }
+
+
 }
 </style>

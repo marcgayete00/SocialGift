@@ -156,9 +156,6 @@ function addUser() {
     width: 250px !important;
   }
 
-  .file-upload-wrapper {
-    margin-left: 25px !important;
-  }
 
   #registerButton {
     width: 250px !important;

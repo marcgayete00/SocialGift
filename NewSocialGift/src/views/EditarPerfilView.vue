@@ -230,13 +230,14 @@ function deleteAccount(){
           <h3>URL profile photo</h3>
           <input type="text" id="input_profile_photo" placeholder="" />
         </div>
+        <div id="changePassword"> 
+          <h3>Cambiar Contraseña</h3>
+          <input type="password" id="current_password" placeholder="*******" />
+          <input type="password" id="new_password" placeholder="New password" />
 
-        <h3>Cambiar Contraseña</h3>
-        <input type="password" id="current_password" placeholder="*******" />
-        <input type="password" id="new_password" placeholder="New password" />
-
-        <input type="password" id="new_password2" placeholder="Retype new password" />
-        <a href="#"><button @click="editData" id="GuardarButton">Guardar</button></a>
+          <input type="password" id="new_password2" placeholder="Retype new password" />
+          <a href="#"><button @click="editData" id="GuardarButton">Guardar</button></a>
+        </div>
       </div>
     </section>
   </section>
@@ -250,7 +251,8 @@ function deleteAccount(){
 @media screen and (max-width: 600px) {
   .editarperfil-section {
     margin-top: 50px !important;
-    width: 105% !important;
+    width: 100% !important;
+    height: 100% !important;
   }
   .editarperfil-section > div {
     margin-top: 20px !important;
@@ -280,7 +282,65 @@ function deleteAccount(){
     visibility: hidden;
   }
   #GuardarButton {
-    margin-left: 140px !important;
+    position: relative !important;
+    top: 10px !important;
+    margin-left: 100px !important;
   }
+  #headeditarperfil{
+    position: relative !important;
+    top: -90px !important;
+  }
+
+  #profileImageJS{
+    width: 100px !important;
+    height: 100px !important;
+    margin-left: 10px !important;
+  }
+
+  #EliminarButton{
+    margin-left: 40px !important;
+    margin-top: 10px !important;
+    width: 150px !important;
+    font-size: 15px !important;
+  }
+
+  .diveditarperfil{
+    position: relative !important;
+    margin-left: 10px !important;
+    top: -70px !important;
+  }
+
+  .diveditarperfil h3{
+    margin-top: 10px !important;
+    font-size: 15px !important;
+  }
+
+  .diveditarperfil input{
+    width: 150px !important;
+    position: relative !important;
+    top: 2px !important;
+  }
+
+  #changePassword{
+    position: relative !important;
+    top: -70px !important;
+    margin-left: 10px !important;
+  }
+
+  #changePassword input{
+    width: 150px !important;
+  }
+
+  #new_password{
+    position: relative !important;
+    top: 20px !important;
+    margin-left: 305px !important;
+  }
+
+  #new_password2{
+    position: relative !important;
+    top: -40px !important;
+  }
+
 }
 </style>
