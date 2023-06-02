@@ -20,7 +20,7 @@
         <li id="hamburguerMenu" v-if="showHamburguerMenu"><a @click="toggleTaskBar" ><i class="fa-solid fa-bars"></i></a></li>
         <li>
           <nav id="navBar">
-            <NavBar /> 
+            
           </nav>
         </li>
       </ol>

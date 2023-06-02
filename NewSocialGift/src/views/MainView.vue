@@ -208,7 +208,7 @@ export default {
           })
           //console.log(data)
           this.friendList.friends = data //Array al que queremos meter los regalos
-          console.log(this.friendList.friends.length)
+          console.log("Friends"+ this.friendList.friends.length)
         }
       } catch (error) {
         // Manejar el error de forma adecuada
