@@ -19,7 +19,8 @@ export default {
       gifts: [],
       giftsonly: [],
       listaId: null, // Variable para almacenar el ID de la lista
-      mainId: null
+      mainId: null,
+      show: true
     };
   },
 
@@ -65,7 +66,7 @@ export default {
     },
 
     async obtainGiftInfo() {
-
+      //obtener el array de product_urls
       const productURL = this.gifts.map((regalos) => regalos.product_url);
 
       //obtener el ultimo caracter de la URL despues de la ultima /
@@ -122,8 +123,7 @@ export default {
           if(this.llistes[i].id == this.listaId){
             result = true;
           }else{
-            document.getElementById('share').style.display = 'none'
-            document.getElementById('cross').style.display = 'none'
+            this.show = false;
             result = false;
           }
         }
@@ -136,27 +136,60 @@ export default {
     return result;
   },
 
-    async RemoveGift(giftId){
-      console.log(giftId)
-      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/gifts/${giftId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
+  async RemoveGift(giftId){
+    console.log(giftId)
+    fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/gifts/${giftId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
 
+      }
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          alert('Regalo eliminado correctamente')
+        } else {
+          alert('Error al eliminar el regalo')
         }
       })
-        .then((response) => {
-          if (response.status === 200) {
-            alert('Regalo eliminado correctamente')
-          } else {
-            alert('Error al eliminar el regalo')
-          }
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+      .catch((error) => {
+        console.log(error)
+      })
+  },
+
+  async bookGift(id, booked){
+    let toBook = false;
+    let method = 'POST';
+    const token = localStorage.getItem('accessToken')
+    if (!booked){
+      toBook = true;
+    } else {
+      method = 'DELETE';
     }
+    
+    //Hacer un post para indicar que el book de un regalo ha sido cambiado
+    try {
+      const response = await fetch(
+        `https://balandrau.salle.url.edu/i3/socialgift/api/v1/gifts/${id}/book`,
+        {
+          method: method,
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+        }
+      )
+      if (response.status === 200) {
+        const data = await response.json()
+      } else {
+
+        } 
+      
+    } catch (error) {
+      // Manejar el error de forma adecuada
+    }
+
+  }
 
   },
 
@@ -202,7 +235,6 @@ export default {
           
           const datagift = await this.obtainGiftInfo(); // Espera a que se resuelva la promesa
           this.giftsonly = datagift; // Asigna los datos obtenidos a this.gifts
-
         })
         .catch((error) => {
           //Respuesta en caso de error de servidor
@@ -241,11 +273,12 @@ export default {
               <img :src="gift.photo">
               <a>{{ gift.name }}</a>
             </div>
-            <div class="icon-container2">
+            <div class="icon-container2" v-if="this.show">
               <a><i id="share" class="fa-solid fa-share-from-square"></i></a>
               <a @click="RemoveGift(gift.id)"><i id="cross" class="fa-solid fa-circle-xmark"></i></a>
             </div>
-            <input type="checkbox" id="reserveCheckbox">
+            <input type="checkbox" id="reserveCheckbox" :checked="gift.booked" v-on:click="bookGift(gift.id, gift.booked)">
+
           </li>
         </ul>
       </div>

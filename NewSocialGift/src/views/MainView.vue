@@ -98,7 +98,6 @@ export default {
       gifts.forEach((element) => {
         const productIds = element.map((gift) => {
           const id = gift.product_url.substring(gift.product_url.lastIndexOf('/') + 1)
-
           giftData.forEach((giftDataElement) => {
             if (giftDataElement.id == id) {
               // copiar los campos name y description del array giftData al array gifts
