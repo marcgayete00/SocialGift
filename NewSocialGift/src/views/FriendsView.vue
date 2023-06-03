@@ -102,7 +102,7 @@ export default {
 <template>
   <div>
     <language />
-
+    <a @click="toggleTaskBar" class="togleNavBar" ><i class="fa-solid fa-bars"></i></a>
     <section id="GeneralSection">
       <NavBar />
       <a id="flechaback" href="#" @click="goback()">

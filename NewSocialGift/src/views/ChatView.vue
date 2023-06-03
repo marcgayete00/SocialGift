@@ -173,6 +173,16 @@ export default {
         console.log("sendMsg => " + sendMsg )  
       });
 
+      this.socket.on("query_user", (queryUser) => {
+        //Obtener el cotenido del mensaje 
+        console.log("queryUser => " + queryUser )  
+      });
+
+      this.socket.on("historic_msg", (historicMsg) => {
+        //Obtener el cotenido del mensaje 
+        console.log("historicMsg => " + historicMsg )  
+      });
+
       this.socket.on("new_msg", (newMsg) => {
         console.log("newMsg => " + newMsg )
       });

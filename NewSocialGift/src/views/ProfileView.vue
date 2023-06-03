@@ -228,9 +228,6 @@ export default {
     left: -30px !important;
   }
 
-  .navigation {
-    display: none;
-  }
 
   #GeneralSection {
     margin-top: -10% !important;

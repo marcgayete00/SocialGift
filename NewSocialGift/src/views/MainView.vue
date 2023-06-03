@@ -245,6 +245,12 @@ export default {
         // Manejar el error de forma adecuada
       }
     },
+    toggleTaskBar(){
+      const navigation = document.querySelector('.navigation');
+  if (navigation) {
+    navigation.style.display = 'block';
+  }
+    }
   },
   mounted() {
     
@@ -286,7 +292,7 @@ export default {
 <template>
   <div>
     <language />
-
+   <a @click="toggleTaskBar()" class="togleNavBar" ><i class="fa-solid fa-bars"></i></a>
     <section id="MainGeneralSection">
       <NavBar />
       <div class="options-box">
@@ -372,6 +378,14 @@ export default {
   }
   .imageslide {
     width: 300px;
+  }
+
+  .togleNavBar{
+    position: fixed !important;
+    display: block !important;
+    font-size: 35px !important;
+    margin-left: 300px;
+    margin-top: -70px;
   }
 }
 </style>

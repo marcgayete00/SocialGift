@@ -480,4 +480,7 @@ border-radius: 10px;
   cursor: pointer;
 }
 
+#closeNavBar{
+  display: none;
+}
 

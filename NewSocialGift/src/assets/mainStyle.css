@@ -203,3 +203,7 @@ body{
     height: 120px;
     border-radius: 10%;
   }
+
+  .togleNavBar{
+    display: none;
+  }

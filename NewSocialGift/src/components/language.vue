@@ -1,3 +1,41 @@
+<script>
+export default {
+  name: 'Language',
+  props: {
+    showHamburguerMenu: {
+      type: Boolean,
+      default: true
+    }
+  },
+  components: {
+  },
+  methods: {
+    toggleImage() {
+      var img = document.getElementById("switchImg");
+      if (img.src.match("CurrentWhite.png")) {
+        img.src = "src/components/icons/CurrentDark.png";
+        document.body.style.backgroundColor = "Black";
+        
+      } else {
+        img.src = "src/components/icons/CurrentWhite.png";
+        document.body.style.backgroundColor = "White";
+      }
+    },
+    toggleTaskBar() {
+      if (document.getElementById("navBar").style.display == "none"){
+        document.getElementById("navBar").style.display = "block";
+      } else {
+        document.getElementById("navBar").style.display = "none";
+        console.log("entra");
+      }
+    }
+  },
+  mounted() {
+    
+  }
+}
+</script>
+
 <template>
   <section id="LanguageSection">
     <nav><!-- BORRAR -->
@@ -17,12 +55,7 @@
             <option value="value2">English</option>
           </select>
         </li>
-        <li id="hamburguerMenu" v-if="showHamburguerMenu"><a @click="toggleTaskBar" ><i class="fa-solid fa-bars"></i></a></li>
-        <li>
-          <nav id="navBar">
-            
-          </nav>
-        </li>
+        
       </ol>
       
     </nav>
@@ -30,41 +63,7 @@
 </template>
 
 <!-- CHAT GPT-->
-<script>
-import NavBar from './navbar.vue'
-export default {
-  name: 'Language',
-  props: {
-    showHamburguerMenu: {
-      type: Boolean,
-      default: true
-    }
-  },
-  components: {
-    NavBar
-  },
-  methods: {
-    toggleImage() {
-      var img = document.getElementById("switchImg");
-      if (img.src.match("CurrentWhite.png")) {
-        img.src = "src/components/icons/CurrentDark.png";
-        document.body.style.backgroundColor = "Black";
-        
-      } else {
-        img.src = "src/components/icons/CurrentWhite.png";
-        document.body.style.backgroundColor = "White";
-      }
-    },
-    toggleTaskBar() {
-      if (document.getElementById("navBar").style.display == "none"){
-        document.getElementById("navBar").style.display = "block";
-      } else {
-        document.getElementById("navBar").style.display = "none";
-      }
-    }
-  }
-}
-</script>
+
 
 <style scoped>
 @import '../assets/language.css';
@@ -73,20 +72,11 @@ export default {
 <style>
 
   @media screen and (max-width: 600px) {
-    #hamburguerMenu a{
-      text-decoration: none;
-      color: black;
-    }
-
-    #hamburguerMenu i{
-      display: block !important;
-      font-size: 40px!important;
+  #navBar {
+    background-color: brown;
+    position: relative;
+    left: 10px;
   }
-
-    .NavBar {
-    display: none !important;
-  }
-
   .NavBar--show {
     display: block !important;
   }
