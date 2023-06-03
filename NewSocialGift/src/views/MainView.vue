@@ -323,11 +323,10 @@ export default {
       </div>
       <div v-for="friend in friendList.friends" :key="friend.id">
         <!-- Mostrar un mensaje en caso de no tener wishlists-->
-          <div v-for="wishlist in friend.wishlists" :key="wishlist.id">
+          <div id="listamigo" v-for="wishlist in friend.wishlists" :key="wishlist.id">
             <div class="listheader">
               <img class="profileimglist" :src="friend.image" />
               <h3 @click="RedirectProfile(friend.id)">{{ friend.name }}</h3>
-             
             </div>
 
             <h1 @click="Redirectllista(wishlist.id)">{{ wishlist.name }}</h1>

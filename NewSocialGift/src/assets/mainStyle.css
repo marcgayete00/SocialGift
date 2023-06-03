@@ -90,6 +90,10 @@ body{
     text-align: left !important ;
   }
 
+  .listheader:hover{
+    cursor: pointer;
+  }
+
   .listheader h3{
     margin-top: 35px;
   }
@@ -132,8 +136,10 @@ body{
   
   #usernameJS, #lastnameJS {
     margin: 0;
-    
+  }
 
+  #usernameJS:hover{
+    cursor: pointer;
   }
   
   #lastnameJS {
@@ -146,12 +152,17 @@ body{
     list-style: none;
   }
 
+  #listamigo h1{
+    cursor: pointer;
+  }
+
 
   .product {
     display: flex;
     align-items: center;
     padding: 10px;
   }
+  
   
   .emoji {
     font-size: 24px;
