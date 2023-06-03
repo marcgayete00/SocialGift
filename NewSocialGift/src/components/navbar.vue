@@ -363,6 +363,8 @@ export default {
     z-index: 201 !important;
     top: 12% !important;
   }
+
+ 
   
 
     .navigation ul li:nth-child(3) ul#SearchSlide li{
@@ -375,159 +377,41 @@ export default {
     width: 200px !important;
   }
 
-  .navigation ul li:nth-child(3) ul#SearchSlide a {
-    font-size: small;
-    display: inline-block;
-    margin-left: 60px;
-    margin-top: 20px;
-    font-size: medium;
-    font-family: 'Inter', sans-serif;
+  #close-buttonN{
+    z-index: 201 !important;
+    top: 21% !important;
   }
 
   .navigation ul li:nth-child(5) ul#NotificationsSlide {
-  left: -290px;
-  width: 400px;
-  height: 400px;  
-  margin-top: 20px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  z-index: 9;
-  transition: all 0.5s ease-in-out;
-  padding: 20px;
-  border-radius: 10px;
-  background: #E3F3FE;
-  background-image: linear-gradient( #44acec, 1%, #E3F3FE);
-}
+    margin-top: -20px !important;
+    left: 0px !important;
+    width: 420px !important;
+    height: 650px !important;  
+  }
 
-.navigation ul li:nth-child(5) ul#NotificationsSlide li {
-  margin: 10px 0;
-  width: auto;
-  text-align: left;
-  border: none;
-  font-size: small;
-  display: flex;
-} 
+  #notifications-results-id{
+    width: 440px !important;
+    margin-left: 0px !important;
+  }
 
-.navigation ul li:nth-child(5) ul#NotificationsSlide i {
-  flex-shrink: 0;
-  margin-right: 10px;
-  margin-top: 3px;
-  
-}
+  #notifications-results-id::-webkit-scrollbar {
+    width: 0px !important;
+  }
 
-.navigation ul li:nth-child(5) ul#NotificationsSlide a {
-  margin-bottom: 5px;
-  font-weight: bold;
-  font-size: small;
-  margin-top: 5px;
-}
+  #notifications-results-id ul li {
+    left: 0px !important;
+    align-items: center !important;
+    top: 30px !important;
+    width: 340px !important;
+    margin-bottom: 50px !important;
+    height: 20px !important;  
+    box-shadow: none !important;
+    padding: 0px !important;
+    border-radius: 10px;
+    background: none !important;
+    background-image: none !important;
+  }
 
-
-.navigation ul li:nth-child(5) ul#NotificationsSlide p {
-  margin-left: 10px;
-}
-
-
-.navigation ul li:nth-child(5) ul#NotificationsSlide button {
-  background-color: #79B2DD;
-  font-size: 15px;
-  border: white;
-  font-weight: bold;
-  border-radius: 7px;
-  margin: auto;
-  height: 30px;
-  width: 80px;
-  margin-left: 50px;
-  transition: all 0.5s ease-in-out;
-}
-
-.navigation ul li:nth-child(5) ul#NotificationsSlide button:hover {
-  background-color: #94bede;
-  font-size: 15px;
-  border: white;
-  font-weight: bold;
-  border-radius: 7px;
-  margin: auto;
-  height: 30px;
-  width: 80px;
-  margin-left: 50px;
-}
-
-#notifications-results-id{
-  display: block;
-  overflow-x: hidden;
-  max-height: 280px;
-  height: 280px;
-  width: 380px;
-  font-size: 20px;
-  overflow-y: scroll;
-  border-radius: 4px;
-  margin-left: 30px;
-  margin-top: 0px;
-  margin-bottom: 10px;
-  padding-bottom: 30px;
-  outline: none;
-}
-
-#notifications-results-id::-webkit-scrollbar {
-  width: 10px;
-}
-
-#notifications-results-id::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey; 
-  border-radius: 10px;
-}
-
-#notifications-results-id::-webkit-scrollbar-thumb {
-background: #79B2DD; 
-border-radius: 10px;
-}
-
-#notifications-results-id::-webkit-scrollbar-thumb:hover {
-  background: #455b6b; 
-}
-
-#notifications-results-id ul {
-  z-index: 99;
-  height: 12px;
-  color: black;
-  display: contents;
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  align-items: left;
-}
-#notifications-results-id a {
-  margin-top: -10px !important;
-  text-decoration: none;
-  color: black;
-  font-family: 'Inter', sans-serif;
-  size: 30px;
-  font-size: 15px !important;
-  cursor:pointer;
-}
-
-#notifications-results-id ul li {
-  left: 5px !important;
-  align-items: center !important;
-  top: 30px !important;
-  width: 340px !important;
-  margin-bottom: 50px !important;
-  height: 20px !important;  
-  box-shadow: none !important;
-  padding: 0px !important;
-  border-radius: 10px;
-  background: none !important;
-  background-image: none !important;
-}
-
-#notifications-results-id img{
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  position: relative;
-  top: 18px;
-  right: 5px;
-}
 }
 
 </style>
