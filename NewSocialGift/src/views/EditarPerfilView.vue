@@ -198,11 +198,18 @@ function deleteAccount(){
         console.log(error)
       })
   }
+
+  function toggleTaskBar(){
+      const navigation = document.querySelector('.navigation');
+      if (navigation) {
+        navigation.style.display = 'block';
+      }
+    } 
 </script>
 
 <template>
   <language />
-
+  <a @click="toggleTaskBar()" class="togleNavBar" ><i class="fa-solid fa-bars"></i></a>
   <section id="GeneralSection">
     <NavBar />
     <section class="editarperfil-section">

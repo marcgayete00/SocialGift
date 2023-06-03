@@ -57,6 +57,13 @@ export default {
       window.history.back();
     },
 
+    toggleTaskBar(){
+      const navigation = document.querySelector('.navigation');
+      if (navigation) {
+        navigation.style.display = 'block';
+      }
+    }
+
   },
   mounted() {
     const token = localStorage.getItem('accessToken')
@@ -102,7 +109,7 @@ export default {
 <template>
   <div>
     <language />
-    <a @click="toggleTaskBar" class="togleNavBar" ><i class="fa-solid fa-bars"></i></a>
+    <a @click="toggleTaskBar()" class="togleNavBar" ><i class="fa-solid fa-bars"></i></a>
     <section id="GeneralSection">
       <NavBar />
       <a id="flechabackF" href="#" @click="goback()">

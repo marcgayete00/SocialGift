@@ -60,6 +60,12 @@ export default {
       } catch (error) {
         // Manejar el error de forma adecuada
       }    
+    },
+    toggleTaskBar(){
+      const navigation = document.querySelector('.navigation');
+      if (navigation) {
+        navigation.style.display = 'block';
+      }
     }   
   }
 }
@@ -68,7 +74,7 @@ export default {
 
 <template>
     <language />
-
+    <a @click="toggleTaskBar()" class="togleNavBar" ><i class="fa-solid fa-bars"></i></a>
     <section id="GeneralSection">
       <NavBar v-bind:class="{ 'NavBar--show': showNavbar }"></NavBar>
     </section>

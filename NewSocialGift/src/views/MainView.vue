@@ -253,7 +253,6 @@ export default {
     }
   },
   mounted() {
-    
     const token = localStorage.getItem('accessToken')
     //console.log(token)
     if (token === undefined || token === null) {

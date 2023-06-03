@@ -315,6 +315,7 @@ export default {
 
 @media screen and (max-width: 600px) {
   .navigation{
+    display: none;
    width: 100% !important;
   }
 
