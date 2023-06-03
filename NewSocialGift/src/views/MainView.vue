@@ -379,7 +379,6 @@ export default {
   }
 
   .togleNavBar{
-    position: fixed !important;
     display: block !important;
     font-size: 35px !important;
     margin-left: 300px;

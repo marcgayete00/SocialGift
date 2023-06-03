@@ -326,9 +326,32 @@ export default {
   .listheader{
     width: 100% !important;
   }
+
+  .listheader h3{
+    font-size: larger !important;
+  }
+
+  #imageJS{
+    position: relative !important;
+    width: 50px !important;
+    height: 50px !important;
+    left: 420px !important;
+    top: 20px;
+  }
+
   .chat-div{
     width: 100% !important;
   }
+  
+  #TheirMessage{
+    font-size: small !important;
+  }
+
+  #YourMessage{
+    margin-left: -260px !important;
+    font-size: small !important;
+  }
+  
 
 
 }

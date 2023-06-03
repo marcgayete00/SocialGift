@@ -70,7 +70,7 @@ function loginUser() {
               placeholder="Contraseña"
               @keydown.enter="loginUser"
             /><br />
-            <button id="loginButton" @click="loginUser"><a href="#"> Login </a></button>
+            <a id="loginButton" @click="loginUser"> Login </a>
             <hr />
             <!-- USAR ALTERNATIVA -->
             <span id="textRegister">¿No tienes cuenta? <a href="register"> Registrate</a></span>

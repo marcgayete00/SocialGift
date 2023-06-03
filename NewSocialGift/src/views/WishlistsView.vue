@@ -226,6 +226,12 @@ export default {
       popupContainer2.classList.add('show-popup');
       popupOverlay.style.display = 'block';
     },
+    toggleTaskBar(){
+      const navigation = document.querySelector('.navigation');
+      if (navigation) {
+        navigation.style.display = 'block';
+      }
+    } 
   },
 
   mounted() {
@@ -299,7 +305,7 @@ export default {
 <template>
   <div>
     <language />
-
+    <a @click="toggleTaskBar()" class="togleNavBar" ><i class="fa-solid fa-bars"></i></a>
     <section id="GeneralSection">
       <NavBar />
       <a id="flechaback" href="#" @click="goback()">
