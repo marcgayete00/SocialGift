@@ -22,49 +22,42 @@ export default {
       gifts: [],
       listaId: null, // Variable para almacenar el ID de la lista
       mainId: null,
-      show: false
+      show: false,
+      llistes: [],
+      gifttoShare: null
     };
   },
 
   methods:{
 
-    async addGift(){
-      var url = document.getElementById('nombre-producto').value
-      var prioridad = document.getElementById('prioridad-producto').value
-      console.log(this.wishlists)
-      const wishlist = {
-        id: this.listaId,
-        name: this.wishlists.name,
-        description: this.wishlists.description,
-        user_id: 121,
-        gifts: [
-          {
-            id: 1,
-            wishlist_id: this.listaId,
-            product_url: url,
-            priority: prioridad,
-            booked: false
-          }
-        ],
+    async addGift() {
+      var url = document.getElementById('nombre-producto').value;
+      var prioridad = document.getElementById('prioridad-producto').value;
+
+      const giftData = {
+        wishlist_id: this.listaId,
+        product_url: url,
+        priority: prioridad
+      };
+
+      try {
+        const response = await fetch('https://balandrau.salle.url.edu/i3/socialgift/api/v1/gifts', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify(giftData)
+        });
+
+        if (response.status === 200) {
+          alert('Regalo añadido correctamente');
+        } else {
+          alert('Error al añadir el regalo');
+        }
+      } catch (error) {
+        console.log(error);
       }
-      console.log(wishlist)
-      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/wishlists/${this.listaId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(wishlist)
-      })
-        .then((response) => {
-          if (response.status === 200) {
-            alert('Regalo añadido correctamente')
-          } else {
-            alert('Error al añadir el regalo')
-          }
-        })
-        .catch((error) => {
-          console.log(error)
-        })
     },
 
     async obtainGiftInfo() {
@@ -110,91 +103,129 @@ export default {
 
     async ComprobarLista(){
       try {
-      const response = await fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${this.mainId}/wishlists`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      if (response.status === 200) {
-        const data = await response.json();
-        this.llistes = data;
-        for(let i = 0; i < this.llistes.length; i++){
-          if(this.llistes[i].id == this.listaId){
-            this.show = true;
-            return;
-          }else{
-            this.show = false;
-          }
-        }
-
-      }
-    } catch (error) {
-      // Manejar el error de forma adecuada
-    }
-    console.log(this.show)
-
-  },
-
-  async RemoveGift(giftId){
-    console.log(giftId)
-    fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/gifts/${giftId}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-
-      }
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          alert('Regalo eliminado correctamente')
-          window.location.reload()
-        } else {
-          alert('Error al eliminar el regalo')
-        }
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  },
-
-  async bookGift(id, booked){
-    let toBook = false;
-    let method = 'POST';
-    const token = localStorage.getItem('accessToken')
-    if (!booked){
-      toBook = true;
-    } else {
-      method = 'DELETE';
-    }
-    
-    //Hacer un post para indicar que el book de un regalo ha sido cambiado
-    try {
-      const response = await fetch(
-        `https://balandrau.salle.url.edu/i3/socialgift/api/v1/gifts/${id}/book`,
-        {
-          method: method,
+        const response = await fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${this.mainId}/wishlists`, {
+          method: 'GET',
           headers: {
             Authorization: `Bearer ${token}`
-          },
+          }
+        });
+        if (response.status === 200) {
+          const data = await response.json();
+          this.llistes = data;
+          for(let i = 0; i < this.llistes.length; i++){
+            if(this.llistes[i].id == this.listaId){
+              this.show = true;
+              return;
+            }else{
+              this.show = false;
+            }
+          }
+
         }
-      )
-      if (response.status === 200) {
-        const data = await response.json()
-      } else {
+      } catch (error) {
+        // Manejar el error de forma adecuada
+      }
+      console.log(this.show)
 
-        } 
-      
-    } catch (error) {
-      // Manejar el error de forma adecuada
-    }
+    },
 
-  },
-  async MoveGift(giftID){
+    async RemoveGift(giftId){
+      console.log(giftId)
+      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/gifts/${giftId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
 
-  }
+        }
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            alert('Regalo eliminado correctamente')
+            window.location.reload()
+          } else {
+            alert('Error al eliminar el regalo')
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
 
+    async bookGift(id, booked){
+        let toBook = false;
+        let method = 'POST';
+        const token = localStorage.getItem('accessToken')
+        if (!booked){
+          toBook = true;
+        } else {
+          method = 'DELETE';
+        }
+        
+        //Hacer un post para indicar que el book de un regalo ha sido cambiado
+        try {
+          const response = await fetch(
+            `https://balandrau.salle.url.edu/i3/socialgift/api/v1/gifts/${id}/book`,
+            {
+              method: method,
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
+              },
+            }
+          )
+          if (response.status === 200) {
+            const data = await response.json()
+          } else {
+
+          } 
+          
+        } catch (error) {
+          // Manejar el error de forma adecuada
+        }
+
+      },
+    async MoveGift(wishlistID) {
+
+      const moveData = {
+        wishlist_id: wishlistID
+      }
+
+      try {
+        const response = await fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/gifts/${this.gifttoShare}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify(moveData)
+        });
+
+        if (response.status === 200) {
+          alert('Regalo movido correctamente');
+        } else {
+          alert('Error al mover el regalo');
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      window.location.reload()
+    },
+
+    async closeP2(){
+      const popupContainer2 = document.querySelector('#popup-container2');
+      const popupOverlay = document.querySelector('#popup-overlay');
+      popupContainer2.classList.remove('show-popup');
+      popupOverlay.style.display = 'none';
+    },
+    
+    async showPopup2(giftID){
+      this.gifttoShare = giftID;
+      const popupContainer2 = document.querySelector('#popup-container2');
+      const popupOverlay = document.querySelector('#popup-overlay');
+      popupContainer2.classList.add('show-popup');
+      popupOverlay.style.display = 'block';
+    },
   },
 
   mounted() {
@@ -202,8 +233,10 @@ export default {
     const id = MiComponente.methods.obtenerIdDesdeToken(token)
     this.mainId = id; // Accede al ID de la lista desde la ruta
     const addButton = document.querySelector('#addButton');
+
     const popupContainer = document.querySelector('#popup-container');
     const popupOverlay = document.querySelector('#popup-overlay');
+
     if(addButton != null){
       addButton.addEventListener('click', function() {
         popupContainer.classList.add('show-popup');
@@ -235,7 +268,20 @@ export default {
           this.wishlists = data;
           console.log(this.wishlists)
           this.gifts = data.gifts;
-          
+          const fecha = data.end_date;
+          const fechaObjeto = new Date(fecha);
+
+          const fechaFormateada = fechaObjeto.toISOString().split('T')[0];
+          const currentDate = new Date().toISOString().split('T')[0];
+          const listadateElement = document.getElementById('listadateJS');
+          listadateElement.innerHTML = fechaFormateada;
+
+          if (fechaFormateada < currentDate) {
+            listadateElement.style.color = 'red';
+          } else {
+            listadateElement.style.color = 'green';
+          }
+
           //mostrar el cotenido que nos devuelve el servidor
           document.getElementById('listanameJS').innerHTML = data.name
           document.getElementById('listadescJS').innerHTML = data.description
@@ -268,6 +314,7 @@ export default {
       <div id="banner">
         <h1 id="listanameJS"></h1>
         <h2 id="listadescJS"></h2>
+        <h2 id="listadateJS"></h2>
       </div>
       <div v-if="gifts.length === 0">
         <h1>No hay regalos 😢</h1>
@@ -277,33 +324,42 @@ export default {
           <li v-for="gift in this.gifts" :key="gift.id">
             <gift :gift="gift"/>
             <div class="icon-container2" v-if="this.show">
-              <a @click="MoveGift(gift.id)"  ><i id="share" class="fa-solid fa-share-from-square"></i></a>
+              <a @click="showPopup2(gift.id)"><i id="share" class="fa-solid fa-share-from-square"></i></a>
               <a @click="RemoveGift(gift.id)"><i id="cross" class="fa-solid fa-circle-xmark"></i></a>
             </div>
-            <input type="checkbox" id="reserveCheckbox" :checked="gift.booked" v-on:click="bookGift(gift.id, gift.booked)">
+            <div class="checkbox"><input type="checkbox" id="reserveCheckbox" :checked="gift.booked" @click="bookGift(gift.id, gift.booked)" /></div>
+
           </li>
         </ul>
       </div>
 
-      <div id="addButton"  v-if="this.show">
-        <button><a href="#">Añadir</a></button>
+      <div id="addButton">
+        <button v-if="this.show"><a href="#">Añadir</a></button>
       </div>
 
 
       <div id="popup-overlay"></div>
+      <div id="popup-container2">
+          <button @click="closeP2()" id="close-button"><i class="fa-solid fa-xmark"></i></button>
+          <h2>Elige una Wishlist</h2>
+          <ul v-for="lista in this.llistes" :key="lista.id">
+            <li @click="MoveGift(lista.id)">{{ lista.name }}</li>
+          </ul>
+      </div>
       <div id="popup-container">
         <form class="popup-form">
           <button id="close-button"><i class="fa-solid fa-xmark"></i></button>
           <h2>Añadir producto</h2>
           <label for="nombre-producto">Url del producto:</label>
           <input type="text" id="nombre-producto" name="nombre-producto">
-          <label for="nombre-producto">Prioridad: </label>
-          <input type="number" id="prioridad-producto" name="nombre-producto">
-          <label for="fecha-caducidad">Fecha de caducidad: </label>
-          <input type="date" id="fecha-caducidad" name="fecha-caducidad">
+          <label for="prioridad-producto">Prioridad: </label>
+          <input type="number" id="prioridad-producto" name="prioridad-producto">
+          <!--<label for="fecha-caducidad">Fecha de caducidad: </label>
+          <input type="date" id="fecha-caducidad" name="fecha-caducidad">-->
           <button @click="addGift()">Agregar</button>
         </form>
       </div>
+      
     
     </section>
   </div>
@@ -316,7 +372,7 @@ export default {
 <style>
 @media screen and (max-width: 600px) {
   #WishListSection {
-    margin-top: 20% !important;
+    margin-top: 10% !important;
     margin-left: 20px !important;
     height: 100% !important;
   }
@@ -330,10 +386,39 @@ export default {
     margin-left: -440px !important;
   }
 
+  #ElementParts{
+    width: 500px !important;
+    padding-right: 0px !important; 
+    height: 350px !important;
+  }
+
+  #ElementParts::-webkit-scrollbar {
+    width: 0em !important;
+  }
+
   #ElementParts li{
-    display: flex !important;
-    margin-left: 0px !important;
-    width: auto !important;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px !important;
+      width: 280px !important;
+      margin-left: 40px;
+      height: 60px !important;
+      padding: 0px !important;
+  }
+
+  #ElementParts i{
+      font-size:xx-large;
+  }
+
+  #ElementParts a{
+    font-size: x-large;
+    color: #000;
+  }
+
+  #flechaback{
+    margin-left: -275px !important;
+    margin-top: 60px !important;
   }
 
   /*Texto item*/
@@ -341,12 +426,20 @@ export default {
     display: flex !important;
     margin-left: -220px !important;
     font-size:medium !important;
-   
   }
 
   /*Iconos item*/
   .icon-container2 i{
     display: flex !important;
+  }
+
+  .icon-container2 {
+    margin-left: 0px !important;
+  }
+
+  .icon-container2 a{
+    margin-left:2px !important;
+    margin-right: 5px;
   }
 
   #share{
@@ -366,18 +459,22 @@ export default {
     left: 10px !important;
   }
 
-  #addButton{
+  #addButton {
     display: flex !important;
     margin-top: -50px;
     margin-left: -650px !important;
   }
 
+  #addButton button{
+    margin-left: 725px !important;
+    margin-top: 550px;
+    position: fixed !important;
+  }
+  
+
   #popup-container{
     display: hidden !important;
-    left: 190px !important;
-    top: 700px !important;
-    width: 30% !important;  
-    height: 20% !important;
+    width: 300px !important;  
   }
 
   .upload-btn{

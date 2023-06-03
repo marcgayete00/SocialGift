@@ -12,6 +12,7 @@ export default {
   },
   methods: {
     async showS(){
+      document.getElementById('close-buttonN').style.display = 'none';
       document.getElementById('close-buttonS').style.display = 'block';
       document.getElementById('SearchSlide').style.display = 'block';
       if(document.getElementById('NotificationsSlide').style.display == 'block'){
@@ -20,6 +21,7 @@ export default {
     },
 
     async showN(){
+      document.getElementById('close-buttonS').style.display = 'none';
       document.getElementById('close-buttonN').style.display = 'block';
       document.getElementById('NotificationsSlide').style.display = 'block';
       if(document.getElementById('SearchSlide').style.display == 'block'){
