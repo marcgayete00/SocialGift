@@ -21,7 +21,7 @@
     font-family:'Inter', sans-serif;
 }
 
-#flechaback{
+#flechabackF{
     display: block;
     margin-top: -42%;
     margin-left: -93%;
@@ -36,7 +36,7 @@
   
 }
 
-#ElementParts{
+#ElementPartsF{
     overflow-x: hidden;
     overflow-y: scroll;
     list-style: none;
@@ -47,25 +47,26 @@
     height: 550px;
 }
 
-#ElementParts::-webkit-scrollbar {
+
+#ElementPartsF::-webkit-scrollbar {
     width: 10px;
   }
   
-  #ElementParts::-webkit-scrollbar-track {
+  #ElementPartsF::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px grey; 
     border-radius: 10px;
   }
   
-  #ElementParts::-webkit-scrollbar-thumb {
+  #ElementPartsF::-webkit-scrollbar-thumb {
   background: #79B2DD; 
   border-radius: 10px;
   }
   
-  #ElementParts::-webkit-scrollbar-thumb:hover {
+  #ElementPartsF::-webkit-scrollbar-thumb:hover {
     background: #455b6b; 
   }
 
-#ElementParts li{
+#ElementPartsF li{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -93,7 +94,7 @@
     margin-right: 10px;
 }
 
-#ElementParts a{
+#ElementPartsF a{
     font-size: x-large;
     color: #000;
 }

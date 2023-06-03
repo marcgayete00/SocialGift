@@ -244,7 +244,7 @@ export default {
   .grid-container {
     display: grid;
     margin-left: 4% !important;
-    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-columns: repeat(2, 1fr) !important;
     grid-template-rows: repeat(2, 1fr) !important;
     gap: 50px !important;
     width: 80vw; /* Ajusta el ancho del contenedor a la ventana */

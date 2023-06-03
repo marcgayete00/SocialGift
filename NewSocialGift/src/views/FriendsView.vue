@@ -105,7 +105,7 @@ export default {
     <a @click="toggleTaskBar" class="togleNavBar" ><i class="fa-solid fa-bars"></i></a>
     <section id="GeneralSection">
       <NavBar />
-      <a id="flechaback" href="#" @click="goback()">
+      <a id="flechabackF" href="#" @click="goback()">
         <i class="fa-sharp fa-solid fa-arrow-left fa-2xl" style="color: #195583;" id="backArrow"></i>
       </a>
     </section>
@@ -116,7 +116,7 @@ export default {
         <h1>Amigos</h1>
       </div>
       <div id="FriendsElement">
-        <ul id="ElementParts">
+        <ul id="ElementPartsF">
           <li v-for="llista in llistes" :key="llista.id">
             <div class="icon-container">
               <img id="profileImageJS" :src="llista.image" />
@@ -139,7 +139,7 @@ export default {
 <style>
 @media screen and (max-width: 600px) {
   #FriendsSection {
-    margin-top: 20% !important;
+    margin-top: 30% !important;
     margin-left: 20px !important;
     height: 100% !important;
   }
@@ -165,54 +165,27 @@ export default {
     width: 50px;
   }
 
-  #ElementParts li {
+  #ElementPartsF li {
     display: flex !important;
     margin-left: 0px !important;
-    width: 105% !important;
+    width: 225x !important;
   }
 
-  /*Texto item*/
-  .icon-container a {
-    display: flex !important;
-    margin-left: -220px !important;
-    font-size: medium !important;
+  #ElementPartsF::-webkit-scrollbar {
+    width: 0px !important;
   }
 
-  /*Iconos item*/
-  .icon-container2 i {
-    display: flex !important;
+  #flechabackF{
+    margin-left: -375px;
+    margin-top: -225px !important;
   }
 
-  #share {
-    position: relative !important;
-    left: 15px !important;
-    top: 2px !important;
+  #ElementPartsF{
+    width: 500px !important;
+    padding-right: 0px !important; 
+    height: 350px !important;
   }
 
-  #cross {
-    position: relative !important;
-    left: 15px !important;
-    top: 2px !important;
-  }
-
-  .icon-container2 input {
-    position: relative !important;
-    left: 10px !important;
-  }
-
-  #addButton {
-    display: flex !important;
-    margin-top: -50px;
-    margin-left: -650px !important;
-  }
-
-  #popup-container {
-    display: hidden !important;
-    left: 190px !important;
-    top: 700px !important;
-    width: 30% !important;
-    height: 20% !important;
-  }
 
   .upload-btn {
     margin-left: auto !important;
