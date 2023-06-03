@@ -313,6 +313,12 @@ border-radius: 10px;
   .show-popup {
     display: block !important;
   }
+
+  
+  .togleNavBar{
+    display: none;
+  }
+
   
 
 
