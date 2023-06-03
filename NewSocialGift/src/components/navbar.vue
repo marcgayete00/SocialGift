@@ -243,6 +243,9 @@ export default {
       <li>
         <a href="/main"><i class="fa-solid fa-house"></i> Home</a>
       </li>
+      <li id="navprofile">
+        <a @click="RedirectUser(mainID)"><i class="fa-solid fa-user"></i> Profile</a>
+      </li>
       <li>
         <a @click="showS()"><i class="fa-solid fa-magnifying-glass" ></i> Search</a>
         <button @click="closeS()" id="close-buttonS"><i class="fa-solid fa-xmark"></i></button>
@@ -296,6 +299,9 @@ export default {
       <li>
         <a href="/createList"><i class="fa-solid fa-pen-to-square"></i> Create</a>
       </li>
+      <li id="navlogout">
+        <a @click="logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+      </li>
       <li id="MoreLi">
         <a @click="showM()"><i class="fa-solid fa-bars"></i> More</a>
         <ul id="moreSlide">
@@ -318,6 +324,14 @@ export default {
    width: 100% !important;
   }
 
+  #navlogout{
+    display: block !important;
+  }
+
+  #navprofile{
+    display: block !important;
+  }
+
   .navigation li{
     margin-left: 100px !important; 
   }
@@ -325,7 +339,7 @@ export default {
   #closeNavBar{
     display: block;
     font-size: 40px;
-    margin-top: -900px;
+    margin-top: -1025px;
     margin-left: 200px;
   }
 }

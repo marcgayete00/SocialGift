@@ -55,6 +55,14 @@
   left: 130px;
 }
 
+#navlogout{
+  display: none;
+}
+
+#navprofile{
+  display: none;
+}
+
 #logoNavBar{
   display: flex;
   justify-content: center;
