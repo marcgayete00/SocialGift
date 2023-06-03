@@ -314,11 +314,19 @@ export default {
 @import '../assets/NavBar.css';
 
 @media screen and (max-width: 600px) {
+  .navigation{
+   width: 100% !important;
+  }
+
+  .navigation li{
+    margin-left: 100px !important; 
+  }
+
   #closeNavBar{
     display: block;
     font-size: 40px;
     margin-top: -900px;
-    margin-left: 145px;
+    margin-left: 200px;
   }
 }
 
