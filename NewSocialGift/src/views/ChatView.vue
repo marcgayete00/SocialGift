@@ -69,7 +69,6 @@ export default {
       document.getElementById('listheader').style.display = 'block'
       document.getElementById('chat-input-id').style.display = 'block'
       
-      
       document.getElementById('usernameJS').innerHTML = name
       document.getElementById('imageJS').src = image
 
@@ -374,6 +373,22 @@ export default {
     margin-left: -260px !important;
     font-size: small !important;
   }
+
+  .chat-input input{
+      resize: none;
+      width: 20% !important;
+      height: 70%;
+      border-radius: 50px;
+      outline: none;
+      border : 1px solid #ccc;
+      font-size: 20px;
+      margin-top: 40px;
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 10px;
+      padding-bottom: 5px;
+      font-family: 'Inter', sans-serif;
+    }
   
 
 
