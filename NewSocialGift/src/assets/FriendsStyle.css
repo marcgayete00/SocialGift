@@ -85,6 +85,10 @@
     margin-left: 10px;
 }
 
+.icon-container a:hover{
+  cursor: pointer;
+}
+
 .icon-container img{
     width: 75px;
 }
@@ -107,6 +111,10 @@
     border: white;
     font-weight: bold;
     border-radius: 7px;
+}
+
+#EliminarButton:hover{
+  cursor: pointer;
 }
 
 #profileImageJS{
