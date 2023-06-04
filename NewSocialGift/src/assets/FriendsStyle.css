@@ -115,3 +115,7 @@
     height: 80px;
     margin-right: 20px;
   }
+
+  .togleNavBar{
+    display: none;
+  }

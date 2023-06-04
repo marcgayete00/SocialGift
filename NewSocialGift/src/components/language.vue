@@ -14,7 +14,7 @@ export default {
       var img = document.getElementById("switchImg");
       if (img.src.match("CurrentWhite.png")) {
         img.src = "src/components/icons/CurrentDark.png";
-        document.body.style.backgroundColor = "Black";
+        document.body.style.backgroundColor = "#999999";
         
       } else {
         img.src = "src/components/icons/CurrentWhite.png";
