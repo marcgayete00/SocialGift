@@ -152,6 +152,27 @@ export default {
         })
     },
 
+    async RemoveList(){
+      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/wishlists/${this.listaId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            alert('Lista eliminada correctamente')
+            window.history.back();
+          } else {
+            alert('Error al eliminar la lista')
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+
     async bookGift(id, booked){
         let toBook = false;
         let method = 'POST';
@@ -318,12 +339,13 @@ export default {
     <!--Mostrar listas de deseos-->
     <section id="WishListSection">
       <div id="banner">
+        <button id="RemoveButton" @click="RemoveList()">Eliminar Lista</button>
         <h1 id="listanameJS"></h1>
         <h2 id="listadescJS"></h2>
         <h2 id="listadateJS"></h2>
       </div>
       <div v-if="gifts.length === 0">
-        <h1>No hay regalos 😢</h1>
+        <h1 id="NoRegalos">No hay regalos 😢</h1>
       </div>
       <div v-else  id="WishListElement">
         <ul id="ElementParts">
@@ -422,6 +444,16 @@ export default {
     color: #000;
   }
 
+  #ElementParts .namegift{
+    font-size: 15px !important;
+    margin-left: -190px !important;
+  }
+
+  #ElementParts .imggift{
+    width: 60px !important;
+    height: 40px !important;
+  }
+
   #flechaback{
     margin-left: -275px !important;
     margin-top: 60px !important;
@@ -432,11 +464,6 @@ export default {
     display: flex !important;
     margin-left: -220px !important;
     font-size:medium !important;
-  }
-
-  /*Iconos item*/
-  .icon-container2 i{
-    display: flex !important;
   }
 
   .icon-container2 {
@@ -472,7 +499,17 @@ export default {
   }
 
   #addButton button{
-    margin-left: 725px !important;
+    width: 120px !important;
+    font-size: 15px !important;
+    margin-top: -48px !important;
+    margin-left: 795px !important;
+    position: fixed !important;
+  }
+
+  #RemoveButton{
+    width: 120px !important;
+    font-size: 15px !important;
+    margin-left: 0px !important;
     margin-top: 550px;
     position: fixed !important;
   }

@@ -39,8 +39,8 @@ export default {
 
 <template>
   <div class="icon-container" v-for="giftData in giftsData" :key="giftData.id">
-    <img :src="giftData.photo">
-    <a>{{ giftData.name }}</a>
+    <img class="imggift" :src="giftData.photo">
+    <a class="namegift">{{ giftData.name }}</a>
   </div>
 </template>
 
