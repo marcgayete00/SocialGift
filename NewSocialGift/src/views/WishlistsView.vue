@@ -339,7 +339,7 @@ export default {
     <!--Mostrar listas de deseos-->
     <section id="WishListSection">
       <div id="banner">
-        <button id="RemoveButton" @click="RemoveList()">Eliminar Lista</button>
+        <button v-if="this.show" id="RemoveButton" @click="RemoveList()">Eliminar Lista</button>
         <h1 id="listanameJS"></h1>
         <h2 id="listadescJS"></h2>
         <h2 id="listadateJS"></h2>
