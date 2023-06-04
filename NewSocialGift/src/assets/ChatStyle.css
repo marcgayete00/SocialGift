@@ -405,6 +405,25 @@
       padding-bottom: 10px;
     }
 
+    #newTheirMessage{
+      list-style: none;
+    }
+
+    #newTheirMessage li{
+      position: relative;
+      padding: 5px;
+      padding: 0;
+      left: 235px;
+      margin-bottom: 10px;
+      background-color: rgb(53, 122, 172);
+      width: 10%;
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+      border-top-right-radius: 30px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
     .chat-div a {
       text-decoration: none;
       color: black;

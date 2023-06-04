@@ -18,6 +18,8 @@ export default {
       userMessaged: [],
       messages: [],
       GlobalId: 0,
+      newMessage: [],
+      newMessageSent: [],
     }
   },
   methods: {
@@ -63,6 +65,7 @@ export default {
     },
     selectFriend(name, image, id) {
       this.messages = []
+      this.newMessage = []
       console.log(name, image)
       localStorage.setItem('CurrentUserToTalkId', id);
       document.getElementById('noChats').style.display = 'none'
@@ -99,7 +102,6 @@ export default {
         })
 
     },
-
     async sendMessage() {
       var message = document.getElementById('message').value;
 
@@ -160,6 +162,7 @@ export default {
     },
   },
   mounted() {
+
     const tokenEmit = localStorage.getItem('accessToken')
     this.socket = io("https://balandrau.salle.url.edu", {path: "/i3/socialgift/socket.io"});
 
@@ -173,14 +176,16 @@ export default {
       });
     
       this.socket.on("save_msg", (saveMsg) => {
-        //Obtener el cotenido del mensaje 
+        //Enviar mensaje 
         console.log("Mensaje recibido: " + saveMsg); 
-       
+        console.log("Enviando mensaje")
       });
 
       this.socket.on("send_msg", (sendMsg) => {
         //Obtener el cotenido del mensaje 
-        console.log("sendMsg => " + sendMsg )  
+        console.log("sendMsg => " + sendMsg)
+        this.newMessageSent.push(document.getElementById('message').value = '');
+        console.log(this.newMessageSent)   
       });
 
       this.socket.on("query_user", (queryUser) => {
@@ -194,7 +199,11 @@ export default {
       });
 
       this.socket.on("new_msg", (newMsg) => {
-        console.log("newMsg => " + newMsg )
+        console.log("newMsg => " + newMsg)
+        const message = newMsg.split('"');
+        this.newMessage.push(message[3])
+        //mostrar el mensaje en el chat
+      
       });
 
       this.socket.on("connect_error", (error) => {
@@ -301,6 +310,15 @@ export default {
                <a v-else id="TheirMessage">{{message.content}}</a>
             </li>
           </ul>
+          <!--Mostrar en el chat mensaje al enviar-->
+          
+          <!--Mostrar en el chat mensaje al recibir-->
+          <ul id="newTheirMessage">
+            <li v-for="message in newMessage" :key="message.id">
+              <a>{{ message }}</a>
+            </li>
+          </ul>
+          
         </div>
         <div class="chat-input" id="chat-input-id">
           <input type="text" id="message" placeholder="Write a message..." @keydown.enter="sendMessage" maxlength="45">
