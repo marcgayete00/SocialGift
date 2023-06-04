@@ -1,66 +1,63 @@
-<script setup>
-import language from './../components/language.vue'
-</script>
-
 <script>
-//Obtener valores formulario
-//
+import language from './../components/language.vue'
 
-function addUser() {
-  const name = document.getElementById('username').value
-  const last_name = document.getElementById('surname').value
-  const email = document.getElementById('email').value
-  const password = document.getElementById('password').value
-  const image = document.getElementById('file-upload').value
-
-
-  const user = {
-    name: name,
-    last_name: last_name,
-    email: email,
-    password: password,
-    image: image
-  }
-
-  fetch('https://balandrau.salle.url.edu/i3/socialgift/api/v1/users', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(user)
-  })
-    .then((response) => {
-      if (response.status === 201) {
-        alert('User added')
-        window.location.replace('/')
-      } else {
-        console.log('hey')
-        switch (response.status) {
-          case 404:
-            alert('An error has occurred')
-            break
-
-          case 401:
-            alert('Wrong email or password')
-            break
-
-          case 406:
-            alert('Missing parameters')
-            break
-
-          case 409:
-            alert('Missing parameters')
-            break
-
-          default:
-            alert('An error has occurred')
-            break
-        }
+export default {
+  components: {
+    language
+  },
+  data() {
+  },
+  methods: {
+    addUser() {
+      const user = {
+        name: document.getElementById('username').value,
+        last_name: document.getElementById('surname').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value,
+        image: document.getElementById('file-upload').value,
       }
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+
+      fetch('https://balandrau.salle.url.edu/i3/socialgift/api/v1/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+      })
+        .then((response) => {
+          if (response.status === 201) {
+            alert('User added')
+            window.location.replace('/')
+          } else {
+            console.log('hey')
+            switch (response.status) {
+              case 404:
+                alert('An error has occurred')
+                break
+
+              case 401:
+                alert('Wrong email or password')
+                break
+
+              case 406:
+                alert('Missing parameters')
+                break
+
+              case 409:
+                alert('Missing parameters')
+                break
+
+              default:
+                alert('An error has occurred')
+                break
+            }
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+  }
 }
 </script>
 

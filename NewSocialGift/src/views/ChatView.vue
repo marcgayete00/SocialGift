@@ -154,7 +154,10 @@ export default {
       if (navigation) {
         navigation.style.display = 'block';
       }
-    }
+    },
+    goProfileUser(){
+      window.location.href = '/profile/' + localStorage.getItem('CurrentUserToTalkId')
+    },
   },
   mounted() {
     const tokenEmit = localStorage.getItem('accessToken')
@@ -171,7 +174,8 @@ export default {
     
       this.socket.on("save_msg", (saveMsg) => {
         //Obtener el cotenido del mensaje 
-        console.log("saveMsg => " + saveMsg )  
+        console.log("Mensaje recibido: " + saveMsg); 
+       
       });
 
       this.socket.on("send_msg", (sendMsg) => {
@@ -288,7 +292,7 @@ export default {
         <h1 id="noChats">Selecciona un chat!</h1>
         <div id="listheader" class="listheader">
           <img class="profileimglist" id="imageJS" />
-          <h3 id="usernameJS"></h3>
+          <h3 @click="goProfileUser()" id="usernameJS"></h3>
         </div>
         <div class="chat-div" >
           <ul v-for="message in messages" :key="message.id">

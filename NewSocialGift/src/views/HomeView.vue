@@ -1,56 +1,59 @@
-<script setup>
+<script>
 import language from './../components/language.vue'
 
-function loginUser() {
-  var email = document.getElementById('email').value
-  var password = document.getElementById('password').value
-
-  const user = {
-    email: email,
-    password: password
-  }
-
-  fetch('https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(user)
-  })
-    .then((response) => {
-      if (response.status === 200) {
-        return response.json()
-      } else {
-        switch (response.status) {
-          case 404:
-            alert('An error has occurred')
-            break
-
-          case 401:
-            alert('Wrong email or password')
-            break
-
-          case 406:
-            alert('Missing parameters')
-            break
-        }
+export default {
+  components: {
+    language
+  },
+  data() {
+    
+  },
+  methods: {
+    loginUser() {
+      const user = {
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value
       }
-    })
-    .then((data) => {
-      const token = data.accessToken
-      console.log(token)
-      // Almacenar el token en localStorage
-      localStorage.setItem('accessToken', token)
-      window.location.href = 'main'
-    })
-    .catch((error) => {
-      //Respuesta en caso de error de servidor
-    })
+
+      fetch('https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json()
+          } else {
+            switch (response.status) {
+              case 404:
+                alert('An error has occurred')
+                break
+
+              case 401:
+                alert('Wrong email or password')
+                break
+
+              case 406:
+                alert('Missing parameters')
+                break
+            }
+          }
+        })
+        .then((data) => {
+          const token = data.accessToken
+          console.log(token)
+          // Almacenar el token en localStorage
+          localStorage.setItem('accessToken', token)
+          window.location.href = 'main'
+        })
+        .catch((error) => {
+          // Respuesta en caso de error de servidor
+        })
+    }
+  }
 }
-//Link apis
-//https://balandrau.salle.url.edu/i3/socialgift/api-docs/v1/  (Api usuarios)
-//https://balandrau.salle.url.edu/i3/mercadoexpress/api-docs/v1/ (Api productos)
-//Obtener texto del input username
 </script>
 
 <template>
