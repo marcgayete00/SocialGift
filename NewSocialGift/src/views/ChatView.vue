@@ -18,8 +18,6 @@ export default {
       userMessaged: [],
       messages: [],
       GlobalId: 0,
-      newMessage: [],
-      newMessageSent: [],
     }
   },
   methods: {
@@ -65,12 +63,12 @@ export default {
     },
     selectFriend(name, image, id) {
       this.messages = []
-      this.newMessage = []
       console.log(name, image)
       localStorage.setItem('CurrentUserToTalkId', id);
       document.getElementById('noChats').style.display = 'none'
       document.getElementById('listheader').style.display = 'block'
       document.getElementById('chat-input-id').style.display = 'block'
+      
       
       document.getElementById('usernameJS').innerHTML = name
       document.getElementById('imageJS').src = image
@@ -122,7 +120,7 @@ export default {
       this.socket.emit("query_user", JSON.stringify(bodymessage));
       this.socket.emit("send_msg", JSON.stringify(bodymessage));
 
-      
+      /*
       fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/messages`, {
         method: 'POST',
         headers: {
@@ -145,6 +143,7 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+        */
     },
     closeResults(){
       this.users = []
@@ -160,6 +159,8 @@ export default {
     goProfileUser(){
       window.location.href = '/profile/' + localStorage.getItem('CurrentUserToTalkId')
     },
+    
+
   },
   mounted() {
 
@@ -177,15 +178,20 @@ export default {
     
       this.socket.on("save_msg", (saveMsg) => {
         //Enviar mensaje 
-        console.log("Mensaje recibido: " + saveMsg); 
-        console.log("Enviando mensaje")
+    
+        const object = {
+          content: document.getElementById('message').value,
+          user_id_send: MiComponente.methods.obtenerIdDesdeToken(token),
+          user_id_recived: localStorage.getItem('CurrentUserToTalkId')
+        }
+        this.messages.push(object)
+        //console.log(this.newMessageSent)   
       });
 
       this.socket.on("send_msg", (sendMsg) => {
         //Obtener el cotenido del mensaje 
         console.log("sendMsg => " + sendMsg)
-        this.newMessageSent.push(document.getElementById('message').value = '');
-        console.log(this.newMessageSent)   
+        
       });
 
       this.socket.on("query_user", (queryUser) => {
@@ -197,13 +203,16 @@ export default {
         //Obtener el cotenido del mensaje 
         console.log("historicMsg => " + historicMsg )  
       });
-
-      this.socket.on("new_msg", (newMsg) => {
-        console.log("newMsg => " + newMsg)
-        const message = newMsg.split('"');
-        this.newMessage.push(message[3])
-        //mostrar el mensaje en el chat
       
+      //Obtener el mensaje para el que recibe
+      this.socket.on("new_msg", (newMsg) => {
+        const message = newMsg.split('"');
+        const object = {
+          content: message[3],
+          user_id_send: message[7],
+          user_id_recived: message[11]
+        }
+        this.messages.push(object)
       });
 
       this.socket.on("connect_error", (error) => {
@@ -303,22 +312,14 @@ export default {
           <img class="profileimglist" id="imageJS" />
           <h3 @click="goProfileUser()" id="usernameJS"></h3>
         </div>
-        <div class="chat-div" >
+        <div class="chat-div">
           <ul v-for="message in messages" :key="message.id">
             <li>
                <a v-if="message.user_id_send == this.GlobalId" id="YourMessage">{{message.content}}</a>
                <a v-else id="TheirMessage">{{message.content}}</a>
             </li>
           </ul>
-          <!--Mostrar en el chat mensaje al enviar-->
-          
           <!--Mostrar en el chat mensaje al recibir-->
-          <ul id="newTheirMessage">
-            <li v-for="message in newMessage" :key="message.id">
-              <a>{{ message }}</a>
-            </li>
-          </ul>
-          
         </div>
         <div class="chat-input" id="chat-input-id">
           <input type="text" id="message" placeholder="Write a message..." @keydown.enter="sendMessage" maxlength="45">
