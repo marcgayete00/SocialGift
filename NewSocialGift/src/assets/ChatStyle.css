@@ -58,6 +58,10 @@
       font-family: 'Inter', sans-serif;
     }
 
+    .listheader h3:hover{
+      cursor: pointer;
+    }
+
   
     
     #chat-profiles{
@@ -89,6 +93,10 @@
         padding: 20px;
         text-align: left;
         font-family: 'Inter', sans-serif;
+    }
+
+    #list-profiles ul li:hover{
+        cursor: pointer;
     }
 
     #list-profiles ul li img{
@@ -429,6 +437,10 @@
       left: 150px;
       color: red;
       font-size: 30px;
+    }
+
+    #closeResults:hover{
+      cursor: pointer;
     }
 
     .togleNavBar{
