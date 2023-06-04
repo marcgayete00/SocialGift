@@ -1,24 +1,48 @@
 <script>
 import NavBar from './../components/NavBar.vue'
 import language from './../components/language.vue'
+import MiComponente from './../components/separarTrama.vue'
 
 export default {
   name: 'MainView',
   components: {
     NavBar,
-    language
+    language,
+    MiComponente
   },
 
   methods:{
+
+    async RedirectUser(id) {
+      console.log(id)
+      window.location.href = '/profile/' + id
+    },
+
     async createWishlist() {
       const token = localStorage.getItem('accessToken')
       var nameInput = document.getElementById('listname').value;
       var descriptionInput = document.getElementById('listdesc').value;
+      var dateInput = document.getElementById('listdate').value;
+
+      // Convertir la fecha de entrada a un objeto Date
+      var date = new Date(dateInput);
+      
+      // Obtener los componentes de fecha necesarios
+      var year = date.getFullYear();
+      var month = String(date.getMonth() + 1).padStart(2, '0');
+      var day = String(date.getDate()).padStart(2, '0');
+      var hours = String(date.getHours()).padStart(2, '0');
+      var minutes = String(date.getMinutes()).padStart(2, '0');
+      var seconds = String(date.getSeconds()).padStart(2, '0');
+      
+      // Crear la cadena de fecha en el formato deseado
+      var formattedDate = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.000Z`;
+
    
       const wishlistData = {
         name: nameInput,
         description: descriptionInput,
-        end_date: '2024-05-16T16:15:03.706Z'
+        end_date: formattedDate
       };
       try {
         console.log(wishlistData)
@@ -34,7 +58,8 @@ export default {
         )
         if (response.status === 201) {
         alert('Wishlist created successfully');
-        window.location.href = '/profile'
+        const id = MiComponente.methods.obtenerIdDesdeToken(token)
+        this.RedirectUser(id)
         return response.json()
         } else {
           switch (response.status) {
@@ -83,6 +108,7 @@ export default {
 		<h1>Añadir lista</h1>
     <input type="text" class="inputRegister" id="listname" placeholder="Nombre de la lista" /><br />
     <input type="text" class="inputRegister" id="listdesc" placeholder="Descripción de la lista" /><br />
+    <input type="date" class="inputRegister" id="listdate" placeholder="Fecha de caducidad" /><br />
     <button type="submit" @click="createWishlist">Enviar</button>
 
 	</div>    

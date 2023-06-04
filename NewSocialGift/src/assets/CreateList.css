@@ -30,6 +30,19 @@ input[type=text] {
     font-family: 'Inter', sans-serif; 
 }
 
+input[type=date] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: 'Inter', sans-serif; 
+}
+
 button[type=submit] {
     background: #3cff76;
     color: black;

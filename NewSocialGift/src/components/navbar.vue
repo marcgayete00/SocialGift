@@ -104,7 +104,9 @@ export default {
           if (response.status === 201) {
             // Aquí puedes realizar acciones adicionales después de enviar la solicitud
             console.log('Solicitud de amistad enviada con éxito');
+            document.getElementById('add-button').style.backgroundColor = 'green';
           } else {
+            document.getElementById('add-button').style.backgroundColor = 'red';
             throw new Error('Error al enviar la solicitud de amistad');
           }
         })
@@ -364,13 +366,14 @@ export default {
     top: 12% !important;
   }
 
- 
-  
+  .navigation ul li:nth-child(3) ul#SearchSlide a {
+  margin-left: 60px !important;
+  }
 
-    .navigation ul li:nth-child(3) ul#SearchSlide li{
-    left: -150px !important;
-    width: 335px !important;
-    z-index: 200;
+  .navigation ul li:nth-child(3) ul#SearchSlide li{
+  left: -150px !important;
+  width: 335px !important;
+  z-index: 200;
   }
 
   .navigation ul li:nth-child(3) ul#SearchSlide input{

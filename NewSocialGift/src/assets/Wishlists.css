@@ -8,6 +8,36 @@
     margin-bottom: 5%;
   }
 
+  #RemoveButton{
+    position: relative;
+    top: 40px;
+    margin-left: 1245px;
+    font-size: 20px;  
+    color: white;
+    background: red;
+    border-radius: 4px;
+    font-weight: bold;
+    width: 150px;
+    height: 40px;
+    border: none;
+  }
+
+  #RemoveButton:hover{
+    cursor: pointer;
+  }
+
+  #share:hover{
+    cursor: pointer;
+  }
+
+  #cross:hover{
+    cursor: pointer;
+  }
+
+  #popup-container2 li{
+    cursor: pointer;
+  }
+
   #WishListSection{
     max-width: 77%;
     height: 700px;
@@ -114,7 +144,6 @@ border-radius: 10px;
 
 #addButton button{
     position: relative;
-    top: 40px;
     margin-left: 745px;
     font-size: 20px;  
     background: #3cff76 !important;
@@ -301,6 +330,7 @@ border-radius: 10px;
     background-color: #0077ff;
     color: #fff;
     border: none;
+    margin-left: 660px;
     border-radius: 5px;
     padding: 5px 10px;
     cursor: pointer;
@@ -308,6 +338,10 @@ border-radius: 10px;
   
   #addButton button:hover {
     background-color: #0055cc;
+  }
+
+  #NoRegalos{
+    margin-left: 645px;
   }
   
   .show-popup {

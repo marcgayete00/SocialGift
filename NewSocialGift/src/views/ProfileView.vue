@@ -63,7 +63,10 @@ async addFriend(userId) {
           if (response.status === 201) {
             // Aquí puedes realizar acciones adicionales después de enviar la solicitud
             console.log('Solicitud de amistad enviada con éxito');
+            document.getElementById('AddFriendButton').style.backgroundColor = 'green';
+
           } else {
+            document.getElementById('AddFriendButton').style.backgroundColor = 'red';
             throw new Error('Error al enviar la solicitud de amistad');
           }
         })
@@ -191,7 +194,7 @@ async addFriend(userId) {
       <div>
         <div>
           <button  id="EditProfileButton"><a href="../editarperfil">Editar perfil</a></button>
-          <button  id="AddFriendButton"><a @click="AddFriend(this.rutaID)">Enviar Solicitud</a></button>
+          <button  id="AddFriendButton"><a @click="addFriend(this.rutaID)">Enviar Solicitud</a></button>
 
         </div>
         <div id="ProfileInfo">
@@ -245,6 +248,15 @@ async addFriend(userId) {
     font-size: medium !important;
     width: 120px !important;
     height: 30px !important;
+  }
+
+  #AddFriendButton {
+    position: relative !important;
+    margin-left: 67% !important;
+    top: 50px !important;
+    font-size: medium !important;
+    width: 120px !important;
+    height: 50px !important;
   }
 
   #ProfileName {
