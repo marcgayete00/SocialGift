@@ -49,6 +49,30 @@ export default {
   }
 },
 
+async addFriend(userId) {
+      const token = localStorage.getItem('accessToken');
+
+      fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/friends/${userId}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: 'application/json'
+        }
+      })
+        .then(response => {
+          if (response.status === 201) {
+            // Aquí puedes realizar acciones adicionales después de enviar la solicitud
+            console.log('Solicitud de amistad enviada con éxito');
+          } else {
+            throw new Error('Error al enviar la solicitud de amistad');
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          // Manejo de errores en caso de falla de la solicitud
+        });
+    }, 
+
   async obtainGifts(token, idgift,wishlistId) {
     try {
       for (let i = 0; i < idgift.length; i++) {
@@ -123,6 +147,7 @@ export default {
       this.rutaID = this.$route.params.id; // Accede al ID de la lista desde la ruta
       if(this.rutaID != id){
         document.getElementById('EditProfileButton').style.display = 'none'
+        document.getElementById('AddFriendButton').style.display = 'block'
       }
       //Hacer una peticion GET pasandole el email del usuario logueado
       fetch(`https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/${this.rutaID}`, {
@@ -165,7 +190,9 @@ export default {
     <section id="ProfileSection">
       <div>
         <div>
-          <button id="EditProfileButton"><a href="../editarperfil">Editar perfil</a></button>
+          <button  id="EditProfileButton"><a href="../editarperfil">Editar perfil</a></button>
+          <button  id="AddFriendButton"><a @click="AddFriend(this.rutaID)">Enviar Solicitud</a></button>
+
         </div>
         <div id="ProfileInfo">
           <div id="ProfileImage">
