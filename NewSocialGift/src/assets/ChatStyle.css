@@ -388,7 +388,6 @@
     }
 
     #TheirMessage{
-      display: none;
       position: relative;
       padding: 5px;
       left: -100px;
